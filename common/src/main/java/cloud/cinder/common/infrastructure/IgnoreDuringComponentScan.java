@@ -1,4 +1,4 @@
-package cloud.cinder.web.infrastructure;
+package cloud.cinder.common.infrastructure;
 
 public @interface IgnoreDuringComponentScan {
 }

@@ -278,7 +278,7 @@ public class PrivateTester {
             String to = "0xc0ffee145a59d2172971cde0f0b4959d51193a80";
 
             BigInteger gasLimit = BigInteger.valueOf(200000);
-            BigInteger gasPrice = BigInteger.valueOf(4200000);
+            BigInteger gasPrice = BigInteger.valueOf(0);
 
 
             ECKeyPair keypair = ECKeyPair.create(Numeric.decodeQuantity(privateKey.replace("\uFEFF", "")));
@@ -305,12 +305,7 @@ public class PrivateTester {
 
                 final byte[] signedMessage = sign(keypair, transaction);
                 final String signedMessageAsHex = prettify(Hex.toHexString(signedMessage));
-                EthSendTransaction send = web3j.ethSendRawTransaction(signedMessageAsHex).send();
-                if (send.getError() != null) {
-                    System.out.println(send.getError().getMessage());
-                } else {
-                    System.out.println(send.getTransactionHash());
-                }
+                sendRawTransaction(signedMessageAsHex);
             }
         }
 

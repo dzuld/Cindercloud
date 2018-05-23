@@ -1,6 +1,6 @@
 package cloud.cinder.common;
 
-import cloud.cinder.web.infrastructure.IgnoreDuringComponentScan;
+import cloud.cinder.common.infrastructure.IgnoreDuringComponentScan;
 import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
 import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.context.annotation.ComponentScan;

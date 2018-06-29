@@ -230,25 +230,25 @@
                                         <td th:text="${tx.prettyBlockTimestamp()}"></td>
                                         <td>
                                             <a th:href="@{'/address/' + ${tx.fromAddress}}"
-                                               th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}">
+                                               th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}">
                                                 <span th:text="${tx.prettyFromAddress()}"></span></a>
 
-                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"
+                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"
                                                   th:text="${tx.prettyFromAddress()}"></span>
                                         </td>
                                         <td>
                                             <div th:if="${tx.isContractCreation()}">
                                                 <a th:href="@{'/address/' + ${tx.creates}}"
-                                                   th:unless="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
+                                                   th:unless="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"><span
                                                         th:text="${tx.prettyToAddress()}"></span></a>
-                                                <span th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"
+                                                <span th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"
                                                       th:text="${tx.prettyToAddress()}"></span>
                                             </div>
                                             <div th:unless="${tx.isContractCreation()}">
                                                 <a th:href="@{'/address/' + ${tx.toAddress}}"
-                                                   th:unless="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
+                                                   th:unless="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"><span
                                                         th:text="${tx.prettyToAddress()}"></span></a>
-                                                <span th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"
+                                                <span th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"
                                                       th:text="${tx.prettyToAddress()}"></span>
                                             </div>
                                         </td>

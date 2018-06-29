@@ -118,7 +118,7 @@
                             </td>
                             <td>
                                 <a th:href="@{'/address/' + ${tx.fromAddress}}"
-                                   th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
+                                   th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"><span
                                         th:text="${tx.prettyFromAddress()}"></span></a>
                             </td>
                             <td>

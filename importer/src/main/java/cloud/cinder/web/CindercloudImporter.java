@@ -1,8 +1,8 @@
 package cloud.cinder.web;
 
 import cloud.cinder.common.CindercloudCommon;
+import cloud.cinder.common.infrastructure.IgnoreDuringComponentScan;
 import cloud.cinder.ethereum.CindercloudEthereum;
-import cloud.cinder.web.infrastructure.IgnoreDuringComponentScan;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.EndpointAutoConfiguration;

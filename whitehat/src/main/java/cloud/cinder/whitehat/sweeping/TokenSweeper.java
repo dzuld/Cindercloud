@@ -2,7 +2,7 @@ package cloud.cinder.whitehat.sweeping;
 
 import cloud.cinder.ethereum.erc20.service.ERC20Service;
 import cloud.cinder.common.mail.MailService;
-import cloud.cinder.web.token.service.TokenService;
+import cloud.cinder.whitehat.token.service.TokenService;
 import cloud.cinder.ethereum.token.domain.Token;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
-package cloud.cinder.web.token.repository;
+package cloud.cinder.whitehat.token.repository;
 
-import cloud.cinder.web.infrastructure.repository.JpaRepository;
+import cloud.cinder.common.infrastructure.repository.JpaRepository;
 import cloud.cinder.ethereum.token.domain.Token;
 
 public interface TokenRepository extends JpaRepository<Token, Long> {

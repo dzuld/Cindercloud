@@ -1,10 +1,13 @@
 package cloud.cinder.ethereum.parity;
 
 import cloud.cinder.ethereum.parity.domain.ParitySignatureRegistry;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
+@ConditionalOnBean(ParitySignatureRegistry.class)
 public class ParitySignatureRegistryService {
 
     private final ParitySignatureRegistry paritySignatureRegistry;

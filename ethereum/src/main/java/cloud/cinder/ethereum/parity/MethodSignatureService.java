@@ -1,7 +1,10 @@
 package cloud.cinder.ethereum.parity;
 
 import cloud.cinder.ethereum.parity.domain.MethodSignature;
+import cloud.cinder.ethereum.parity.domain.ParitySignatureRegistry;
 import org.bouncycastle.util.encoders.Hex;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.web3j.rlp.RlpString;
@@ -9,7 +12,8 @@ import org.web3j.rlp.RlpString;
 import java.util.Arrays;
 import java.util.Optional;
 
-@Service
+@Component
+@ConditionalOnBean(ParitySignatureRegistry.class)
 public class MethodSignatureService {
 
     private final ParitySignatureRegistryService paritySignatureRegistryService;

@@ -1,10 +1,5 @@
 package cloud.cinder.web.transaction.service;
 
-import cloud.cinder.web.address.service.AddressService;
-import cloud.cinder.web.block.service.BlockService;
-import cloud.cinder.web.etherscan.EtherscanService;
-import cloud.cinder.web.token.service.TokenService;
-import cloud.cinder.web.transaction.repository.TransactionRepository;
 import cloud.cinder.ethereum.address.domain.SpecialAddress;
 import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.ethereum.parity.MethodSignatureService;
@@ -12,6 +7,10 @@ import cloud.cinder.ethereum.parity.domain.MethodSignature;
 import cloud.cinder.ethereum.transaction.TransactionStatusService;
 import cloud.cinder.ethereum.transaction.domain.Transaction;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import cloud.cinder.web.address.service.AddressService;
+import cloud.cinder.web.block.service.BlockService;
+import cloud.cinder.web.token.service.TokenService;
+import cloud.cinder.web.transaction.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +36,6 @@ public class TransactionService {
     private BlockService blockService;
     private AddressService addressService;
     private TokenService tokenService;
-    private EtherscanService etherscanService;
     private MethodSignatureService methodSignatureService;
     private TransactionStatusService transactionStatusService;
 
@@ -46,7 +44,6 @@ public class TransactionService {
                               final BlockService blockService,
                               final AddressService addressService,
                               final TokenService tokenService,
-                              final EtherscanService etherscanService,
                               final MethodSignatureService methodSignatureService,
                               final TransactionStatusService transactionStatusService) {
         this.web3jGateway = web3jGateway;
@@ -54,7 +51,6 @@ public class TransactionService {
         this.blockService = blockService;
         this.addressService = addressService;
         this.tokenService = tokenService;
-        this.etherscanService = etherscanService;
         this.methodSignatureService = methodSignatureService;
         this.transactionStatusService = transactionStatusService;
     }
@@ -63,9 +59,6 @@ public class TransactionService {
     public Observable<Slice<Transaction>> findByAddress(final String address, final Pageable pageable) {
         final Slice<Transaction> result = transactionRepository.findByAddressFromOrTo(address, pageable);
         result.getContent().forEach(this::enrichWithSpecialAddresses);
-        if (result.hasContent()) {
-            etherscanService.importByAddress(address);
-        }
         return Observable.just(result);
     }
 

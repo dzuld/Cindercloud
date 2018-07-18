@@ -4,6 +4,7 @@ import cloud.cinder.common.CindercloudCommon;
 import cloud.cinder.common.infrastructure.IgnoreDuringComponentScan;
 import cloud.cinder.ethereum.CindercloudEthereum;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.HealthIndicatorAutoConfiguration;
@@ -11,6 +12,7 @@ import org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfigu
 import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration;
 import org.springframework.cloud.netflix.archaius.ArchaiusAutoConfiguration;
@@ -26,6 +28,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
+@EntityScan(basePackageClasses = {
+        CindercloudCommon.class,
+        CindercloudEthereum.class,
+        CindercloudWeb.class
+})
 @ComponentScan(
         basePackageClasses = {
                 CindercloudCommon.class,
@@ -48,6 +55,7 @@ import java.net.UnknownHostException;
         ServoMetricsAutoConfiguration.class
 })
 @Slf4j
+@EnableRabbit
 public class CindercloudWeb {
 
     public static void main(String[] args) throws UnknownHostException {

@@ -2,6 +2,7 @@ package cloud.cinder.web;
 
 import cloud.cinder.common.CindercloudCommon;
 import cloud.cinder.common.infrastructure.IgnoreDuringComponentScan;
+import cloud.cinder.ethereum.CindercloudEthereum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.EndpointAutoConfiguration;
@@ -27,7 +28,8 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 @ComponentScan(
         basePackageClasses = {
-                CindercloudCommon.class
+                CindercloudCommon.class,
+                CindercloudEthereum.class
         },
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),

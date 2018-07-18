@@ -29,7 +29,8 @@ import java.net.UnknownHostException;
 @ComponentScan(
         basePackageClasses = {
                 CindercloudCommon.class,
-                CindercloudEthereum.class
+                CindercloudEthereum.class,
+                CindercloudWeb.class
         },
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),

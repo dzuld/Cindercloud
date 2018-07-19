@@ -16,6 +16,7 @@
                 <div class="align-self-center">
                     <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Transaction
                         <small class="h5 g-font-weight-100"
+                               style="word-wrap: break-word;"
                                th:text="${tx.hash}"></small>
                     </h2>
                 </div>
@@ -71,10 +72,19 @@
             <div class="tab-pane fade show active" id="transactionInformation" role="tabpanel">
 
                 <div class="row text-center text-uppercase">
-                    <div class="col-lg-5 col-sm-5 g-mb-50">
+                    <div class="col-lg-2 col-sm-12 g-mb-20">
+                        <div class="g-brd-around g-brd-blue g-pa-20">
+                            <div class="g-font-size-16 g-font-weight-300 g-mb-7" th:text="${tx.formattedValue()}">87904
+                            </div>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Value</h4>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-sm-6 g-mb-50">
                         <div class="g-brd-around g-brd-orange g-pa-20">
                             <a th:href="@{/address/} + ${tx.fromAddress}">
                                 <div th:if="${tx.specialFrom == null}" class="g-font-size-16 g-font-weight-300 g-mb-7"
+                                     style="word-wrap: break-word;"
                                      th:text="${tx.fromAddress}">from
                                 </div>
                                 <div th:unless="${tx.specialFrom == null}"
@@ -86,17 +96,11 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2 col-sm-2 g-mb-50">
-                        <div class="g-brd-around g-brd-blue g-pa-20">
-                            <div class="g-font-size-16 g-font-weight-300 g-mb-7" th:text="${tx.formattedValue()}">87904
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-5 col-sm-5 g-mb-50">
+                    <div class="col-lg-5 col-sm-6 g-mb-50">
                         <div class="g-brd-around g-brd-primary g-pa-20">
                             <a th:href="@{/address/} + ${tx.toAddress}" th:unless="${tx.isContractCreation()}">
                                 <div th:if="${tx.specialTo == null}" class="g-font-size-16 g-font-weight-300 g-mb-7"
+                                     style="word-wrap: break-word;"
                                      th:text="${tx.toAddress}">87904
                                 </div>
                                 <div th:unless="${tx.specialTo == null}" class="g-font-size-16 g-font-weight-300 g-mb-7"
@@ -114,12 +118,14 @@
                             <h4 class="h5 g-color-gray-dark-v4 g-mb-5">TO</h4>
                         </div>
                     </div>
+
+
                 </div>
 
                 <div class="row text-center text-uppercase">
-                    <div class="col-lg-3 col-sm-6 g-mb-50">
+                    <div class="col-lg-4 col-sm-6 g-mb-50">
                         <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
-                            <div class=" g-font-size-35 g-font-weight-300 g-mb-7" th:text="${tx.formattedGasPrice()}">
+                            <div class=" g-font-size-25 g-font-weight-300 g-mb-7" th:text="${tx.formattedGasPrice()}">
                                 52147
                             </div>
                             <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Gas Price</h4>
@@ -128,14 +134,14 @@
 
                     <div class="col-lg-3 col-sm-6 g-mb-50">
                         <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
-                            <div class=" g-font-size-35 g-font-weight-300 g-mb-7"
+                            <div class=" g-font-size-25 g-font-weight-300 g-mb-7"
                                  th:text="${tx.gas}">24583
                             </div>
                             <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Gas</h4>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-sm-6 g-mb-50">
+                    <div class="d-none d-lg-inline-block col-lg-2 col-sm-6 g-mb-50">
                         <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
                             <div class=" g-font-size-35 g-font-weight-300 g-mb-7"
                                  th:text="${tx.nonce}">7348
@@ -144,12 +150,12 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-sm-6 g-mb-50">
+                    <div class="d-none d-lg-inline-block col-lg-3 g-mb-50">
                         <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
                             <div class=" g-font-size-35 g-font-weight-300 g-mb-7"
                                  th:text="${tx.transactionIndex}">7348
                             </div>
-                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">transaction index</h4>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Tx-index</h4>
                         </div>
                     </div>
                 </div>
@@ -159,8 +165,8 @@
                     <div class="col-lg-12 col-sm-12 g-mb-50">
                         <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
                             <a th:href="@{/blocks/} + ${tx.blockHash}">
-                                <div class="g-font-size-18 g-font-weight-300 g-mb-7" th:text="${tx.blockHash}">87904
-                                </div>
+                                <div class="g-font-size-18 g-font-weight-300 g-mb-7" style="word-wrap: break-word;"
+                                     th:text="${tx.blockHash}"></div>
                             </a>
                             <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Block Hash</h4>
                         </div>

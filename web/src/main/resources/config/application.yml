@@ -58,7 +58,6 @@ cloud:
     etherscan-api: 'https://api.etherscan.io/api'
     disqus:
       name: cindercloud-app
-
 contracts:
   parity:
     signature-registry:

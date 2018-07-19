@@ -94,6 +94,7 @@
             <figure class="u-block-hover u-shadow-v19 g-bg-white g-rounded-4 g-pa-15">
                 <div class="d-flex justify-content-start text-center">
                     <img class="g-width-50 g-height-50 g-mr-15"
+                         onerror="this.src='/assets/images/logo/favicon-96x96.png'"
                          th:src="@{https://raw.githubusercontent.com/TrustWallet/tokens/master/images/} + ${#strings.toLowerCase(token.token.address)} + .png" />
                     <!-- Figure Info -->
                     <div class="d-block">

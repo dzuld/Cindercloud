@@ -44,9 +44,9 @@
                                                 th:text="${tx.prettyHash()}"></span></a></td>
                                         <td>
                                             <a th:href="@{'/address/' + ${tx.fromAddress}}"
-                                               th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
+                                               th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"><span
                                                     th:text="${tx.prettyFromAddress()}"></span></a>
-                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"
+                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"
                                                   th:text="${tx.prettyFromAddress()}"></span>
                                         </td>
                                         <td>

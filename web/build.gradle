@@ -28,6 +28,7 @@ dependencyManagement {
 dependencies {
 
     compile project(':common')
+    compile project(':ethereum')
 
     compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Final'
 
@@ -61,8 +62,6 @@ dependencies {
     compile("org.flywaydb:flyway-core")
     compile("org.postgresql:postgresql:${postgresVersion}")
     compile("com.zaxxer:HikariCP:${hikariCPVersion}")
-
-    compile "net.sargue:mailgun:${mailgunVersion}"
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile "org.assertj:assertj-core:${assertjVersion}"

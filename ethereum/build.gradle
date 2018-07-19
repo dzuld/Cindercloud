@@ -1,0 +1,25 @@
+dependencyManagement {
+    imports {
+        mavenBom "io.spring.platform:platform-bom:${theSpringPlatformBomVersion}"
+    }
+}
+
+dependencies {
+
+    compile project(':common')
+
+    compile("org.springframework.boot:spring-boot-starter")
+
+    compile group: 'org.web3j', name: 'core', version: "${theWeb3jVersion}"
+    compile group: 'org.web3j', name: 'abi', version: "${theWeb3jVersion}"
+
+    compile "commons-io:commons-io:$commonsioVersion"
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    compile("org.ocpsoft.prettytime:prettytime:$prettyTimeVersion")
+
+    compile group: 'org.bitcoinj', name: 'bitcoinj-core', version: "${bitcoinJVersion}"
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile "org.assertj:assertj-core:$assertjVersion"
+}

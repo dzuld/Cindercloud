@@ -7,6 +7,8 @@ application-dev.yml
 web/build/
 web/out/
 
+
+
 .idea
 out/
 
@@ -15,7 +17,7 @@ build/
 .gradle
 common/docker_data
 
-web/src/test/java/cloud/cinder/cindercloud/whitehat/
+web/src/test/java/cloud/cinder/web/whitehat/
 web/src/test/resources/whitehat/
 
 common/apm/glowroot/data

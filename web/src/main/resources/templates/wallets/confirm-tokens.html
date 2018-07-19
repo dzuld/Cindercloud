@@ -74,7 +74,7 @@
                                 </li>
                             </ul>
 
-                            <div th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).CINDERCLOUD}">
+                            <div th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).CINDERCLOUD}">
                                 <form th:object="${confirm}" method="POST" th:action="@{/wallet/tokens/confirm}">
                                     <input type="hidden" th:field="*{to}" id="confirmTo" />
                                     <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
@@ -92,7 +92,7 @@
                                 </button>
                             </div>
 
-                            <div th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).WEB3}">
+                            <div th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).WEB3}">
 
                                 <form th:object="${confirm}">
                                     <input type="hidden" th:field="*{to}" id="confirmTo" />
@@ -152,7 +152,7 @@
 		});
     </script>
 
-    <th:block th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).WEB3}">
+    <th:block th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).WEB3}">
         <script type="application/javascript" th:src="@{/assets/abi/abi.js}"></script>
         <script type="application/javascript" th:src="@{/assets/ethereum/confirm-tokens.js}"></script>
     </th:block>

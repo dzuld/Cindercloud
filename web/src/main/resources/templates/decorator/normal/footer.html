@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org">
 <body>
 
 <div th:fragment="scripts">
@@ -31,12 +29,22 @@
     <script th:src="@{/assets/js/helpers/hs.hamburgers.js}"></script>
     <script th:src="@{/assets/js/components/hs.scroll-nav.js}"></script>
     <script th:src="@{/assets/js/components/hs.go-to.js}"></script>
-    <script th:src="@{/assets/js/components/hs.sticky-block.js}"></script>
     <script th:src="@{/assets/js/helpers/hs.height-calc.js}"></script>
     <script th:src="@{/assets/js/components/hs.carousel.js}"></script>
+    <script th:src="@{/assets/js/components/hs.scroll-nav.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" ></script>
+    <script th:src="@{/assets/js/custom/notifications/websockets.js}"></script>
+    <script th:src="@{/assets/js/custom/notifications/notifications.js}"></script>
 
     <!-- JS Custom -->
     <script th:src="@{/assets/js/custom.js}"></script>
+
+    <script type="application/javascript">
+		console.log("test");
+    </script>
 
     <!-- JS Plugins Init. -->
     <script>
@@ -47,18 +55,6 @@
 				pageContainer: $('.container'),
 				breakpoint: 991
 			});
-		});
-
-		$(window).on('load', function () {
-			// initialization of HSScrollNav
-			$.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
-				duration: 700,
-				easing: 'easeOutExpo',
-				over: $('.u-secondary-navigation')
-			});
-
-			// initialization of sticky blocks
-			$.HSCore.components.HSStickyBlock.init('.js-sticky-block');
 		});
     </script>
 
@@ -71,14 +67,14 @@
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
-		var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-		(function(){
-			var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-			s1.async=true;
-			s1.src='https://embed.tawk.to/5aab0f1c4b401e45400dc64b/default';
-			s1.charset='UTF-8';
-			s1.setAttribute('crossorigin','*');
-			s0.parentNode.insertBefore(s1,s0);
+		var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+		(function () {
+			var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+			s1.async = true;
+			s1.src = 'https://embed.tawk.to/5aab0f1c4b401e45400dc64b/default';
+			s1.charset = 'UTF-8';
+			s1.setAttribute('crossorigin', '*');
+			s0.parentNode.insertBefore(s1, s0);
 		})();
     </script>
     <!--End of Tawk.to Script-->
@@ -92,7 +88,7 @@
                 <!-- Footer Content -->
                 <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
                     <a class="d-block g-mb-20" th:href="@{/}">
-                        <img class="img-fluid" th:src="@{/assets/images/logo/logo-white-128x30.png}" alt="Logo"/>
+                        <img class="img-fluid" th:src="@{/assets/images/logo/logo-white-128x30.png}" alt="Logo" />
                     </a>
                 </div>
                 <!-- End Footer Content -->
@@ -108,13 +104,15 @@
                         <ul class="list-unstyled g-mt-minus-10 mb-0">
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                                 <h4 class="h6 g-pr-20 mb-0">
-                                    <a class="g-color-white-opacity-0_8 g-color-white--hover" th:href="@{/wallet/create}">Create Wallet</a>
+                                    <a class="g-color-white-opacity-0_8 g-color-white--hover"
+                                       th:href="@{/wallet/create}">Create Wallet</a>
                                     <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                                 </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                                 <h4 class="h6 g-pr-20 mb-0">
-                                    <a class="g-color-white-opacity-0_8 g-color-white--hover" th:href="@{/wallet/access}">Access Wallet</a>
+                                    <a class="g-color-white-opacity-0_8 g-color-white--hover"
+                                       th:href="@{/wallet/access}">Access Wallet</a>
                                     <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                                 </h4>
                             </li>
@@ -143,9 +141,9 @@
 
                     <address class="g-bg-no-repeat g-line-height-2 g-mt-minus-4"
                              style="background-image: url(/assets/img/maps/map2.png);">
-                        <br/><br/>
+                        <br /><br />
                         Blockchain
-                        <br/> Email: <a href="mailto:info@cinder.cloud" class="">info@cinder.cloud</a>
+                        <br /> Email: <a href="mailto:info@cinder.cloud" class="">info@cinder.cloud</a>
                     </address>
                 </div>
                 <!-- End Footer Content -->
@@ -157,7 +155,8 @@
             <div class="row">
                 <div class="col-md-8 text-center text-md-left g-mb-15 g-mb-0--md">
                     <div class="d-lg-flex">
-                        <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md"><span th:text="${#dates.year(#dates.createNow())}"></span> © Cindercloud.
+                        <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md"><span
+                                th:text="${#dates.year(#dates.createNow())}"></span> © Cindercloud.
                         </small>
                     </div>
                 </div>

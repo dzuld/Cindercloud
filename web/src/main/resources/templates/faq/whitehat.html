@@ -1,10 +1,9 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
-    <link rel="stylesheet" th:href="@{/assets/vendor/icon-hs/style.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/vendor/icon-hs/style.css}" />
 </div>
 
 <body>
@@ -83,13 +82,23 @@
                                 <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
                                     Our application is constantly expanding its database with transactions, blocks,
                                     addresses and statistics of the Ethereum blockchain.
-                                    <br/>We noticed that quite some accounts got compromised and funds were being stolen
+                                    <br />We noticed that quite some accounts got compromised and funds were being
+                                    stolen
                                     on a daily basis.
-                                    <br/><br/>
+                                    <br /><br />
                                     Because we have a lot of data on the blockchain, we're sometimes able to figure out
                                     how accounts were compromised. Having this information, it happens
                                     that we're able to have access to these credentials. As a security measure, <b>we're
-                                    actively sweeping these accounts trying to be faster than malicious actors.</b>
+                                                                                                                   actively
+                                                                                                                   sweeping
+                                                                                                                   these
+                                                                                                                   accounts
+                                                                                                                   trying
+                                                                                                                   to be
+                                                                                                                   faster
+                                                                                                                   than
+                                                                                                                   malicious
+                                                                                                                   actors.</b>
 
                                 </div>
                             </div>
@@ -116,8 +125,8 @@
                                 <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
                                     First of all we're constantly checking every address that we have credentials to in
                                     our database to see if they have balance.
-                                    If one does, we initiate a transaction to one of our own accounts. <br/>
-                                    <br/><br/>
+                                    If one does, we initiate a transaction to one of our own accounts. <br />
+                                    <br /><br />
                                     Our second modus operandi to try and beat malicious actors is to check pending and
                                     fresh transactions to see if one of our compromised accounts
                                     will receive or just received a balance. If it does, we sweep the account.
@@ -144,8 +153,10 @@
                             <div id="accordion-body-04" class="collapse" role="tabpanel"
                                  aria-labelledby="accordion-heading-03">
                                 <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
-                                    We're not stealing your funds. We're sweeping them to make sure no hacker can steal them from you.
-                                    <b>If you're able to prove it was your account in the first place, we'll be transferring them to a secure wallet.</b>
+                                    We're not stealing your funds. We're sweeping them to make sure no hacker can steal
+                                    them from you.
+                                    <b>If you're able to prove it was your account in the first place, we'll be
+                                       transferring them to a secure wallet.</b>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +183,7 @@
                                     Sweeped funds are being stored in cold storage. If a user has proven ownership of
                                     one of the compromised accounts - which can sometimes take some time -
                                     he will be redeemed the sweeped funds.
-                                    <br/><br/>
+                                    <br /><br />
                                     Sometimes funds will be moved around to a new cold storage, but there's nothing to
                                     worry, we'll never sell your coins and will always have the equivalent of the stolen
                                     funds in cold storage.
@@ -219,7 +230,9 @@
                                     sweeped the funds. However, as this is not available yet, we urge you to comment on
                                     the <b>cindercloud address disqus page</b> or on <b>etherscan</b>.
                                     <br /><br />
-                                    You can always contact us on <a target="_blank" href="https://twitter.com/cindercloudapp">twitter</a> or by shooting us an email too.
+                                    You can always contact us on <a target="_blank"
+                                                                    href="https://twitter.com/cindercloudapp">twitter</a>
+                                    or by shooting us an email too.
                                 </div>
                             </div>
                         </div>
@@ -249,7 +262,7 @@
                                     the history of your account. If another account originally sent you funds, we'll ask
                                     for a signed message from that address
                                     or a <b>verification transactions to our account with 0 eth.</b>
-                                    <br/>
+                                    <br />
                                     If funds originated from an exchange, we'll need proof from the exchange that it was
                                     you who initiated the transaction.
                                 </div>
@@ -278,9 +291,11 @@
                                 <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
                                     We first started with way less security measures, but after a few days, it because
                                     quite clear that some people just tried to <b>act as if it was their compromised
-                                    address</b>, effectively trying to scam us.<br />
+                                                                                  address</b>, effectively trying to
+                                    scam us.<br />
                                     <br />
-                                    The only way we can reimburse the original owner is by knowing 100% sure that it were his funds. If it's really you, I'm sure you'll
+                                    The only way we can reimburse the original owner is by knowing 100% sure that it
+                                    were his funds. If it's really you, I'm sure you'll
                                     be able to prove how you acquired the funds.
                                 </div>
                             </div>

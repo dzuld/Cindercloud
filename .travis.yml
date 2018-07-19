@@ -25,3 +25,13 @@ deploy:
     repo: Cindercloud/Cindercloud
     tags: true
     branch: master
+
+after_success:
+  - docker build -t cindercloud/web:"$TRAVIS_BRANCH" web
+  - docker build -t cindercloud/whitehat:"$TRAVIS_BRANCH" whitehat
+  - docker build -t cindercloud/importer:"$TRAVIS_BRANCH" importer
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker push cindercloud/web:"$TRAVIS_BRANCH"
+  - docker push cindercloud/whitehat:"$TRAVIS_BRANCH"
+  - docker push cindercloud/importer:"$TRAVIS_BRANCH"
+  - bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)

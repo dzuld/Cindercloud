@@ -1,6 +1,5 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
@@ -38,7 +37,7 @@
                                 <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
                                     <div class="g-pr-10">
                                         <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">Gas
-                                            Price</strong>
+                                                                                                                           Price</strong>
                                         <span class="align-top"><span th:text="${confirm.gasPrice}"></span> <b>gwei</b></span>
                                     </div>
                                     <span>
@@ -50,7 +49,7 @@
                                 <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
                                     <div class="g-pr-10">
                                         <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">Gas
-                                            Limit</strong>
+                                                                                                                           Limit</strong>
                                         <span class="align-top" th:text="${confirm.gasLimit}"></span>
                                     </div>
                                 </li>
@@ -67,14 +66,14 @@
                                 </li>
                             </ul>
 
-                            <div th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).CINDERCLOUD}">
+                            <div th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).CINDERCLOUD}">
                                 <form th:object="${confirm}" method="POST" th:action="@{/wallet/confirm}">
-                                    <input type="hidden" th:field="*{to}" id="confirmTo"/>
-                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei"/>
-                                    <input type="hidden" th:field="*{gasPriceInWei}" id="gasPriceInWei"/>
-                                    <input type="hidden" th:field="*{amount}" id="confirmAmount"/>
-                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice"/>
-                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit"/>
+                                    <input type="hidden" th:field="*{to}" id="confirmTo" />
+                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
+                                    <input type="hidden" th:field="*{gasPriceInWei}" id="gasPriceInWei" />
+                                    <input type="hidden" th:field="*{amount}" id="confirmAmount" />
+                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice" />
+                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit" />
                                     <button type="submit" id="btnConfirm"
                                             class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
                                     </button>
@@ -84,14 +83,14 @@
                                 </button>
                             </div>
 
-                            <div th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).WEB3}">
+                            <div th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).WEB3}">
                                 <form th:object="${confirm}">
-                                    <input type="hidden" th:field="*{to}" id="confirmTo"/>
-                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei"/>
-                                    <input type="hidden" th:field="*{amount}" id="confirmAmount"/>
-                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice"/>
-                                    <input type="hidden" th:field="*{gasPriceInWei}" id="confirmGasPriceInWei"/>
-                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit"/>
+                                    <input type="hidden" th:field="*{to}" id="confirmTo" />
+                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
+                                    <input type="hidden" th:field="*{amount}" id="confirmAmount" />
+                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice" />
+                                    <input type="hidden" th:field="*{gasPriceInWei}" id="confirmGasPriceInWei" />
+                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit" />
                                 </form>
                                 <button type="submit" id="btnConfirm"
                                         class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
@@ -133,58 +132,16 @@
 
 			$("#frmSendTransaction").submit(function (ev) {
 				ev.preventDefault();
-				var gasPrice = $('#regularSliderAmount3').html();
+				const gasPrice = $('#regularSliderAmount3').html();
 				$('#gasPrice').val(gasPrice);
 				this.submit();
 			});
 		});
     </script>
 
-    <script th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).WEB3}">
-		$(document).ready(function () {
-			$('#btnCancel').click(function () {
-				swal({
-					title: "Are you sure?",
-					text: "If you cancel, you'll have to start over!",
-					icon: "warning",
-					buttons: true,
-					dangerMode: false
-				})
-					.then(function (willCancel) {
-						if (willCancel) {
-							location.href = '/wallet/send';
-						}
-					});
-			});
-
-			$('#btnConfirm').click(function () {
-				sendTransaction();
-			});
-
-			var sendTransaction = function () {
-				var to = $('#confirmTo').val();
-				var gasLimit = $('#confirmGasLimit').val();
-				var gasPrice = $('#confirmGasPriceInWei').val();
-				var amountInWei = $('#confirmAmountInWei').val();
-
-				var transactionObject = {
-					to: to,
-					value: amountInWei,
-					gas: gasLimit,
-					gasPrice: gasPrice
-				};
-
-				getWeb3().eth.sendTransaction(transactionObject, function (err, transactionHash) {
-					if (!err) {
-						swal("Transaction Sent!", "The transaction has been sent (" + transactionHash + ")", "success");
-					} else {
-						swal("Transaction Problem!", "Something went wrong while trying to submit your transaction", "error");
-					}
-				})
-			};
-		});
-    </script>
-
+    <script th:src="@{/assets/ethereum/confirm-ether.js}"
+            type="application/javascript"
+            th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).WEB3}"></script>
 </div>
 </body>
 </html>

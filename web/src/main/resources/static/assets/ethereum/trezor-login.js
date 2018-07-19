@@ -1,11 +1,11 @@
+(function () {
 
-$(document).ready(function () {
+	const trezorLoginData = {
+		addresses: [],
+		path: "m/44'/60'/0'/0"
+	};
 
-	var randomChallenge = $('#randomChallenge').val();
-	var visualChallenge = $('#visualChallenge').val();
-	var hosticon = 'https://cinder.cloud/assets/images/logo/logo-128x30.png';
-
-	var postLogin = function (data) {
+	const postLogin = function (data) {
 		$.ajax({
 			type: 'POST',
 			url: '/hwallet/trezor',
@@ -28,18 +28,18 @@ $(document).ready(function () {
 	};
 
 
-	var fetchAddresses = function (response) {
+	const fetchAddresses = function (response) {
 		trezorLoginData.xpubkey = response.xpubkey;
 		trezorLoginData.publicKey = response.publicKey;
 		trezorLoginData.chainCode = response.chainCode;
-		var hdKey = ethereumjs.WalletHD.fromExtendedKey(response.xpubkey);
-		for (var i = 0; i < 10; i++) {
+		const hdKey = ethereumjs.WalletHD.fromExtendedKey(response.xpubkey);
+		for (let i = 0; i < 10; i++) {
 			trezorLoginData.addresses.push('0x' + hdKey.deriveChild(i).getWallet().getAddress().toString('hex'));
 		}
 		$('#trezorModalButton').click();
 	};
 
-	var fetchPubKey = function () {
+	const fetchPubKey = function () {
 		TrezorConnect.getXPubKey(trezorLoginData.path, function (_result) {
 			if (_result.success) {
 				trezorLoginData.addresses = [];
@@ -59,32 +59,7 @@ $(document).ready(function () {
 		});
 	};
 
-	var login = function () {
-		TrezorConnect.requestLogin(hosticon, randomChallenge, visualChallenge, function (result) {
-			if (result.success) {
-				result.hiddenChallenge = randomChallenge;
-				result.visualChallenge = visualChallenge;
-				postLogin(result);
-			} else {
-				if (result.error === 'Action cancelled by user') {
-					swal({
-						title: "Declined",
-						text: "It appears that you declined the request to login with your trezor.",
-						icon: "info",
-						buttons: false,
-						dangerMode: false
-					});
-				}
-			}
-		});
-	};
-
-	var trezorLoginData = {
-		addresses: [],
-		path: "m/44'/60'/0'/0"
-	};
-
-	var initiateVue = function () {
+	(function () {
 		return new Vue({
 			el: '#trezorLoginApp',
 			data: trezorLoginData,
@@ -95,8 +70,7 @@ $(document).ready(function () {
 				}
 			}
 		})
-	};
+	})();
 
-	initiateVue();
 	$('#connectTrezor').click(fetchPubKey);
-});
+})();

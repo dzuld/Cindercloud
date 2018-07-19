@@ -1,7 +1,4 @@
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="generate-ui">
 
@@ -32,28 +29,28 @@
     <th:block th:if="${input.type.equals('string')}">
         <div class="form-group g-mb-20">
             <input th:attr="data-inputtype=${input.type},placeholder=${input.name}"
-                   class="form-control contract-input form-control-md rounded-0" type="text"/>
+                   class="form-control contract-input form-control-md rounded-0" type="text" />
         </div>
     </th:block>
 
     <th:block th:if="${input.type.equals('address')}">
         <div class="form-group g-mb-20">
             <input th:attr="data-inputtype=${input.type},placeholder=${input.name}"
-                   class="form-control contract-input form-control-md rounded-0" type="text"/>
+                   class="form-control contract-input form-control-md rounded-0" type="text" />
         </div>
     </th:block>
 
     <th:block th:if="${input.type.contains('byte')}">
         <div class="form-group g-mb-20">
             <input th:attr="data-inputtype=${input.type},placeholder=${input.name}"
-                   class="form-control contract-input form-control-md rounded-0" type="text"/>
+                   class="form-control contract-input form-control-md rounded-0" type="text" />
         </div>
     </th:block>
 
     <th:block th:if="${input.type.contains('uint')}">
         <div class="form-group g-mb-20">
             <input th:attr="data-inputtype=${input.type},placeholder=${input.name}"
-                   class="form-control contract-input form-control-md rounded-0" type="number"/>
+                   class="form-control contract-input form-control-md rounded-0" type="number" />
         </div>
     </th:block>
 </div>
@@ -63,7 +60,7 @@
         <div class="form-group g-mb-20">
             <label class="g-mb-10" th:text="${output.type}">Text input</label>
             <input data-outputtype="string" class="form-control form-control-md web3-auto-fetch rounded-0" type="text"
-                   placeholder="Loading..."/>
+                   placeholder="Loading..." />
         </div>
     </th:block>
 
@@ -71,7 +68,7 @@
         <div class="form-group g-mb-20">
             <label class="g-mb-10" th:text="${output.type}">Text input</label>
             <input data-outputtype="string" class="form-control form-control-md web3-auto-fetch rounded-0" type="text"
-                   placeholder="Loading..."/>
+                   placeholder="Loading..." />
         </div>
     </th:block>
 
@@ -79,7 +76,7 @@
         <div class="form-group g-mb-20">
             <label class="g-mb-10" th:text="${output.type}">Text input</label>
             <input data-outputtype="bool" class="form-control form-control-md web3-auto-fetch rounded-0" type="text"
-                   placeholder="Loading..."/>
+                   placeholder="Loading..." />
         </div>
     </th:block>
 
@@ -87,11 +84,11 @@
         <div class="form-group g-mb-20">
             <label class="g-mb-10" th:text="${output.type}">Text input</label>
             <input data-outputtype="uint" class="form-control form-control-md rounded-0 web3-auto-fetch" type="text"
-                   placeholder="Loading..."/>
+                   placeholder="Loading..." />
         </div>
     </th:block>
 
-    <input id="elementName" type="hidden" th:attr="data-name=${element.name}"/>
+    <input id="elementName" type="hidden" th:attr="data-name=${element.name}" />
 
     <script type="application/javascript" th:if="${element.inputs.size() > 0}">
 
@@ -100,7 +97,7 @@
 		var abi = $('#currentAbi').data('abi');
 		var name = $('#elementName').data('name');
 
-		var contract = getWeb3().eth.contract(abi).at(currentAddress);
+		var contract = CindercloudWeb3.getWeb3().eth.contract(abi).at(currentAddress);
 		var $_element = $('.web3-auto-fetch').first();
 		var type = $_element.data('outputtype');
 
@@ -147,7 +144,7 @@
 			var abi = $('#currentAbi').data('abi');
 			var name = $('#elementName').data('name');
 
-			var contract = getWeb3().eth.contract(abi).at(currentAddress);
+			var contract = CindercloudWeb3.getWeb3().eth.contract(abi).at(currentAddress);
 
 			$('.web3-auto-fetch').each(function () {
 				getValueFromContract(contract, name, $(this));

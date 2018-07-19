@@ -1,0 +1,134 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+    <link rel="stylesheet" th:href="@{/assets/vendor/custombox/custombox.min.css}" />
+</div>
+
+<body>
+<div layout:fragment="main-content">
+    <div class="container g-pt-70 g-pb-30">
+        <div class="row">
+            <!-- Profile Settings -->
+            <div class="col-lg-3 g-mb-50">
+                <th:block th:replace="components/profile :: sidenav(active='custom-tokens')"></th:block>
+            </div>
+            <!-- End Profile Settings -->
+
+            <!-- Wallet -->
+            <div class="col-lg-9 g-mb-50">
+                <!-- Balance & Rewards -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-px-30 g-pt-30">
+                    <h3 class="h5 mb-3">Custom Tokens <a
+                            class="btn pull-right u-btn-primary text-uppercase g-letter-spacing-0_5  g-font-weight-600"
+                            href="#addCustomToken"
+                            data-modal-target="#addCustomToken" data-modal-effect="fadein">Add</a>
+                    </h3>
+
+                    <th:block th:if="${error != null}"
+                              th:include="components/alerts :: error(title='Error', body=${error})" />
+
+                    <!-- Add Balance -->
+                    <div class="g-mb-50" th:if="${customTokens == null || customTokens.isEmpty()}">
+                        <th:block
+                                th:replace="components/alerts :: info(title='No custom tokens', body='You havent added any custom tokens yet')" />
+                    </div>
+                    <br />
+                    <div class="g-mb-50" th:unless="${customTokens == null || customTokens.isEmpty()}">
+                        <li class="media g-brd-around g-brd-gray-light-v4 g-brd-left-3 g-brd-blue-left g-rounded-3 g-pa-20 g-mb-7"
+                            th:each="token : ${customTokens}">
+                            <div class="d-flex g-mt-2 g-mr-15">
+                                <div>
+                                    <a href="#!" th:href="@{/address/} + ${token.address}"
+                                       class="btn g-width-160 btn-sm u-btn-inset u-btn-inset--rounded u-btn-outline-primary u-btn-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-rounded-50 g-mr-10 g-mb-15">
+                                        <small>
+                                            <i class="fa fa-check-circle g-mr-3"></i>
+                                            View
+                                        </small>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="media-body">
+
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="h6 g-font-weight-600 g-color-black" th:text="${token.name}">James
+                                                                                                           Coolman</h5>
+
+                                    <form th:action="@{/wallet/custom-tokens/} + ${token.id} + '/delete'"
+                                          method="POST">
+                                        <button type="submit" class="btn btn-xs u-btn-red g-rounded-50 g-mr-10 g-mb-15">
+                                            <i
+                                                    class="fa fa-remove"></i></button>
+                                    </form>
+
+
+                                </div>
+                                <p th:text="${token.address}">0x0</p>
+
+                                <br />
+
+                                <span class="u-label u-label--sm g-bg-blue g-rounded-20 g-px-10">
+                                    <span th:text="${token.symbol}"></span>
+                                </span>
+                                <span class="u-label u-label--sm g-bg-primary g-rounded-20 g-px-10">
+                                  <span th:text="${token.decimals}"></span> <span>decimals</span>
+                                </span>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+                <!-- End Balance & Rewards -->
+            </div>
+            <!-- End Wallet -->
+        </div>
+    </div>
+
+    <!-- Demo modal window -->
+    <div id="addCustomToken" class="text-left g-bg-white g-overflow-y-auto g-pa-20"
+         style="display: none; max-width: 75%; min-width: 50%;">
+        <button type="button" class="close" onclick="Custombox.modal.close();">
+            <i class="hs-icon hs-icon-close"></i>
+        </button>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="g-mb-20">New Custom Token</h4>
+
+                <form th:object="${newCustomTokenModel}" th:action="@{/wallet/custom-tokens/new}" method="POST">
+                    <div class="form-group row g-mb-25">
+                        <label class="col-sm-3 col-form-label g-mb-10">Address:</label>
+
+                        <div class="col-sm-12">
+                            <input required="required" th:field="*{address}"
+                                   class="form-control u-form-control rounded-0"
+                                   type="text"
+                                   placeholder="0xEeb7dF8C260f7DE30b41A981D52b4573CB5dFe2f" />
+                        </div>
+                    </div>
+                    <button type="submit" id="saveContact"
+                            class="btn btn-md u-btn-primary pull-right rounded-0">Save
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div layout:fragment="footer-content">
+    <!-- JS Implementing Plugins -->
+    <script th:src="@{/assets/vendor/custombox/custombox.min.js}"></script>
+
+    <!-- JS Unify -->
+    <script th:src="@{/assets/js/components/hs.modal-window.js}"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+		$(document).on('ready', function () {
+			// initialization of popups
+			$.HSCore.components.HSModalWindow.init('[data-modal-target]');
+		});
+    </script>
+</div>
+</body>
+</html>

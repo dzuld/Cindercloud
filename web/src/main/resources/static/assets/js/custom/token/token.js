@@ -275,8 +275,8 @@ $(document).ready(function () {
 
 	var $currentAddress = $("#currentAddress");
 
-	if (_globalWeb3 !== null) {
-		var erc20 = getWeb3().eth.contract(erc20Abi).at($currentAddress.data('hash'));
+	if (CindercloudWeb3.getGlobalWeb3() !== null) {
+		var erc20 = CindercloudWeb3.getGlobalWeb3().eth.contract(erc20Abi).at($currentAddress.data('hash'));
 		erc20.decimals(function (_, _decimals) {
 			erc20.totalSupply(function (_, _totalSupply) {
 				console.log(_totalSupply);

@@ -1,6 +1,5 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
@@ -54,7 +53,7 @@
                         <th th:text="${result.txCount}"></th>
                         <th>
                             <span th:if="${result.needsAttention()}"><a href="#!"
-                                     class="btn btn-sm u-btn-outline-teal g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-4 g-rounded-50 g-mr-10 g-mb-15">
+                                                                        class="btn btn-sm u-btn-outline-teal g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-4 g-rounded-50 g-mr-10 g-mb-15">
                     <i class="fa fa-check-circle g-mr-3"></i>
                     !
                   </a></span>
@@ -72,7 +71,7 @@
                     <p class="g-color-gray-dark-v4">
                         Paste your list of private keys here.
                         <b>Please do not include any of your own private keys.</b>
-                        The application will transform the private keys to addresses and check their balance. <br/>You'll
+                        The application will transform the private keys to addresses and check their balance. <br />You'll
                         get a detailed report
                         with our findings.
                     </p>

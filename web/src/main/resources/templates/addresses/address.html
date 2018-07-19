@@ -1,20 +1,80 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
+    <style type="text/css">
+        .half-circle-spinner, .half-circle-spinner * {
+            box-sizing: border-box;
+        }
+
+        .half-circle-spinner {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            position: relative;
+        }
+
+        .half-circle-spinner .circle {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            border: calc(60px / 10) solid transparent;
+        }
+
+        .half-circle-spinner .circle.circle-1 {
+            border-top-color: #ff1d5e;
+            animation: half-circle-spinner-animation 1s infinite;
+        }
+
+        .half-circle-spinner .circle.circle-2 {
+            border-bottom-color: #ff1d5e;
+            animation: half-circle-spinner-animation 1s infinite alternate;
+        }
+
+        @keyframes half-circle-spinner-animation {
+            0% {
+                transform: rotate(0deg);
+
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </div>
 
 <body>
 <div layout:fragment="main-content">
+
     <section class="breadcrumbs g-bg-gray-light-v5 g-py-50">
+        <div class="container sponsored-advertisement">
+            <div class="d-sm-flex g-mb-10">
+                <span><b>Sponsored:</b> FundRequest is rewarding developers to join their platform. <a th:href="@{https://profile.fundrequest.io?utm_medium=Referral&amp;utm_source=cindercloud&amp;utm_content=developer+airdrop}">Find out more</a>!</span>
+            </div>
+        </div>
         <div class="container">
+            <div id="qrModal" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20"
+                 style="display: none;">
+                <button type="button" class="close" onclick="Custombox.modal.close();">
+                    <i class="hs-icon hs-icon-close"></i>
+                </button>
+
+                <h4 class="g-mb-20">QRcode</h4>
+
+                <div id="qrcode"></div>
+            </div>
             <div class="d-sm-flex ">
                 <div class="align-self-center">
-                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Address: <br/>
+                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Address: <i href="#qrModal"
+                                                                                          data-modal-target="#qrModal"
+                                                                                          data-modal-effect="fadein"
+                                                                                          class="fa fa-qrcode"></i><br />
                         <b> <span th:text="${hash}"></span> <span th:if="${isSpecial}">( <span
-                                th:text="${specialName}"></span> )</span></b>
+                                th:text="${specialName}"></span> )</span>
+                        </b>
                     </h2>
                 </div>
 
@@ -90,15 +150,20 @@
                     <em class="u-nav-v8__description">Join the conversation.</em>
                 </a>
             </li>
-
         </ul>
         <!-- End Nav tabs -->
+
 
         <!-- Tab panes -->
         <div id="nav-8-1-default-hor-left" class="tab-content g-pt-20">
             <div class="tab-pane fade show active" id="blockInformation" role="tabpanel">
 
-                <section class="g-mt-10" id="tokenSection"></section>
+                <section class="g-mt-10" id="tokenSection">
+                    <div class="half-circle-spinner g-mb-20" style="margin: 0 auto;">
+                        <div class="circle circle-1"></div>
+                        <div class="circle circle-2"></div>
+                    </div>
+                </section>
 
                 <div class="row text-center text-uppercase">
                     <div class="col-lg-3 col-sm-6 g-mb-50">
@@ -165,24 +230,25 @@
                                         <td th:text="${tx.prettyBlockTimestamp()}"></td>
                                         <td>
                                             <a th:href="@{'/address/' + ${tx.fromAddress}}"
-                                               th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
-                                                    th:text="${tx.prettyFromAddress()}"></span></a>
-                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"
+                                               th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}">
+                                                <span th:text="${tx.prettyFromAddress()}"></span></a>
+
+                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"
                                                   th:text="${tx.prettyFromAddress()}"></span>
                                         </td>
                                         <td>
                                             <div th:if="${tx.isContractCreation()}">
                                                 <a th:href="@{'/address/' + ${tx.creates}}"
-                                                   th:unless="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
+                                                   th:unless="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"><span
                                                         th:text="${tx.prettyToAddress()}"></span></a>
-                                                <span th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"
+                                                <span th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"
                                                       th:text="${tx.prettyToAddress()}"></span>
                                             </div>
                                             <div th:unless="${tx.isContractCreation()}">
                                                 <a th:href="@{'/address/' + ${tx.toAddress}}"
-                                                   th:unless="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
+                                                   th:unless="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"><span
                                                         th:text="${tx.prettyToAddress()}"></span></a>
-                                                <span th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"
+                                                <span th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"
                                                       th:text="${tx.prettyToAddress()}"></span>
                                             </div>
                                         </td>
@@ -211,13 +277,13 @@
           <i class="icon-question g-font-size-25"></i>
         </span>
                             <span class="media-body align-self-center">
-          <strong>Unused account?</strong><br/> No transactions could be found referencing this account. Maybe we didn't index them yet?
+          <strong>No transactions found <i class="fa fa-frown-o"></i></strong><br /> No transactions could be found referencing this account. Maybe we didn't index them yet?
         </span>
                         </div>
                     </div>
                 </section>
-                <hr/>
-                <br/>
+                <hr />
+                <br />
             </div>
             <div class="tab-pane fade" id="tokenTransfers" role="tabpanel">
                 <div class="row text-center text-uppercase">
@@ -263,11 +329,22 @@
         </div>
         <!-- End Tab panes -->
     </section>
+
+
 </div>
 
 <div layout:fragment="footer-content">
     <!-- JS Implementing Plugins -->
     <script th:src="@{/assets/vendor/appear.js}"></script>
+    <script th:src="@{/assets/js/jquery-qrcode-0.14.0.min.js}"></script>
+
+    <script th:src="@{/assets/vendor/custombox/custombox.min.js}"></script>
+    <script th:src="@{/assets/js/components/hs.modal-window.js}"></script>
+    <script type="application/javascript">
+		$(document).ready(function () {
+			$.HSCore.components.HSModalWindow.init('[data-modal-target]');
+		});
+    </script>
 
     <span id="currentAddress" th:attr="data-hash=${hash}"></span>
 
@@ -303,6 +380,16 @@
 			populateTokens();
 			populateTokenTransfers();
 			populateMinedBlocks();
+
+            $('#qrcode').qrcode({
+                text: $('#currentAddress').data('hash'),
+				ecLevel: 'H',
+                mode: 4,
+				mSize: 15 * 0.01,
+				mPosX: 50 * 0.01,
+				mPosY: 50 * 0.01,
+                image: $('#logo')[0]
+            });
 		});
     </script>
 

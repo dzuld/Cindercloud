@@ -23,7 +23,7 @@
 
                     <!-- Logo -->
                     <a th:href="@{/}" class="navbar-brand">
-                        <img th:src="@{/assets/images/logo/logo-128x30.png}" alt="Image Description"/>
+                        <img id="logo" th:src="@{/assets/images/logo/logo-128x30.png}" alt="Image Description"/>
                     </a>
                     <!-- End Logo -->
 
@@ -85,6 +85,28 @@
                             </li>
                             <!-- End Wallet -->
 
+                            <!-- Wallet -->
+                            <li class="hs-has-sub-menu nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
+                                data-animation-out="fadeOut">
+                                <a id="nav-link-wallets" class="nav-link g-py-7 g-px-0" href="#" aria-haspopup="true"
+                                   aria-expanded="false" aria-controls="nav-submenu-wallets">Services</a>
+
+                                <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
+                                    id="nav-submenu-wallet" aria-labelledby="nav-link-wallets">
+                                    <li class="dropdown-item ">
+                                        <a class="nav-link" th:href="@{/services}">About us</a>
+                                    </li>
+                                    <li class="dropdown-item ">
+                                        <a class="nav-link" th:href="@{/services/smart-contract-development-and-security}">Development</a>
+                                    </li>
+                                    <li class="dropdown-item ">
+                                        <a class="nav-link" th:href="@{/services/smart-contract-development-and-security}">Security Review</a>
+                                    </li>
+                                </ul>
+
+                            </li>
+                            <!-- End Wallet -->
+
                             <!-- Tools -->
                             <li class="hs-has-sub-menu nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                                 data-animation-out="fadeOut">
@@ -132,13 +154,6 @@
                             <span class="u-btn-skew__inner">
                               <i class="fa fa-check-circle g-mr-3"></i>
                               Web3 enabled
-                            </span>
-                        </a>
-                        <a style="display: none;" href="#!"
-                           class="clientSideWeb3Disabled btn btn-md u-btn-skew u-btn-deeporange g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-rounded-50 g-mr-10 g-mb-15">
-                            <span class="u-btn-skew__inner">
-                              <i class="fa fa-delete g-mr-3"></i>
-                              Web3 not enabled
                             </span>
                         </a>
                     </th:block>

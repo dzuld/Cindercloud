@@ -1,0 +1,110 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="form" th:if="${abiContract == null}">
+    <section class="container g-pt-20 g-pb-5">
+
+        <th:block th:if="${error != null}"
+                  th:include="components/alerts :: error(title='Error', body=${error})" />
+
+        <div class="row">
+            <div class="col-lg-12 flex-lg-unordered g-pt-20 g-mb-80">
+                <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
+                    <header class="text-center mb-4">
+                        <h1 class="h3 g-color-black g-font-weight-300 text-capitalize">Access Your Contract</h1>
+                    </header>
+
+                    <!-- Form -->
+                    <form class="g-py-15" th:object="${accessContractCommand}" method="POST" th:action="@{/contract}">
+                        <div class="row">
+                            <div class="col g-mb-20">
+                                <input th:field="*{address}" required="required"
+                                       class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
+                                       type="text" placeholder="Contract Address" />
+                            </div>
+                        </div>
+
+
+                        <div class="g-mb-20">
+                            <textarea th:field="*{abi}"
+                                      class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 rounded g-py-15 g-px-15"
+                                      rows="8"
+                                      type="text" required="required" placeholder="Paste your ABI here"></textarea>
+                        </div>
+
+                        <button class="btn btn-block u-btn-primary rounded g-py-13" type="submit">Access</button>
+                    </form>
+                    <!-- End Form -->
+                </div>
+
+                <div class="text-center">
+                    <p class="g-color-gray-dark-v5 mb-0">If you're logged in, you can call non-constant functions of
+                                                         this contract.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block th:fragment="access" th:unless="${abiContract == null}">
+    <section class="g-bg-gray-light-v5 g-pb-20">
+        <div class="container">
+            <div class="col-lg-12 flex-lg-first g-mb-80">
+                <div class="g-pr-20--lg">
+                    <div class="mb-5 g-pt-20">
+                        <h2 class="h1  g-font-weight-300 mb-3">Choose a function
+                            <a th:href="@{/contract}" class="btn pull-right u-btn-orange rounded-0 g-py-12 g-px-25">SWITCH
+                                                                                                                    CONTRACT</a>
+                        </h2>
+                        <div class="form-group g-mb-25">
+                            <select class="form-control rounded-0" id="functionSelect">
+                                <option th:each="element : ${abiContract}">
+                                    <span th:text="${element.name}"></span>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="generatedInput">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</th:block>
+
+<th:block th:fragment="access-footer" th:if="${abiContract != null}">
+    <input id="currentAbi" type="hidden" th:attr="data-abi=${abi}" />
+    <input id="currentAddress" type="hidden" th:attr="data-address=${address}" />
+    <script type="application/javascript" th:src="@{/assets/abi/contract-interaction.js}"></script>
+</th:block>
+
+<th:block th:fragment="erc20">
+    <section class="g-bg-gray-light-v5 g-pb-20">
+        <div class="container">
+            <div class="col-lg-12 flex-lg-first g-mb-80">
+                <div class="g-pr-20--lg">
+                    <div class="mb-5 g-pt-20">
+                        <h2 class="h1  g-font-weight-300 mb-3">Interact with the contract</h2>
+                        <div class="form-group g-mb-25">
+                            <select class="form-control rounded-0" id="functionSelect">
+                                <option th:each="element : ${abiContract}">
+                                    <span th:text="${element.name}"></span>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="generatedInput">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <th:block th:replace="components/access-contract :: access-footer"></th:block>
+</th:block>
+</html>

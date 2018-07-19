@@ -27,15 +27,7 @@
     </form>
 
 
-    <script type="application/javascript">
-		$(document).ready(function () {
-			$('.mnemonicSubmit').click(function(e) {
-				var button = $(this);
-				$('#idxField').val(button.data('idx'));
-				$('#loginWithMnemonicForm').submit();
-			});
-		});
-    </script>
+    <script type="application/javascript" th:src="@{/assets/ethereum/mnemonic.js}"></script>
 </div>
 
 

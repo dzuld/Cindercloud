@@ -1,8 +1,12 @@
- FROM openjdk:8-jdk-alpine
+FROM frolvlad/alpine-oraclejdk8:slim
+
 VOLUME /tmp
+ADD build/libs/whitehat.jar whitehat.jar
+RUN sh -c 'touch /whitehat.jar' && \
+    mkdir config
 
-WORKDIR /cindercloud
-VOLUME /cindercloud
+ENV JAVA_OPTS=""
 
-ENV JAVA_OPTS="-Dspring.profiles.active=prod"
-ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar web.jar
+EXPOSE 8080
+
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /whitehat.jar" ]

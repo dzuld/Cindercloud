@@ -2,6 +2,7 @@
 Ethereum Chain Explorer
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/7e217ea4db753d1346f1/maintainability)](https://codeclimate.com/github/Cindercloud/Cindercloud/maintainability)
+[![Code Quality](https://bettercodehub.com/edge/badge/Cindercloud/Cindercloud?branch=master)](https://bettercodehub.com/)
 
 
 

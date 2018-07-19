@@ -4,24 +4,26 @@ dependencyManagement {
     }
 }
 
-configurations {
-    compile {
-        exclude module: 'jsr311-api'
-    }
-}
-
 dependencies {
+
+
     compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-amqp")
 
     compile group: 'org.web3j', name: 'core', version: "${theWeb3jVersion}"
     compile group: 'org.web3j', name: 'abi', version: "${theWeb3jVersion}"
 
-    compileOnly 'org.projectlombok:lombok:1.16.18'
-    compile("org.ocpsoft.prettytime:prettytime:3.2.7.Final")
+    compile "commons-io:commons-io:$commonsioVersion"
+    compile group: 'commons-codec', name: 'commons-codec', version: "$commonsCodecVersion"
+
+    compile "net.sargue:mailgun:${mailgunVersion}"
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    compile("org.ocpsoft.prettytime:prettytime:$prettyTimeVersion")
 
     compile group: 'org.bitcoinj', name: 'bitcoinj-core', version: "${bitcoinJVersion}"
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile 'org.assertj:assertj-core:3.4.1'
+    testCompile "org.assertj:assertj-core:$assertjVersion"
 }

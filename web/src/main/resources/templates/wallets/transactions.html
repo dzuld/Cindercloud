@@ -1,6 +1,5 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
@@ -45,9 +44,9 @@
                                                 th:text="${tx.prettyHash()}"></span></a></td>
                                         <td>
                                             <a th:href="@{'/address/' + ${tx.fromAddress}}"
-                                               th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
+                                               th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"><span
                                                     th:text="${tx.prettyFromAddress()}"></span></a>
-                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"
+                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"
                                                   th:text="${tx.prettyFromAddress()}"></span>
                                         </td>
                                         <td>

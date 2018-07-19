@@ -1,12 +1,11 @@
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="success">
-    <div th:classappend="${dismissable} ? alert-dismissable :  ''" class="alert fade show g-brd-around g-brd-primary rounded-0" role="alert">
+    <div th:classappend="${dismissable} ? alert-dismissable :  ''"
+         class="alert fade show g-brd-around g-brd-primary rounded-0" role="alert">
 
-        <button th:if="${dismissable}" type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+        <button th:if="${dismissable}" type="button" class="close u-alert-close--light" data-dismiss="alert"
+                aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
 
@@ -27,8 +26,10 @@
 </th:block>
 
 <th:block th:fragment="error">
-    <div th:classappend="${dismissable} ? alert-dismissable :  ''"  class="alert fade show g-brd-around g-brd-red rounded-0" role="alert">
-        <button th:if="${dismissable}" type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+    <div th:classappend="${dismissable} ? alert-dismissable :  ''"
+         class="alert fade show g-brd-around g-brd-red rounded-0" role="alert">
+        <button th:if="${dismissable}" type="button" class="close u-alert-close--light" data-dismiss="alert"
+                aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
         <div class="media">
@@ -48,8 +49,10 @@
 </th:block>
 
 <th:block th:fragment="info">
-    <div th:classappend="${dismissable} ? alert-dismissable :  ''"  class="alert fade g-bg-blue-opacity-0_1 show g-brd-around g-brd-blue rounded-0" role="alert">
-        <button th:if="${dismissable}" type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+    <div th:classappend="${dismissable} ? alert-dismissable :  ''"
+         class="alert fade g-bg-blue-opacity-0_1 show g-brd-around g-brd-blue rounded-0" role="alert">
+        <button th:if="${dismissable}" type="button" class="close u-alert-close--light" data-dismiss="alert"
+                aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
         <div class="media">
@@ -70,8 +73,10 @@
 </th:block>
 
 <th:block th:fragment="warning">
-    <div th:classappend="${dismissable} ? alert-dismissable :  ''" class="alert fade show g-brd-around g-brd-orange rounded-0" role="alert">
-        <button th:if="${dismissable}" type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+    <div th:classappend="${dismissable} ? alert-dismissable :  ''"
+         class="alert fade show g-brd-around g-brd-orange rounded-0" role="alert">
+        <button th:if="${dismissable}" type="button" class="close u-alert-close--light" data-dismiss="alert"
+                aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
         <div class="media">

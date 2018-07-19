@@ -1,6 +1,5 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
@@ -48,7 +47,7 @@
                     <div class="input-group u-shadow-v21 rounded g-mb-15">
                         <input name="q"
                                class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15"
-                               type="text" placeholder="Search for transactions (ex: 0x0d81a0cf311db8f0e89871fe8ed)"/>
+                               type="text" placeholder="Search for transactions (ex: 0x0d81a0cf311db8f0e89871fe8ed)" />
                         <div class="input-group-addon d-flex align-items-center g-bg-white g-brd-white g-color-gray-light-v1 g-pa-2">
                             <button class="btn u-btn-primary g-font-size-16 g-py-15 g-px-20" type="submit">
                                 <i class="icon-magnifier g-pos-rel g-top-1"></i>
@@ -62,7 +61,7 @@
     </section>
 
     <section class="container g-pt-12 g-pb-30">
-        <br/>
+        <br />
         <div class="row g-pb-30">
 
             <div class="col-md-12">
@@ -119,7 +118,7 @@
                             </td>
                             <td>
                                 <a th:href="@{'/address/' + ${tx.fromAddress}}"
-                                   th:if="${tx.direction(hash) == T(cloud.cinder.cindercloud.transaction.domain.Transaction.Direction).IN}"><span
+                                   th:if="${tx.direction(hash) == T(cloud.cinder.web.transaction.domain.Transaction.Direction).IN}"><span
                                         th:text="${tx.prettyFromAddress()}"></span></a>
                             </td>
                             <td>

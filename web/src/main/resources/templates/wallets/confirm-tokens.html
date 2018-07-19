@@ -1,6 +1,5 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
@@ -31,7 +30,7 @@
                                 <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
                                     <div class="g-pr-10">
                                         <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">Token</strong>
-                                        <span class="align-top" th:text="${confirm.tokenAddress}"></span> <span>(FND or something)</span>
+                                        <span class="align-top" th:text="${confirm.tokenAddress}"></span> <span></span>
                                     </div>
                                 </li>
 
@@ -46,7 +45,7 @@
                                 <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
                                     <div class="g-pr-10">
                                         <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">Gas
-                                            Price</strong>
+                                                                                                                           Price</strong>
                                         <span class="align-top"><span th:text="${confirm.gasPrice}"></span> <b>gwei</b></span>
                                     </div>
                                     <span>
@@ -58,7 +57,7 @@
                                 <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
                                     <div class="g-pr-10">
                                         <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">Gas
-                                            Limit</strong>
+                                                                                                                           Limit</strong>
                                         <span class="align-top" th:text="${confirm.gasLimit}"></span>
                                     </div>
                                 </li>
@@ -75,15 +74,15 @@
                                 </li>
                             </ul>
 
-                            <div th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).CINDERCLOUD}">
+                            <div th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).CINDERCLOUD}">
                                 <form th:object="${confirm}" method="POST" th:action="@{/wallet/tokens/confirm}">
-                                    <input type="hidden" th:field="*{to}" id="confirmTo"/>
-                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei"/>
-                                    <input type="hidden" th:field="*{tokenAddress}" id="confirmTokenAddress"/>
-                                    <input type="hidden" th:field="*{gasPriceInWei}" id="gasPriceInWei"/>
-                                    <input type="hidden" th:field="*{amount}" id="confirmAmount"/>
-                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice"/>
-                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit"/>
+                                    <input type="hidden" th:field="*{to}" id="confirmTo" />
+                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
+                                    <input type="hidden" th:field="*{tokenAddress}" id="confirmTokenAddress" />
+                                    <input type="hidden" th:field="*{gasPriceInWei}" id="gasPriceInWei" />
+                                    <input type="hidden" th:field="*{amount}" id="confirmAmount" />
+                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice" />
+                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit" />
                                     <button type="submit" id="btnConfirm"
                                             class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
                                     </button>
@@ -93,16 +92,16 @@
                                 </button>
                             </div>
 
-                            <div th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).WEB3}">
+                            <div th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).WEB3}">
 
                                 <form th:object="${confirm}">
-                                    <input type="hidden" th:field="*{to}" id="confirmTo"/>
-                                    <input type="hidden" th:field="*{tokenAddress}" id="confirmTokenAddress"/>
-                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei"/>
-                                    <input type="hidden" th:field="*{amount}" id="confirmAmount"/>
-                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice"/>
-                                    <input type="hidden" th:field="*{gasPriceInWei}" id="confirmGasPriceInWei"/>
-                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit"/>
+                                    <input type="hidden" th:field="*{to}" id="confirmTo" />
+                                    <input type="hidden" th:field="*{tokenAddress}" id="confirmTokenAddress" />
+                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
+                                    <input type="hidden" th:field="*{amount}" id="confirmAmount" />
+                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice" />
+                                    <input type="hidden" th:field="*{gasPriceInWei}" id="confirmGasPriceInWei" />
+                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit" />
                                 </form>
                                 <button type="submit" id="btnConfirm"
                                         class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
@@ -137,7 +136,9 @@
     <script th:src="@{/assets/vendor/jquery-ui/ui/widgets/slider.js}"></script>
     <script th:src="@{/assets/js/components/hs.slider.js}"></script>
 
-    <script>
+    <input type="hidden" id="currentAddress" th:value="${address}" />
+
+    <script type="application/javascript">
 		$(document).on('ready', function () {
 			// initialization of forms
 			$.HSCore.components.HSSlider.init('#regularSlider3');
@@ -151,258 +152,10 @@
 		});
     </script>
 
-    <script th:if="${authenticationType == T(cloud.cinder.cindercloud.security.domain.AuthenticationType).WEB3}">
-		$(document).ready(function () {
-
-				const erc20abi = [
-					{
-						"constant": false,
-						"inputs": [
-							{
-								"name": "spender",
-								"type": "address"
-							},
-							{
-								"name": "value",
-								"type": "uint256"
-							}
-						],
-						"name": "approve",
-						"outputs": [
-							{
-								"name": "",
-								"type": "bool"
-							}
-						],
-						"payable": false,
-						"type": "function"
-					},
-					{
-						"constant": true,
-						"inputs": [],
-						"name": "totalSupply",
-						"outputs": [
-							{
-								"name": "",
-								"type": "uint256"
-							}
-						],
-						"payable": false,
-						"type": "function"
-					},
-					{
-						"constant": false,
-						"inputs": [
-							{
-								"name": "from",
-								"type": "address"
-							},
-							{
-								"name": "to",
-								"type": "address"
-							},
-							{
-								"name": "value",
-								"type": "uint256"
-							}
-						],
-						"name": "transferFrom",
-						"outputs": [
-							{
-								"name": "",
-								"type": "bool"
-							}
-						],
-						"payable": false,
-						"type": "function"
-					},
-					{
-						"constant": true,
-						"inputs": [
-							{
-								"name": "who",
-								"type": "address"
-							}
-						],
-						"name": "balanceOf",
-						"outputs": [
-							{
-								"name": "",
-								"type": "uint256"
-							}
-						],
-						"payable": false,
-						"type": "function"
-					},
-					{
-						"constant": false,
-						"inputs": [
-							{
-								"name": "to",
-								"type": "address"
-							},
-							{
-								"name": "value",
-								"type": "uint256"
-							}
-						],
-						"name": "transfer",
-						"outputs": [
-							{
-								"name": "",
-								"type": "bool"
-							}
-						],
-						"payable": false,
-						"type": "function"
-					},
-					{
-						"constant": false,
-						"inputs": [
-							{
-								"name": "spender",
-								"type": "address"
-							},
-							{
-								"name": "value",
-								"type": "uint256"
-							},
-							{
-								"name": "extraData",
-								"type": "bytes"
-							}
-						],
-						"name": "approveAndCall",
-						"outputs": [
-							{
-								"name": "",
-								"type": "bool"
-							}
-						],
-						"payable": false,
-						"type": "function"
-					},
-					{
-						"constant": true,
-						"inputs": [
-							{
-								"name": "owner",
-								"type": "address"
-							},
-							{
-								"name": "spender",
-								"type": "address"
-							}
-						],
-						"name": "allowance",
-						"outputs": [
-							{
-								"name": "",
-								"type": "uint256"
-							}
-						],
-						"payable": false,
-						"type": "function"
-					},
-					{
-						"anonymous": false,
-						"inputs": [
-							{
-								"indexed": true,
-								"name": "owner",
-								"type": "address"
-							},
-							{
-								"indexed": true,
-								"name": "spender",
-								"type": "address"
-							},
-							{
-								"indexed": false,
-								"name": "value",
-								"type": "uint256"
-							}
-						],
-						"name": "Approval",
-						"type": "event"
-					},
-					{
-						"anonymous": false,
-						"inputs": [
-							{
-								"indexed": true,
-								"name": "from",
-								"type": "address"
-							},
-							{
-								"indexed": true,
-								"name": "to",
-								"type": "address"
-							},
-							{
-								"indexed": false,
-								"name": "value",
-								"type": "uint256"
-							}
-						],
-						"name": "Transfer",
-						"type": "event"
-					}
-				];
-
-
-				$('#btnCancel').click(function () {
-					swal({
-						title: "Are you sure?",
-						text: "If you cancel, you'll have to start over!",
-						icon: "warning",
-						buttons: true,
-						dangerMode: false
-					})
-						.then(function (willCancel) {
-							if (willCancel) {
-								location.href = '/wallet/tokens/send';
-							}
-						});
-				});
-
-				$('#btnConfirm').click(function () {
-					sendTransaction();
-				});
-
-				var sendTransaction = function () {
-					var to = $('#confirmTo').val();
-					var gasLimit = $('#confirmGasLimit').val();
-					var tokenAddress = $('#confirmTokenAddress').val();
-					var gasPrice = $('#confirmGasPriceInWei').val();
-					var amountInWei = $('#confirmAmountInWei').val();
-					var erc20 = getWeb3().eth.contract(erc20abi).at(tokenAddress);
-					var transactionObject = {
-						from: '0xdc71b72db51e227e65a45004ab2798d31e8934c9',
-						to: tokenAddress,
-						value: '0x0',
-						data: erc20.transfer.getData(to, amountInWei),
-						gasPrice: gasPrice
-					};
-					getWeb3().eth.estimateGas(transactionObject, function (err, result) {
-						if (!err) {
-							transactionObject.gas = result;
-						} else {
-							transactionObject.gas = gasLimit;
-						}
-						_web3.eth.sendTransaction(transactionObject, function (err, transactionHash) {
-							if (!err) {
-								swal("Transaction Sent!", "The transaction has been sent (" + transactionHash + ")", "success");
-							} else {
-								swal("Transaction Problem!", "Something went wrong while trying to submit your transaction", "error");
-							}
-						});
-					});
-				}
-			}
-		);
-    </script>
-
+    <th:block th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).WEB3}">
+        <script type="application/javascript" th:src="@{/assets/abi/abi.js}"></script>
+        <script type="application/javascript" th:src="@{/assets/ethereum/confirm-tokens.js}"></script>
+    </th:block>
 </div>
 </body>
 </html>

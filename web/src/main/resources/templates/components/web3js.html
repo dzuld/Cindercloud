@@ -1,52 +1,11 @@
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="header">
     <script type="application/javascript" th:src="@{/assets/vendor/web3/web3.js}"></script>
 </div>
 
 <div th:fragment="footer">
-
-    <script type="application/javascript">
-
-		var _web3;
-		var _globalWeb3;
-		var _clientWeb3Enabled;
-
-		$(document).ready(function () {
-			var initiateWeb3 = function () {
-				if (typeof window.web3 !== 'undefined') {
-					_clientWeb3Enabled = true;
-					// Use Mist/MetaMask's provider
-					console.log("already had a web3");
-					_web3 = new Web3(window.web3.currentProvider);
-					$('.clientSideWeb3Enabled').show();
-					$('.clientSideWeb3Disabled').hide();
-				} else {
-					_clientWeb3Enabled = false;
-					$('.clientSideWeb3Enabled').hide();
-					$('.clientSideWeb3Disabled').show();
-					console.log("no web3, injecting different provider");
-					_globalWeb3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.fundrequest.io'));
-				}
-			};
-
-			initiateWeb3();
-
-			var getWeb3 = function () {
-				if (_clientWeb3Enabled) {
-					return _web3
-				} else {
-					return _globalWeb3
-				}
-			};
-
-			window.getWeb3 = getWeb3;
-		});
-    </script>
-
+    <script type="application/javascript" th:src="@{/assets/ethereum/cindercloud-web3.js}"></script>
 </div>
 
 

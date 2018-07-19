@@ -1,19 +1,26 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
-    <title><th:block th:text="${token.name}"></th:block>  Token | Cindercloud | The Ethereum Blockchain Interactor and Explorer</title>
+    <title>
+        <th:block th:text="${token.name}"></th:block>
+        Token | Cindercloud | The Ethereum Blockchain Interactor and Explorer
+    </title>
 </div>
 
 <body>
 <div layout:fragment="main-content">
     <section class="breadcrumbs g-bg-gray-light-v5 g-py-50">
+        <div class="container sponsored-advertisement">
+            <div class="d-sm-flex g-mb-10">
+                <span><b>Sponsored:</b> FundRequest is rewarding developers to join their platform. <a th:href="@{https://profile.fundrequest.io?utm_medium=Referral&amp;utm_source=cindercloud&amp;utm_content=developer+airdrop}">Find out more</a>!</span>
+            </div>
+        </div>
         <div class="container">
             <div class="d-sm-flex ">
                 <div class="align-self-center">
-                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Token: <br/>
+                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Token: <br />
                         <b> <span th:text="${token.address}"></span> <span>( <span
                                 th:text="${token.name}"></span> )</span></b>
                     </h2>
@@ -79,7 +86,7 @@
         <!-- Tab panes -->
         <div id="nav-8-1-default-hor-left" class="tab-content g-pt-20">
             <div class="tab-pane fade show active" id="blockInformation" role="tabpanel">
-                <div class="row">
+                <div class="row g-mb-20">
                     <div class="col-md-6">
                         <div class="g-brd-around g-brd-primary g-pa-20">
 
@@ -87,7 +94,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <img style="height: 80px;"
-                                             th:src="@{https://raw.githubusercontent.com/TrustWallet/tokens/master/images/} + ${#strings.toLowerCase(token.address)} + .png"/>
+                                             th:src="@{https://raw.githubusercontent.com/TrustWallet/tokens/master/images/} + ${#strings.toLowerCase(token.address)} + .png" />
 
                                     </div>
                                     <div class="col-md-10">
@@ -113,23 +120,24 @@
                         </div>
                     </div>
                 </div>
-                <br/>
                 <div class="row g-mb-20">
                     <div class="col-md-2">
                         <div class="g-brd-around g-brd-primary g-pa-20">
-                            <div class="g-font-size-30 g-font-weight-300 g-mb-7" ><span th:text="${price_eur}"></span></div>
+                            <div class="g-font-size-30 g-font-weight-300 g-mb-7"><span th:text="${price_eur}"></span>
+                            </div>
                             <h4 class="h4 g-color-gray-dark-v4 g-mb-5" id="eurPrice">€</h4>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="g-brd-around g-brd-primary g-pa-20">
-                            <div class="g-font-size-30 g-font-weight-300 g-mb-7" ><span th:text="${price_usd}"></span></div>
+                            <div class="g-font-size-30 g-font-weight-300 g-mb-7"><span th:text="${price_usd}"></span>
+                            </div>
                             <h4 class="h4 g-color-gray-dark-v4 g-mb-5" id="usdPrice">$</h4>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="g-brd-around g-brd-primary g-pa-20">
-                            <div class="g-font-size-30 g-font-weight-300 g-mb-7" >
+                            <div class="g-font-size-30 g-font-weight-300 g-mb-7">
                                 <span th:text="${price_eth}"></span></div>
                             <h4 class="h4 g-color-gray-dark-v4 g-mb-5" id="ethPrice">Ξ</h4>
                         </div>
@@ -141,7 +149,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row g-mb-20">
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
                         <div class="g-brd-around g-brd-primary g-pa-20">
@@ -152,7 +160,7 @@
                                 </span>
                                 <input id="erc20BalanceCheck" autocomplete="off"
                                        class="form-control form-control-md rounded-0"
-                                       type="text" placeholder="address"/>
+                                       type="text" placeholder="address" />
                                 <div class="input-group-btn">
                                     <button id="erc20CheckBalanceBtn" class="btn btn-md u-btn-primary rounded-0"
                                             type="button">Check
@@ -165,10 +173,10 @@
                         </div>
                     </div>
                 </div>
-                <br/>
                 <div class="row">
-                    <div class="col-md-1"></div>
-
+                    <div class="col-md-12">
+                        <div id="accessContract"></div>
+                    </div>
                 </div>
             </div>
 
@@ -193,6 +201,10 @@
 		$(document).ready(function () {
 			$.get('/address/' + $("#currentAddress").data('hash') + '/tokens', function (result) {
 				$("#tokenSection").html(result);
+			});
+
+			$.get('/token/' + $('#currentAddress').data('hash') + '/access-contract', function (result) {
+				$("#accessContract").html(result);
 			});
 		});
     </script>

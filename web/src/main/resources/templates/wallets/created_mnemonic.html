@@ -1,11 +1,10 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
     <link rel="stylesheet" type="text/css"
-          href="https://cdn.jsdelivr.net/npm/intro.js@2.8.0-alpha.1/minified/introjs.min.css"/>
+          href="https://cdn.jsdelivr.net/npm/intro.js@2.8.0-alpha.1/minified/introjs.min.css" />
 </div>
 
 <body>
@@ -58,14 +57,15 @@
                 <h2 class="g-color-white g-font-weight-600">
                     Save your mnemonic code
                 </h2>
-                <p class="lead">These 12 words, which compose your mnemonic code are very important. This is the only moment you'll see them. Save them somewhere secure.</p>
+                <p class="lead">These 12 words, which compose your mnemonic code are very important. This is the only
+                                moment you'll see them. Save them somewhere secure.</p>
             </div>
 
             <input id="mnemonicOutput" th:value="${mnemonic}"
                    class="form-control g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-brd-primary--focus rounded-0 g-py-13 g-px-15"
-                   type="text" placeholder="mnemonic"/>
+                   type="text" placeholder="mnemonic" />
 
-            <br/> <br/>
+            <br /> <br />
             <a id="copiedMnemonic"
                class="btn u-btn-black g-brd-primary--hover g-color-primary g-color-main--hover g-bg-main g-bg-white--hover g-font-weight-600 g-font-size-12 text-uppercase rounded-0 g-px-25 g-py-13 mb-2"
             >
@@ -97,68 +97,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/intro.js@2.8.0-alpha.1/minified/intro.min.js"
             type="application/javascript"></script>
-
-    <script type="application/javascript">
-
-		$(document).ready(function () {
-			var intro;
-			var doTour = false;
-
-			var step2 = function () {
-				$("#mnemonicBackup").show();
-				$("#backupMnemonicStep").addClass('active');
-
-				if (doTour) {
-					intro.addStep({
-						element: '#privateKeyOutput',
-						intro: "This is your mnemonic phrase. This is the key you NEVER share with anyone. Consider it your darkest secret. Access to your mnemonic means controlling all your wallets.",
-						doneLabel: 'understood'
-					});
-					intro = intro.start().nextStep().start();
-				}
-			};
-
-			var step3 = function () {
-				$("#mnemonicBackup").hide();
-				$("#backupMnemonicStep").removeClass('active');
-				$("#testSetup").show();
-				$("#testSetupStep").addClass('active');
-
-				intro.addStep({
-					element: '#testSetupButton',
-					intro: "Nice, you can now test your setup by logging in using your mnemonic!",
-					hideNext: true,
-					hidePrev: true
-				});
-
-				if (doTour) {
-					intro.start().nextStep();
-					localStorage.setItem("introjs.wallet.done", "true");
-				}
-			};
-
-			$('#copiedMnemonic').click(step3);
-
-			var initializeIntro = function () {
-				if (typeof(Storage) !== "undefined") {
-					doTour = (localStorage.getItem("introjs.wallet.done") !== "true");
-				}
-				if (doTour) {
-					intro = introJs().start();
-					intro.setOption('doneLabel', 'understood');
-					intro.setOption('hideNext', true);
-					intro.setOption('hidePrev', true);
-					intro.setOption('showStepNumbers', false);
-				}
-				step2();
-			};
-
-			initializeIntro();
-		});
-
-
-    </script>
-
+    <script type="application/javascript" th:src="@{/assets/ethereum/mnemonic.created.js}"></script>
 </div>
 </body>
 </html>

@@ -150,19 +150,7 @@
     <script th:src="@{/assets/vendor/jquery-ui/ui/widgets/slider.js}"></script>
     <script th:src="@{/assets/js/components/hs.slider.js}"></script>
 
-    <script>
-		$(document).on('ready', function () {
-			// initialization of forms
-			$.HSCore.components.HSSlider.init('#regularSlider3');
-
-			$("#frmSendTransaction").submit(function (ev) {
-				ev.preventDefault();
-				var gasPrice = $('#regularSliderAmount3').html();
-				$('#gasPrice').val(gasPrice);
-				this.submit();
-			});
-		});
-    </script>
+    <script th:src="@{/assets/ethereum/send-ether.js}"></script>
 </div>
 </body>
 </html>

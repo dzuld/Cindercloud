@@ -1,11 +1,11 @@
 <!DOCTYPE html >
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
     <title>Ethereum Unit Converter |Cindercloud | The Ethereum Blockchain Interactor and Explorer</title>
-    <meta name="description" content="Ethereum Unit Converter | Cindercloud is an ethereum blockchain explorer, Ethereum and ERC20 wallet and provides various components for interacting with the blockchain." />
+    <meta name="description"
+          content="Ethereum Unit Converter | Cindercloud is an ethereum blockchain explorer, Ethereum and ERC20 wallet and provides various components for interacting with the blockchain." />
 </div>
 
 <body>
@@ -73,7 +73,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Wei</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="wei" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="wei"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -82,7 +84,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Kwei</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="kwei" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="kwei"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -91,7 +95,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Mwei</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="mwei" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="mwei"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -100,7 +106,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Gwei</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="gwei" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="gwei"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -109,7 +117,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Szabo</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="szabo" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="szabo"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -118,7 +128,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Finney</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="finney" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="finney"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -127,7 +139,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Ether</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="ether" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="ether"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -136,7 +150,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Kether</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="kether" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="kether"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -145,7 +161,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Mether</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="mether" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="mether"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -154,7 +172,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Gether</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="gether" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="gether"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>
@@ -163,7 +183,9 @@
                         <label class="col-sm-3 col-form-label g-color-gray-dark-v2 g-font-weight-700 text-sm-right g-mb-10">Tether</label>
                         <div class="col-sm-8">
                             <div class="input-group g-brd-primary--focus">
-                                <input id="tether" class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"  type="number" step="any" placeholder="" />
+                                <input id="tether"
+                                       class="calculate form-control form-control-md border-right-0 rounded-0 g-py-13 pr-0"
+                                       type="number" step="any" placeholder="" />
                             </div>
                         </div>
                     </div>

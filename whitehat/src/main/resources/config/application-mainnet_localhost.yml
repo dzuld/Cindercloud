@@ -2,5 +2,5 @@ cloud:
   cinder:
     ethereum:
       endpoint:
-        url: https://parity.cinder.cloud
-        local-url: https://parity.cinder.cloud
+        url: https://fullnode.fundrequest.io
+        local-url: https://fullnode.fundrequest.io

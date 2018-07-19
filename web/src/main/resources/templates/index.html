@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
-    <link rel="stylesheet" th:href="@{/assets/vendor/icon-material/material-icons.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/vendor/icon-material/material-icons.css}" />
 </div>
 
 <body>
@@ -68,34 +68,37 @@
 </div>
 <div layout:fragment="footer-content">
     <script>
-		$(document).on('ready', function () {
-			$.get('/?section=blocks', function (result) {
-				$("#lastBlocks").html(result);
-			});
-			$.get('/?section=transactions', function (result) {
-				$("#lastTransactions").html(result);
-			});
+		(function () {
+			const updateEthPrice = function () {
+				$.get('/rest/price', function (result) {
+					$("#ethPriceUsd").html(result);
+					setTimeout(updateEthPrice, 10000);
+				});
+				$.get('/rest/price?currency=EUR', function (result) {
+					$("#ethPriceEur").html(result);
+				});
+			};
 
+			const updateLastBlock = function () {
+				$.get('/rest/block/last/number', function (result) {
+					$("#lastBlock").html(result);
+					setTimeout(updateLastBlock, 10000);
+				});
+			};
+
+			const loadComponents = function () {
+				$.get('/?section=blocks', function (result) {
+					$("#lastBlocks").html(result);
+				});
+				$.get('/?section=transactions', function (result) {
+					$("#lastTransactions").html(result);
+				});
+			};
+
+			loadComponents();
 			updateEthPrice();
 			updateLastBlock();
-		});
-
-		var updateEthPrice = function () {
-			$.get('/rest/price', function (result) {
-				$("#ethPriceUsd").html(result);
-				setTimeout(updateEthPrice, 10000);
-			});
-			$.get('/rest/price?currency=EUR', function (result) {
-				$("#ethPriceEur").html(result);
-			});
-		};
-
-		var updateLastBlock = function () {
-			$.get('/rest/block/last/number', function (result) {
-				$("#lastBlock").html(result);
-				setTimeout(updateLastBlock, 10000);
-			});
-		}
+		})();
     </script>
 </div>
 </body>

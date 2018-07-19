@@ -1,9 +1,4 @@
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
-
-
+<html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="keystore" id="keystoreComponent" class="col-md-4 col-lg-4 order-lg-2 g-mb-40 ">
     <div style="height: 100%;" class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
         <header class="text-center mb-4">
@@ -17,7 +12,7 @@
         <form method="POST" th:action="@{/wallet/login?type=keystore}" th:object="${keystoreLoginCommand}"
               class="g-py-15">
 
-            <div th:if="${error != null}" class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0"
+            <div th:if="${keystoreError != null}" class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0"
                  role="alert">
                 <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -27,7 +22,7 @@
                     <span class="d-flex g-mr-10 g-mt-5">
                       <i class="icon-ban g-font-size-25"></i>
                     </span>
-                    <span th:text="${error}" class="media-body align-self-center">
+                    <span th:text="${keystoreError}" class="media-body align-self-center">
                       Change a few things up and try submitting again.
                     </span>
                 </div>
@@ -35,7 +30,7 @@
 
             <div class="mb-4">
                 <input class="btn btn-block u-btn-secondary g-font-size-12 text-uppercase g-py-12 g-px-25" id="upload"
-                       type="file" name="file" size="1"/>
+                       type="file" name="file" size="1" />
             </div>
             <div class="mb-4">
                 <div class="input-group g-rounded-left-3">
@@ -44,12 +39,12 @@
                     </span>
                     <input th:field="*{password}" autocomplete="off"
                            class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-rounded-left-0 g-rounded-right-3 g-py-15 g-px-15"
-                           type="password" placeholder="password"/>
+                           type="password" placeholder="password" />
                 </div>
             </div>
 
 
-            <input type="hidden" th:field="*{keystoreValue}" id="keystoreValue"/>
+            <input type="hidden" th:field="*{keystoreValue}" id="keystoreValue" />
 
             <script>
 				function handleFileSelect(evt) {
@@ -87,13 +82,14 @@
 
     <div style="height: 100%;" class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
         <header class="text-center mb-4">
-            <img style="width: 200px;" th:src="@{/assets/img/icons/ledger.jpg}"/>
+            <img style="width: 200px;" th:src="@{/assets/img/icons/ledger.jpg}" />
 
             <h1 style="display: none;" class="h4 g-color-black g-font-weight-400">Using Ledger Wallet</h1>
         </header>
 
         <button disabled="disabled" id="connectLedger"
-                class="btn disabled btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">
+                class="btn disabled btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+                type="submit">
             Coming Soon!
         </button>
     </div>
@@ -103,13 +99,14 @@
 
     <div style="height: 100%;" class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
         <header class="text-center mb-4">
-            <img style="width: 150px;" th:src="@{/assets/img/icons/keepkey.png}"/>
+            <img style="width: 150px;" th:src="@{/assets/img/icons/keepkey.png}" />
 
             <h1 style="display: none;" class="h4 g-color-black g-font-weight-400">Using KeepKey</h1>
         </header>
 
         <button disabled="disabled" id="connectKeepKey"
-                class="btn disabled btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">
+                class="btn disabled btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+                type="submit">
             Coming Soon!
         </button>
     </div>
@@ -119,13 +116,14 @@
 
     <div style="height: 100%;" class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 mb-4">
         <header class="text-center mb-4">
-            <img style="width: 150px;" th:src="@{/assets/img/icons/trezor.png}"/>
+            <img style="width: 150px;" th:src="@{/assets/img/icons/trezor.png}" />
 
             <h1 style="display: none;" class="h4 g-color-black g-font-weight-400">Using Trezor</h1>
         </header>
 
         <button disabled="disabled" id="connectTrezor"
-                class="btn disabled btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">
+                class="btn disabled btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
+                type="submit">
             Coming soon!
         </button>
     </div>
@@ -147,7 +145,7 @@
                 <div class="media-body">
                     <div class="d-flex justify-content-between">
                         <h5 style="font-family: monospace;" class="h6 g-font-weight-400 g-color-black">{{ address
-                            }}</h5>
+                                                                                                       }}</h5>
                         <a :data-address="address" v-on:click="submitAddress(address)"
                            class="btn btn-xs u-btn-primary g-mr-10 g-mb-15">
                             <i class="fa fa-sign-in"></i>
@@ -165,14 +163,14 @@
                     <span class="align-self-center u-icon-v1 u-icon-size--lg g-color-primary">
                       <i class="icon-finance-193 u-line-icon-pro"></i>
                     </span>
-            <h1 class="h4 g-color-black g-font-weight-400">Use your mnemonic</h1>
+            <h1 class="h4 g-color-black g-font-weight-400">Use your mnemonic / Backup phrase</h1>
         </header>
 
         <!-- Form -->
         <form id="mnemonicForm" method="POST" th:action="@{/wallet/mnemonic}" th:object="${mnemonicAddressRequest}"
               class="g-py-15">
 
-            <div th:if="${error != null}" class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0"
+            <div th:if="${mnemonicError != null}" class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0"
                  role="alert">
                 <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -182,15 +180,16 @@
                     <span class="d-flex g-mr-10 g-mt-5">
                       <i class="icon-ban g-font-size-25"></i>
                     </span>
-                    <span th:text="${error}" class="media-body align-self-center">
+                    <span th:text="${mnemonicError}" class="media-body align-self-center">
                       Change a few things up and try submitting again.
                     </span>
                 </div>
             </div>
 
             <div class="mb-4">
-                <p><span class="badge badge-pill badge-warning">!</span> Using your backup phrase or mnemonic isn't a recommended
-                    method to access your wallet.</p>
+                <p><span class="badge badge-pill badge-warning">!</span> Using your backup phrase or mnemonic isn't a
+                                                                         recommended
+                                                                         method to access your wallet.</p>
                 <div class="input-group g-rounded-left-3">
                     <span class="input-group-addon g-width-45 g-brd-gray-light-v3 g-color-gray-dark-v5">
                       <i class="icon-media-094 u-line-icon-pro"></i>
@@ -198,7 +197,7 @@
                     <input required="required" id="mnemonicField" th:field="*{mnemonic}" autocomplete="off"
                            class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-rounded-left-0 g-rounded-right-3 g-py-15 g-px-15"
                            type="text"
-                           placeholder="fame volume crack load minimum pony prosper soap adjust sick ordinary scan"/>
+                           placeholder="fame volume crack load minimum pony prosper soap adjust sick ordinary scan" />
                 </div>
             </div>
 
@@ -240,8 +239,8 @@
 
     <script th:src="@{/assets/ethereum/ethereumjs-wallet-hd-0.6.0.min.js}" type="application/javascript"></script>
 
-    <input type="hidden" id="randomChallenge" th:value="${randomChallenge}"/>
-    <input type="hidden" id="visualChallenge" th:value="${visualChallenge}"/>
+    <input type="hidden" id="randomChallenge" th:value="${randomChallenge}" />
+    <input type="hidden" id="visualChallenge" th:value="${visualChallenge}" />
 
     <script type="application/javascript" th:src="@{/assets/ethereum/trezor-login.js}"></script>
 
@@ -267,7 +266,7 @@
         <form method="POST" th:action="@{/wallet/login?type=privatekey}" th:object="${privatekeyLoginCommand}"
               class="g-py-10">
 
-            <div th:if="${error != null}" class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0"
+            <div th:if="${privateKeyError != null}" class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0"
                  role="alert">
                 <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -277,21 +276,22 @@
                     <span class="d-flex g-mr-10 g-mt-5">
                       <i class="icon-ban g-font-size-25"></i>
                     </span>
-                    <span th:text="${error}" class="media-body align-self-center">
+                    <span th:text="${privateKeyError}" class="media-body align-self-center">
                       Change a few things up and try submitting again.
                     </span>
                 </div>
             </div>
 
             <div class="mb-4">
-                <p><span class="badge badge-pill badge-warning">!</span> Using your private key directly is not a recommended way to log in.</p>
+                <p><span class="badge badge-pill badge-warning">!</span> Using your private key directly is not a
+                                                                         recommended way to log in.</p>
                 <div class="input-group g-rounded-left-3">
                     <span class="input-group-addon g-width-45 g-brd-gray-light-v3 g-color-gray-dark-v5">
                       <i class="icon-media-094 u-line-icon-pro"></i>
                     </span>
                     <input th:field="*{privateKey}" autocomplete="off"
                            class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v3 g-rounded-left-0 g-rounded-right-3 g-py-15 g-px-15"
-                           type="text" placeholder="0x000"/>
+                           type="text" placeholder="0x000" />
                 </div>
             </div>
 
@@ -315,8 +315,8 @@
         </header>
 
         <p>Whether you're using a DApp Browser like Mist, Parity or Trust Wallet or Metamask environment, Cindercloud
-            can provide you easy access to your Cryptocurrency and tokens.</p>
-        <br/>
+           can provide you easy access to your Cryptocurrency and tokens.</p>
+        <br />
 
         <a class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" th:href="@{/web3/login}">Login</a>
     </div>

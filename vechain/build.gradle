@@ -1,0 +1,20 @@
+dependencyManagement {
+    imports {
+        mavenBom "io.spring.platform:platform-bom:${theSpringPlatformBomVersion}"
+    }
+}
+
+dependencies {
+
+    compile project(':common')
+
+    compile("org.springframework.boot:spring-boot-starter")
+
+    compile "commons-io:commons-io:$commonsioVersion"
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    compile("org.ocpsoft.prettytime:prettytime:$prettyTimeVersion")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile "org.assertj:assertj-core:$assertjVersion"
+}

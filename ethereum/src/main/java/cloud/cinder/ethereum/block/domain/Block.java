@@ -24,7 +24,7 @@ import java.util.Date;
 @Entity
 public class Block {
 
-    private static final DecimalFormat format = new DecimalFormat("##.##%");
+    private static final DecimalFormat percentage = new DecimalFormat("##.##%");
 
     @Id
     private String hash;
@@ -55,7 +55,7 @@ public class Block {
 
     public String gasUsedPercentage() {
         try {
-            return format.format(gasUsed.doubleValue() / gasLimit.doubleValue());
+            return percentage.format(gasUsed.doubleValue() / gasLimit.doubleValue());
         } catch (final Exception ex) {
             return "0%";
         }

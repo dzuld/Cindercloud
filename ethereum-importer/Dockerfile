@@ -1,7 +1,7 @@
 FROM frolvlad/alpine-oraclejdk8:slim
 
 VOLUME /tmp
-ADD build/libs/importer.jar importer.jar
+ADD build/libs/ethereum-importer.jar importer.jar
 RUN sh -c 'touch /importer.jar' && \
     mkdir config
 

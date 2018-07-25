@@ -32,10 +32,10 @@ import org.springframework.core.env.Environment;
         InfoContributorAutoConfiguration.class
 })
 @Slf4j
-public class CindercloudImporter {
+public class EthereumImporter {
 
     public static void main(String[] args) {
-        final SpringApplication app = new SpringApplication(CindercloudImporter.class);
+        final SpringApplication app = new SpringApplication(EthereumImporter.class);
         final Environment env = app.run(args).getEnvironment();
         log.info("\n----------------------------------------------------------\n\t"
                         + "Application '{}' is running! Access URLs:\n\t"

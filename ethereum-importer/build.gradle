@@ -43,6 +43,6 @@ dependencies {
 }
 
 jar {
-    baseName = 'importer'
+    baseName = 'ethereum-importer'
     version = null
 }

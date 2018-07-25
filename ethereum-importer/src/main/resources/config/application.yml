@@ -12,12 +12,6 @@ spring:
           minimum-idle: 2
           idle-timeout: 10000
           maximum-pool-size: 6
-    devtools:
-      livereload:
-        enabled: false
-      remote:
-        debug:
-          enabled: false
     rabbitmq:
       password: xxx
       username: cindercloud-worker
@@ -39,11 +33,3 @@ cloud:
   cinder:
     transactions:
       historic-threshold: 500000
-
-
-endpoints:
-  prometheus:
-    path: /metrics
-    sensitive: false
-  metrics:
-    path: /actuator-metrics

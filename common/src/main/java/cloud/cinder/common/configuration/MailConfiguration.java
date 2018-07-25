@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnProperty("cloud.cinder.mailgun.api-key")
 public class MailConfiguration {
 
     @Value("${cloud.cinder.mailgun.api-key}")

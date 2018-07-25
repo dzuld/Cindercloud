@@ -15,6 +15,7 @@ public class ThorifyBlock {
     private String id;
     private String parentID;
     private Long timestamp;
+    private BigInteger size;
     private BigInteger gasLimit;
     private String beneficiary;
     private BigInteger gasUsed;

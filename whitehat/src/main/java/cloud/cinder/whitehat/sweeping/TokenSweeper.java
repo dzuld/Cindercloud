@@ -43,7 +43,7 @@ public class TokenSweeper {
                         final ERC20Service erc20Service,
                         final MailService mailService,
                         @Value("${cloud.cinder.whitehat.address}") final String whitehatAddress,
-                        @Value("${cloud.cinder.whitehat.gasPrice}") final Long gasPrice,
+                        @Value("${cloud.cinder.whitehat.tiny-gas-price}") final Long gasPrice,
                         @Value("${cloud.cinder.whitehat.tokensweeper.enabled:false}") final boolean tokenSweeperEnabled) {
         this.web3j = web3j;
         this.tokenService = tokenService;

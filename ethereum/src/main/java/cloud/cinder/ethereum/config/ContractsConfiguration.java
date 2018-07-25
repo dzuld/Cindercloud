@@ -8,14 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.web3j.protocol.Web3j;
 
 @Configuration
+@ConditionalOnProperty("contracts.parity.signature-registry.address")
 public class ContractsConfiguration {
 
     @Bean
-    @ConditionalOnProperty("contracts.parity.signature-registry.address")
     public ParitySignatureRegistry paritySignatureRegistry(
             final @Value("${contracts.parity.signature-registry.address}") String address,
             final Web3j web3j) {
         return new ParitySignatureRegistry(address, web3j);
     }
-
 }

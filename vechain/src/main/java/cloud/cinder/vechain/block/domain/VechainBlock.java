@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
 
@@ -19,6 +22,8 @@ import java.util.Date;
 @Table(name = "vechain_blocks")
 @Entity
 public class VechainBlock {
+
+    private static final DecimalFormat percentage = new DecimalFormat("##.##%");
 
     @Id
     private String id;
@@ -42,6 +47,33 @@ public class VechainBlock {
     @Column(name = "block_timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
+
+    public String gasUsedPercentage() {
+        try {
+            return percentage.format(gasUsed.doubleValue() / gasLimit.doubleValue());
+        } catch (final Exception ex) {
+            return "0%";
+        }
+    }
+
+    public String getPrettyScore() {
+        return totalScore == null ? "" : totalScore.divide(BigInteger.valueOf(1000000000).multiply(BigInteger.valueOf(1000))).toString();
+    }
+
+    public String prettyHash() {
+        return id.substring(0, 25) + "...";
+    }
+
+    public String prettySigner() {
+        return signer.substring(0, 15) + "...";
+    }
+
+    public String prettyTimestamp() {
+        final LocalDateTime localDateTime = timestamp.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime();
+        final PrettyTime prettyTime = new PrettyTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        return prettyTime.format(Date.from(localDateTime.atOffset(ZoneOffset.UTC).toInstant()));
+    }
+
 
     public static VechainBlock asVechainBlock(ThorifyBlock thorifyBlock) {
         return VechainBlock.builder()

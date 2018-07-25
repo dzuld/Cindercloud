@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(FeignClientsConfiguration.class)
-public class FeignConfiguration {
+public class EtherscanFeignConfiguration {
 
     @Autowired
     private ObjectMapper objectMapper;

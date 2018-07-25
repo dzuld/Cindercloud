@@ -1,8 +1,8 @@
-package cloud.cinder.web.block.controller;
+package cloud.cinder.web.ethereum.block.controller;
 
 import cloud.cinder.ethereum.address.domain.SpecialAddress;
 import cloud.cinder.web.address.service.AddressService;
-import cloud.cinder.web.block.service.BlockService;
+import cloud.cinder.web.ethereum.block.service.BlockService;
 import cloud.cinder.web.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

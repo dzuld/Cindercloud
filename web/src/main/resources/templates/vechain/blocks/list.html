@@ -3,7 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="decorator/normal/decorator">
 <div layout:fragment="header-content">
-    <title>Ethereum Blocks | Cindercloud </title>
+    <title>VeChain Blocks | Cindercloud</title>
+    <meta name="description" content="An overview of all VeChain blocks" />
 </div>
 
 <body>
@@ -12,13 +13,13 @@
         <div class="container">
             <div class="d-sm-flex text-center">
                 <div class="align-self-center">
-                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Blocks</h2>
+                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">VeChain Blocks</h2>
                 </div>
 
                 <div class="align-self-center ml-auto">
                     <ul class="u-list-inline">
                         <li class="list-inline-item g-mr-5">
-                            <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">Ethereum</a>
+                            <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">VeChain</a>
                             <i class="g-color-gray-light-v2 g-ml-5">/</i>
                         </li>
                         <li class="list-inline-item g-color-primary">
@@ -40,7 +41,7 @@
         <div class="container text-center g-py-50--md g-py-30">
 
             <!-- Search Form -->
-            <form class="g-width-60x--md mx-auto" th:action="@{/blocks}">
+            <form class="g-width-60x--md mx-auto" th:action="@{/vechain/blocks}">
                 <div class="form-group g-mb-20">
                     <div class="input-group u-shadow-v21 rounded g-mb-15">
                         <input name="q"
@@ -60,7 +61,7 @@
 
     <section class="container g-pt-12 g-pb-30">
 
-        <h1 style="display: none;">Ethereum Blocks Overview</h1>
+        <h1 style="display: none;">Vechain Blocks Overview</h1>
 
         <br />
         <div class="row g-pb-30">
@@ -70,7 +71,7 @@
                 <nav class="text-center" aria-label="Page Navigation">
                     <ul class="list-inline">
                         <li th:if="${blocks.hasPrevious()}" class="list-inline-item float-sm-left">
-                            <a th:href="@{/blocks(page=${blocks.number-1}, q=${q}, mined_by=${mined_by})}"
+                            <a th:href="@{/vechain/blocks(page=${blocks.number-1}, q=${q}, mined_by=${mined_by})}"
                                class="u-pagination-v1__item g-brd-around g-color-primary g-brd-gray-light-v3 g-bg-gray-dark-v2--hover g-brd-gray-dark-v2--hover g-color-white--hover g-rounded-50 g-pa-7-16"
                                href="#" aria-label="Previous">
         <span aria-hidden="true">
@@ -82,7 +83,7 @@
                         </li>
 
                         <li th:if="${blocks.hasNext()} " class="list-inline-item float-sm-right">
-                            <a th:href="@{/blocks(page=${blocks.number+1}, q=${q}, mined_by=${mined_by})}"
+                            <a th:href="@{/vechain/blocks(page=${blocks.number+1}, q=${q}, mined_by=${mined_by})}"
                                class="u-pagination-v1__item g-brd-around g-color-primary g-brd-gray-light-v3 g-bg-gray-dark-v2--hover g-brd-gray-dark-v2--hover g-color-white--hover g-rounded-50 g-pa-7-16"
                                href="#" aria-label="Next">
         <span aria-hidden="true">
@@ -105,7 +106,6 @@
                             <th>Height</th>
                             <th>Hash</th>
                             <th>Age</th>
-                            <th>TxCount</th>
                             <th>Miner</th>
                             <th>Gas Used</th>
                             <th>Gas Limit</th>
@@ -114,17 +114,13 @@
 
                         <tbody>
                         <tr th:each="block : ${blocks}">
-                            <td><a th:href="@{/blocks/} + ${block.hash}"><span th:text="${block.height}"></span></a>
+                            <td><a th:href="@{/vechain/blocks/} + ${block.id}"><span th:text="${block.number}"></span></a>
                             </td>
                             <td><span th:text="${block.prettyHash()}"></span></td>
                             <td><span th:text="${block.prettyTimestamp()}"></span></td>
-
                             <td>
-                                <span th:text="${block.txCount}"></span>
-                            </td>
-                            <td>
-                                <a th:href="@{'/address/' + ${block.minedBy}}"><span
-                                        th:text="${block.minedBy}"></span></a>
+                                <a th:href="@{'/address/' + ${block.signer}}"><span
+                                        th:text="${block.prettySigner()}"></span></a>
                             </td>
                             <td>
                                 <span th:text="${block.gasUsed}"></span> <b>(

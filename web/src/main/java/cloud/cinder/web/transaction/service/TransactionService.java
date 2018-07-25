@@ -8,7 +8,7 @@ import cloud.cinder.ethereum.transaction.TransactionStatusService;
 import cloud.cinder.ethereum.transaction.domain.Transaction;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
 import cloud.cinder.web.address.service.AddressService;
-import cloud.cinder.web.block.service.BlockService;
+import cloud.cinder.web.ethereum.block.service.BlockService;
 import cloud.cinder.web.token.service.TokenService;
 import cloud.cinder.web.transaction.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;

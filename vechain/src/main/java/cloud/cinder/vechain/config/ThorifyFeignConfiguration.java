@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(FeignClientsConfiguration.class)
-public class FeignConfiguration {
+public class ThorifyFeignConfiguration {
 
     @Bean
     public ThorifyjBlockRepository provideBlockRepository(final Decoder decoder) {

@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
 public class ThorifyTransactionMeta {
     @JsonProperty("blockID")
     private String blockId;
-    private BigDecimal blockNumber;
+    private BigInteger blockNumber;
     private Long blockTimestamp;
 }

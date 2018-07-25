@@ -1,8 +1,8 @@
-package cloud.cinder.web.block.service;
+package cloud.cinder.web.ethereum.block.service;
 
 import cloud.cinder.common.queue.QueueSender;
 import cloud.cinder.ethereum.block.domain.Block;
-import cloud.cinder.web.block.repository.BlockRepository;
+import cloud.cinder.web.ethereum.block.repository.BlockRepository;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

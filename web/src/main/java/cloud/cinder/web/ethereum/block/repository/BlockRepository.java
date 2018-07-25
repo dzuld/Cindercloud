@@ -1,4 +1,4 @@
-package cloud.cinder.web.block.repository;
+package cloud.cinder.web.ethereum.block.repository;
 
 import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.common.infrastructure.repository.JpaRepository;

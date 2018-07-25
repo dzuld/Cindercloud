@@ -2,7 +2,7 @@ package cloud.cinder.web.transaction.service;
 
 import cloud.cinder.ethereum.address.domain.SpecialAddress;
 import cloud.cinder.ethereum.block.domain.Block;
-import cloud.cinder.ethereum.parity.MethodSignatureService;
+import cloud.cinder.web.ethereum.methods.MethodSignatureService;
 import cloud.cinder.ethereum.parity.domain.MethodSignature;
 import cloud.cinder.ethereum.transaction.TransactionStatusService;
 import cloud.cinder.ethereum.transaction.domain.Transaction;

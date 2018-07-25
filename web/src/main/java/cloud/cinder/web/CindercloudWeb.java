@@ -3,6 +3,7 @@ package cloud.cinder.web;
 import cloud.cinder.common.CindercloudCommon;
 import cloud.cinder.common.infrastructure.IgnoreDuringComponentScan;
 import cloud.cinder.ethereum.CindercloudEthereum;
+import cloud.cinder.vechain.CindercloudVechain;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
@@ -31,12 +32,14 @@ import java.net.UnknownHostException;
 @EntityScan(basePackageClasses = {
         CindercloudCommon.class,
         CindercloudEthereum.class,
+        CindercloudVechain.class,
         CindercloudWeb.class
 })
 @ComponentScan(
         basePackageClasses = {
                 CindercloudCommon.class,
                 CindercloudEthereum.class,
+                CindercloudVechain.class,
                 CindercloudWeb.class
         },
         excludeFilters = {

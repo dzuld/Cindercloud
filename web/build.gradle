@@ -29,6 +29,7 @@ dependencies {
 
     compile project(':common')
     compile project(':ethereum')
+    compile project(':vechain')
 
     compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Final'
 

@@ -1,7 +1,7 @@
 package cloud.cinder.web.statistics;
 
 import cloud.cinder.ethereum.block.domain.Block;
-import cloud.cinder.web.block.repository.BlockRepository;
+import cloud.cinder.web.ethereum.block.repository.BlockRepository;
 import cloud.cinder.web.statistics.dto.MiningStatistics;
 import cloud.cinder.web.transaction.repository.TransactionRepository;
 import cloud.cinder.ethereum.transaction.domain.Transaction;

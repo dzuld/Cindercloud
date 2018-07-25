@@ -3,7 +3,7 @@ package cloud.cinder.web.address.controller;
 import cloud.cinder.web.address.controller.vo.AddressVO;
 import cloud.cinder.ethereum.address.domain.SpecialAddress;
 import cloud.cinder.web.address.service.AddressService;
-import cloud.cinder.web.block.service.BlockService;
+import cloud.cinder.web.ethereum.block.service.BlockService;
 import cloud.cinder.web.coinmarketcap.dto.Currency;
 import cloud.cinder.web.coinmarketcap.service.PriceService;
 import cloud.cinder.web.token.service.TokenService;

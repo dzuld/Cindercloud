@@ -7,7 +7,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class BIP44ServiceTest {

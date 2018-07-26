@@ -2,8 +2,6 @@ package cloud.cinder.whitehat.sweeping.continuous;
 
 import cloud.cinder.whitehat.credentials.service.CredentialService;
 import cloud.cinder.whitehat.sweeping.EthereumSweeper;
-import com.codahale.metrics.Meter;
-import com.codahale.metrics.MetricRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -25,21 +23,13 @@ public class EthereumSweeperService {
     private EthereumSweeper ethereumSweeper;
     @Autowired
     private CredentialService leakedCredentialRepository;
-    private Meter ethereumSweeperMeter;
 
     private Map<String, Date> shortTermSweeping = new HashMap<>();
-
-
-    @Autowired
-    public EthereumSweeperService(final MetricRegistry metricRegistry) {
-        this.ethereumSweeperMeter = metricRegistry.meter("sweeper");
-    }
 
     @Scheduled(fixedDelay = 3_600_000 /* one hour */)
     public void sweepKnownAddresses() {
         leakedCredentialRepository.streamAll()
                 .forEach(x -> ethereumSweeper.sweep(x.getPrivateKey()));
-        ethereumSweeperMeter.mark();
     }
 
     @Async

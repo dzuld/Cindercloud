@@ -1,8 +1,9 @@
 package cloud.cinder.web.vechain.block.controller;
 
-import cloud.cinder.ethereum.transaction.domain.Transaction;
 import cloud.cinder.vechain.block.domain.VechainBlock;
+import cloud.cinder.vechain.transaction.VechainTransaction;
 import cloud.cinder.web.vechain.block.service.VechainBlockService;
+import cloud.cinder.web.vechain.block.service.VechainTransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,9 +24,12 @@ import java.util.Optional;
 public class VechainBlockController {
 
     private VechainBlockService blockService;
+    private VechainTransactionService transactionService;
 
-    public VechainBlockController(final VechainBlockService blockService) {
+    public VechainBlockController(final VechainBlockService blockService,
+                                  final VechainTransactionService transactionService) {
         this.blockService = blockService;
+        this.transactionService = transactionService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -54,8 +58,10 @@ public class VechainBlockController {
 
     @RequestMapping(value = "/{id}/transactions")
     public String getTransactions(@PathVariable("id") final String id,
-                                          final Model model) {
+                                  final Model model) {
         model.addAttribute("id", id);
+        final Slice<VechainTransaction> transactions = transactionService.getTransactionsForBlock(id, new PageRequest(0, 20));
+        model.addAttribute("transactions", transactions);
         return "vechain/blocks/transactions :: blockTransactions";
     }
 }

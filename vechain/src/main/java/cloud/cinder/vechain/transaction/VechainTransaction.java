@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
 
@@ -42,6 +44,17 @@ public class VechainTransaction {
     @Column(name = "block_timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
+
+    public String prettyTimestamp() {
+        final LocalDateTime localDateTime = timestamp.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime();
+        final PrettyTime prettyTime = new PrettyTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        return prettyTime.format(Date.from(localDateTime.atOffset(ZoneOffset.UTC).toInstant()));
+    }
+
+    public String prettyHash() {
+        return id.substring(0, 66) + "";
+    }
+
 
     public static VechainTransaction of(final ThorifyTransaction thorifyTransaction) {
         return VechainTransaction

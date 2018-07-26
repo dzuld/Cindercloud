@@ -3,7 +3,8 @@
 
 <div th:fragment="blockTransactions">
 
-    <div class="alert alert-dismissible fade show g-bg-teal g-color-white rounded-0" role="alert">
+    <div th:if="${transactions.hasNext()}" class="alert alert-dismissible fade show g-bg-teal g-color-white rounded-0"
+         role="alert">
         <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -12,9 +13,36 @@
                           <i class="icon-check g-font-size-25"></i>
                         </span>
             <span class="media-body align-self-center">
-                Unfortunately we're still working on implementing this feature. <b>Coming soon!</b>
-            </span>
+                          <strong>More Transactions!</strong> <a th:href="@{/vechain/tx?block=} + ${hash}"
+                                                                 style="color:white;">View all transactions in this block.</a>
+                        </span>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Hash</th>
+                        <th>Block</th>
+                        <th>Time</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="tx : ${transactions.getContent()}">
+                        <td><a th:href="@{'/vechain/tx/' + ${tx.id}}"><span th:text="${tx.prettyHash()}"></span></a>
+                        </td>
+                        <td><a th:href="@{'/vechain/blocks/' + ${tx.blockId}}"><span th:text="${tx.blockNumber}"></span></a></td>
+                        <td><b th:text="${tx.prettyTimestamp()}"></b></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End Table Striped Rows -->
     </div>
 </div>
 

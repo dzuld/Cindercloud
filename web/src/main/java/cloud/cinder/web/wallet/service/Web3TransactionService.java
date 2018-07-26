@@ -125,7 +125,6 @@ public class Web3TransactionService {
             }
         } catch (final Exception ex) {
             log.error("unable to send tokens", ex);
-            log.error(command);
             throw new IllegalArgumentException(ex.getMessage());
         }
     }

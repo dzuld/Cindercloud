@@ -1,9 +1,0 @@
-rootProject.name = theName
-
-include 'web'
-include 'ethereum-importer'
-include 'vechain-importer'
-include 'whitehat'
-include 'common'
-include 'ethereum'
-include 'vechain'

@@ -3,7 +3,7 @@ var Kyber = (function () {
 	var address = $('#currentAddress').val();
 	var authenticationType = $('#authenticationType').val();
 
-	var kyberMainnet = '0x964F35fAe36d75B1e72770e244F6595B68508CF5';
+	var kyberMainnet = '0x818e6fecd516ecc3849daf6845e3ec868087b755';
 
 	var kyberData = {
 		authenticationType: authenticationType,
@@ -163,6 +163,13 @@ var Kyber = (function () {
 				decimal: 8,
 				usd_id: "salt"
 			},
+			ETHOS: {
+				name: "Ethos",
+				address: "0x5af2be193a6abca9c8817001f45744777db30756",
+				image: "0x5af2be193a6abca9c8817001f45744777db30756",
+				symbol: "ETHOS",
+				decimal: 8
+			},
 			ADEX: {
 				symbol: "ADX",
 				name: "AdEx",
@@ -197,7 +204,211 @@ var Kyber = (function () {
 				address: "0x514910771af9ca656af840dff83e8264ecf986ca",
 				image: "0x514910771af9ca656af840dff83e8264ecf986ca",
 				decimals: 18
-			}
+			},
+			AION: {
+				symbol: "AION",
+				name: "AION",
+				address: "0x4CEdA7906a5Ed2179785Cd3A40A69ee8bc99C466",
+				image: "0x4CEdA7906a5Ed2179785Cd3A40A69ee8bc99C466",
+				decimals: 8
+			},
+			SUBSTRATUM: {
+				symbol: "SUB",
+				name: "Substratum",
+				address: "0x12480e24eb5bec1a9d4369cab6a80cad3c0a377a",
+				image: "0x12480e24eb5bec1a9d4369cab6a80cad3c0a377a",
+				decimals: 2
+			},
+			ENJ: {
+				symbol: "ENJ",
+				name: "EnjinCoin",
+				address: "0xf629cbd94d3791c9250152bd8dfbdf380e2a3b9c",
+				image: "0xf629cbd94d3791c9250152bd8dfbdf380e2a3b9c",
+				decimals: 18
+			},
+			DGX: {
+				symbol: "DGX",
+				name: "Digix Gold",
+				address: "0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf",
+				image: "0x4f3afec4e5a3f2a6a1a411def7d7dfe50ee057bf",
+				decimals: 9
+			},
+			MOT: {
+				symbol: "MOT",
+				name: "Olympus Labs",
+				address: "0x263c618480dbe35c300d8d5ecda19bbb986acaed",
+				image: "0x263c618480dbe35c300d8d5ecda19bbb986acaed",
+				decimals: 18
+			},
+			ELEC: {
+				symbol: "ELEC",
+				name: "ElectrifyAsia",
+				address: "0xd49ff13661451313ca1553fd6954bd1d9b6e02b9",
+				image: "0xd49ff13661451313ca1553fd6954bd1d9b6e02b9",
+				decimals: 18
+			},
+			IOST: {
+				symbol: "IOST",
+				name: "IOStoken",
+				address: "0xfa1a856cfa3409cfa145fa4e20eb270df3eb21ab",
+				image: "0xfa1a856cfa3409cfa145fa4e20eb270df3eb21ab",
+				decimals: 18
+			},
+			STORM: {
+				symbol: "STORM",
+				name: "Storm",
+				address: "0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433",
+				image: "0xd0a4b8946cb52f0661273bfbc6fd0e0c75fc6433",
+				decimals: 18
+			},
+			WAX: {
+				symbol: "WAX",
+				name: "Wax",
+				address: "0x39bb259f66e1c59d5abef88375979b4d20d98022",
+				image: "0x39bb259f66e1c59d5abef88375979b4d20d98022",
+				decimals: 8
+			},
+			ABT: {
+				symbol: "ABT",
+				name: "ArcBlock",
+				address: "0x39bb259f66e1c59d5abef88375979b4d20d98022",
+				image: "0x39bb259f66e1c59d5abef88375979b4d20d98022",
+				decimals: 18
+			},
+			AE: {
+				symbol: "AE",
+				name: "Aeternity",
+				address: "0x5ca9a71b1d01849c0a95490cc00559717fcf0d1d",
+				image: "0x5ca9a71b1d01849c0a95490cc00559717fcf0d1d",
+				decimals: 18
+			},
+			CVC: {
+				symbol: "CVC",
+				name: "Civic",
+				address: "0x41e5560054824ea6b0732e656e3ad64e20e94e45",
+				image: "0x41e5560054824ea6b0732e656e3ad64e20e94e45",
+				decimals: 8
+			},
+			BLZ: {
+				symbol: "BLZ",
+				name: "Bluezelle",
+				address: "0x5732046a883704404f284ce41ffadd5b007fd668",
+				image: "0x5732046a883704404f284ce41ffadd5b007fd668",
+				decimals: 18
+			},
+			PAL: {
+				symbol: "PAL",
+				name: "PolicyPal Network",
+				address: "0xfedae5642668f8636a11987ff386bfd215f942ee",
+				image: "0xfedae5642668f8636a11987ff386bfd215f942ee",
+				decimals: 18
+			},
+			BBO: {
+				symbol: "BBO",
+				name: "BigBom",
+				address: "0x84f7c44b6fed1080f647e354d552595be2cc602f",
+				image: "0x84f7c44b6fed1080f647e354d552595be2cc602f",
+				decimals: 18
+			},
+			POLY: {
+				symbol: "POLY",
+				name: "Polymath",
+				address: "0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec",
+				image: "0x9992ec3cf6a55b00978cddf2b27bc6882d88d1ec",
+				decimals: 18
+			},
+			LBA: {
+				symbol: "LBA",
+				name: "Libra Credit",
+				address: "0xfe5f141bf94fe84bc28ded0ab966c16b17490657",
+				image: "0xfe5f141bf94fe84bc28ded0ab966c16b17490657",
+				decimals: 18
+			},
+			EDU: {
+				symbol: "EDU",
+				name: "EduCoin",
+				address: "0xf263292e14d9d8ecd55b58dad1f1df825a874b7c",
+				image: "0xf263292e14d9d8ecd55b58dad1f1df825a874b7c",
+				decimals: 18
+			},
+			POE: {
+				symbol: "POE",
+				name: "Po.et",
+				address: "0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195",
+				image: "0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195",
+				decimals: 8
+			},
+			PAY: {
+				symbol: "PAY",
+				name: "Tenx",
+				address: "0xB97048628DB6B661D4C2aA833e95Dbe1A905B280",
+				image: "0xB97048628DB6B661D4C2aA833e95Dbe1A905B280",
+				decimals: 18
+			},
+			CHAT: {
+				symbol: "CHAT",
+				name: "Tenx",
+				address: "0x442bc47357919446eabc18c7211e57a13d983469",
+				image: "0x442bc47357919446eabc18c7211e57a13d983469",
+				decimals: 18
+			},
+			DTA: {
+				symbol: "DTA",
+				name: "Data",
+				address: "0x69b148395ce0015c13e36bffbad63f49ef874e03",
+				image: "0x69b148395ce0015c13e36bffbad63f49ef874e03",
+				decimals: 18
+			},
+			TUSD: {
+				symbol: "TUSD",
+				name: "TrueUSD",
+				address: "0x8dd5fbce2f6a956c3022ba3663759011dd51e73e",
+				image: "0x8dd5fbce2f6a956c3022ba3663759011dd51e73e",
+				decimals: 18
+			},
+			TOMO: {
+				symbol: "TOMO",
+				name: "Tomocoin",
+				address: "0x8b353021189375591723E7384262F45709A3C3dC",
+				image: "0x8b353021189375591723E7384262F45709A3C3dC",
+				decimals: 18
+			},
+			MDS: {
+				symbol: "MDS",
+				name: "MediShares",
+				address: "0x66186008C1050627F979d464eABb258860563dbE",
+				image: "0x66186008C1050627F979d464eABb258860563dbE",
+				decimals: 18
+			},
+			LEND: {
+				symbol: "LEND",
+				name: "EthLend",
+				address: "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03",
+				image: "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03",
+				decimals: 18
+			},
+			WINGS: {
+				symbol: "WINGS",
+				name: "Wings",
+				address: "0x667088b212ce3d06a1b553a7221E1fD19000d9aF",
+				image: "0x667088b212ce3d06a1b553a7221E1fD19000d9aF",
+				decimals: 18
+			},
+			MTL: {
+				symbol: "MTL",
+				name: "Metal",
+				address: "0xF433089366899D83a9f26A773D59ec7eCF30355e",
+				image: "0xF433089366899D83a9f26A773D59ec7eCF30355e",
+				decimals: 8
+			},
+			WABI: {
+				symbol: "WABI",
+				name: "WaBi",
+				address: "0x286BDA1413a2Df81731D4930ce2F862a35A609fE",
+				image: "0x286BDA1413a2Df81731D4930ce2F862a35A609fE",
+				decimals: 18
+			},
+
 		},
 		errorMessage: null,
 		warningMessage: null,

@@ -46,7 +46,7 @@ endpoints:
 logging:
   level:
     org:
-      springframework: info
+      springframework:
         web:
           socket:
             config: error

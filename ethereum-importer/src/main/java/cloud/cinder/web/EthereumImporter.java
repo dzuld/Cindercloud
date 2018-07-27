@@ -11,16 +11,23 @@ import org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfigu
 import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
+@EntityScan(basePackageClasses = {
+        CindercloudCommon.class,
+        CindercloudEthereum.class,
+        EthereumImporter.class
+})
 @ComponentScan(
         basePackageClasses = {
                 CindercloudCommon.class,
-                CindercloudEthereum.class
+                CindercloudEthereum.class,
+                EthereumImporter.class
         },
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),

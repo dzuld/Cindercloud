@@ -2,7 +2,7 @@ package cloud.cinder.web.transaction.service;
 
 import cloud.cinder.ethereum.address.domain.SpecialAddress;
 import cloud.cinder.ethereum.block.domain.Block;
-import cloud.cinder.ethereum.parity.MethodSignatureService;
+import cloud.cinder.web.ethereum.methods.MethodSignatureService;
 import cloud.cinder.ethereum.parity.domain.MethodSignature;
 import cloud.cinder.ethereum.transaction.TransactionStatusService;
 import cloud.cinder.ethereum.transaction.domain.Transaction;
@@ -12,6 +12,7 @@ import cloud.cinder.web.ethereum.block.service.BlockService;
 import cloud.cinder.web.token.service.TokenService;
 import cloud.cinder.web.transaction.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -31,29 +32,20 @@ import java.util.Optional;
 @Slf4j
 public class TransactionService {
 
+    @Autowired
     private Web3jGateway web3jGateway;
+    @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
     private BlockService blockService;
+    @Autowired
     private AddressService addressService;
+    @Autowired
     private TokenService tokenService;
+    @Autowired
     private MethodSignatureService methodSignatureService;
+    @Autowired
     private TransactionStatusService transactionStatusService;
-
-    public TransactionService(final Web3jGateway web3jGateway,
-                              final TransactionRepository transactionRepository,
-                              final BlockService blockService,
-                              final AddressService addressService,
-                              final TokenService tokenService,
-                              final MethodSignatureService methodSignatureService,
-                              final TransactionStatusService transactionStatusService) {
-        this.web3jGateway = web3jGateway;
-        this.transactionRepository = transactionRepository;
-        this.blockService = blockService;
-        this.addressService = addressService;
-        this.tokenService = tokenService;
-        this.methodSignatureService = methodSignatureService;
-        this.transactionStatusService = transactionStatusService;
-    }
 
     @Transactional
     public Observable<Slice<Transaction>> findByAddress(final String address, final Pageable pageable) {

@@ -61,7 +61,7 @@ public class BlockController {
             model.addAttribute("minedBySpecialName", specialMinedBy.map(SpecialAddress::getName).orElse(""));
             return "blocks/block";
         } catch (final Exception ex) {
-            log.debug("Error while trying to fetch block {}", hash);
+            log.trace("Error while trying to fetch block {}", hash);
             return "error";
         }
     }

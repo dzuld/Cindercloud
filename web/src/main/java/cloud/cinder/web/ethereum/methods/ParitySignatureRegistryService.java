@@ -1,4 +1,4 @@
-package cloud.cinder.ethereum.parity;
+package cloud.cinder.web.ethereum.methods;
 
 import cloud.cinder.ethereum.parity.domain.ParitySignatureRegistry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

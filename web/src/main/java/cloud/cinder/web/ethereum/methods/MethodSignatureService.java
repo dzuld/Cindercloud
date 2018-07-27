@@ -1,11 +1,10 @@
-package cloud.cinder.ethereum.parity;
+package cloud.cinder.web.ethereum.methods;
 
 import cloud.cinder.ethereum.parity.domain.MethodSignature;
 import cloud.cinder.ethereum.parity.domain.ParitySignatureRegistry;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.web3j.rlp.RlpString;
 

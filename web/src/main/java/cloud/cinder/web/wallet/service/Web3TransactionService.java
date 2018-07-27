@@ -4,6 +4,7 @@ import cloud.cinder.web.wallet.controller.command.confirm.ConfirmEtherTransactio
 import cloud.cinder.web.wallet.controller.command.confirm.ConfirmTokenTransactionCommand;
 import cloud.cinder.ethereum.token.domain.HumanStandardToken;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.context.ApplicationEventPublisher;
@@ -27,12 +28,14 @@ public class Web3TransactionService {
 
     private AuthenticationService authenticationService;
     private Web3jGateway web3jGateway;
+    private ObjectMapper objectMapper;
 
     public Web3TransactionService(final AuthenticationService authenticationService,
                                   final Web3jGateway web3j,
-                                  final ApplicationEventPublisher applicationEventPublisher) {
+                                  final ObjectMapper objectMapper) {
         this.authenticationService = authenticationService;
         this.web3jGateway = web3j;
+        this.objectMapper = objectMapper;
     }
 
     public String submitEtherTransaction(final ConfirmEtherTransactionCommand etherTransactionCommand) {
@@ -85,6 +88,8 @@ public class Web3TransactionService {
                 return send.getTransactionHash();
             } else {
                 log.error(send.getError().getMessage());
+                log.info("confirm ether command: " + objectMapper.writeValueAsString(etherTransaction));
+                log.info("raw transaction " + objectMapper.writeValueAsString(etherTransaction));
                 throw new IllegalArgumentException(send.getError().getMessage());
             }
         } catch (final Exception ex) {
@@ -113,6 +118,8 @@ public class Web3TransactionService {
                     return send.getTransactionHash();
                 } else {
                     log.error(send.getError().getMessage());
+                    log.info("confirm token send command: " + objectMapper.writeValueAsString(command));
+                    log.info("raw transaction " + objectMapper.writeValueAsString(transaction));
                     throw new IllegalArgumentException(send.getError().getMessage());
                 }
             }

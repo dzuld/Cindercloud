@@ -124,7 +124,7 @@ public class BlockService {
                 .map(Observable::just)
                 .orElseGet(() ->
                         {
-                            log.debug("Block {} was not found in repository, fetching from web3.", hash);
+                            log.trace("Block {} was not found in repository, fetching from web3.", hash);
                             return web3j.web3j().ethGetBlockByHash(hash, false)
                                     .observable()
                                     .map(EthBlock::getBlock)

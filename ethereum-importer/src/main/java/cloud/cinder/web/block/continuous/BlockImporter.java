@@ -6,8 +6,6 @@ import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.web.block.repository.BlockRepository;
 import cloud.cinder.web.block.service.BlockService;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
-import com.codahale.metrics.Meter;
-import com.codahale.metrics.MetricRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +24,6 @@ import java.util.Objects;
 @EnableScheduling
 public class BlockImporter {
 
-    private final Meter historicBlockImportMeter;
     @Autowired
     private Web3jGateway web3j;
     @Autowired
@@ -42,11 +39,6 @@ public class BlockImporter {
 
     private Subscription liveSubscription;
 
-
-    @Autowired
-    public BlockImporter(final MetricRegistry metricRegistry) {
-        this.historicBlockImportMeter = metricRegistry.meter("historic_block_importer");
-    }
 
     @Scheduled(fixedRate = 60000)
     public void listenToBlocks() {
@@ -105,8 +97,6 @@ public class BlockImporter {
                 }
             } catch (final Exception exc) {
                 log.debug("unable to get block");
-            } finally {
-                historicBlockImportMeter.mark();
             }
         }
 

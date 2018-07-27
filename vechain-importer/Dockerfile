@@ -1,7 +1,7 @@
 FROM frolvlad/alpine-oraclejdk8:slim
 
 VOLUME /tmp
-ADD build/libs/vechain-importer.jar importer.jar
+ADD target/vechain-importer-0.0.1-SNAPSHOT.jar importer.jar
 RUN sh -c 'touch /importer.jar' && \
     mkdir config
 

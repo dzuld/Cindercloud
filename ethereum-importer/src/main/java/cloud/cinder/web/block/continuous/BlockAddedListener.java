@@ -2,8 +2,6 @@ package cloud.cinder.web.block.continuous;
 
 import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.web.transaction.continuous.TransactionImporter;
-import com.codahale.metrics.Meter;
-import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +17,9 @@ public class BlockAddedListener {
     private TransactionImporter transactionImporter;
     @Autowired
     private ObjectMapper objectMapper;
-    private final Meter blockImportMeter;
 
 
-    public BlockAddedListener(final MetricRegistry metricRegistry) {
-        this.blockImportMeter = metricRegistry.meter("transactions_of_block_importer");
+    public BlockAddedListener() {
     }
 
     public void receiveMessage(final String blockAsString) {
@@ -34,8 +30,6 @@ public class BlockAddedListener {
         } catch (final Exception ex) {
             log.error("Error trying to receive message", ex);
             throw new IllegalArgumentException("Unable to process");
-        } finally {
-            blockImportMeter.mark();
         }
     }
 }

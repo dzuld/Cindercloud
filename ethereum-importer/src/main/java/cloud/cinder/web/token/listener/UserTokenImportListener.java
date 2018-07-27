@@ -1,8 +1,6 @@
 package cloud.cinder.web.token.listener;
 
 import cloud.cinder.web.token.listener.model.UserTokenRequest;
-import com.codahale.metrics.Meter;
-import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -23,18 +21,15 @@ public class UserTokenImportListener {
 
     private ObjectMapper objectMapper;
     private TokenTransferHistoricImporter tokenTransferHistoricImporter;
-    private final Meter blockImportMeter;
 
     private Map<String, Date> alreadySweeped = new HashMap<>();
 
 
     public UserTokenImportListener(final ObjectMapper objectMapper,
-                                   final MetricRegistry metricRegistry,
+
                                    final TokenTransferHistoricImporter tokenTransferHistoricImporter) {
         this.objectMapper = objectMapper;
         this.tokenTransferHistoricImporter = tokenTransferHistoricImporter;
-
-        this.blockImportMeter = metricRegistry.meter("user_token_imports");
     }
 
     public void receiveMessage(final String userTokenImportRequestAsString) {
@@ -48,8 +43,6 @@ public class UserTokenImportListener {
         } catch (final Exception ex) {
             log.error("Error trying to receive message", ex);
             throw new IllegalArgumentException("Unable to process");
-        } finally {
-            blockImportMeter.mark();
         }
     }
 

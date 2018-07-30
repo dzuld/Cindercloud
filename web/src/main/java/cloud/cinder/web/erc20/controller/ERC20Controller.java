@@ -1,11 +1,11 @@
 package cloud.cinder.web.erc20.controller;
 
-import cloud.cinder.web.coinmarketcap.dto.Currency;
-import cloud.cinder.web.cryptocompare.service.TokenPriceService;
+import cloud.cinder.core.coinmarketcap.dto.Currency;
+import cloud.cinder.core.cryptocompare.service.TokenPriceService;
 import cloud.cinder.web.erc20.controller.dto.AddressTokenDto;
 import cloud.cinder.web.erc20.controller.dto.CustomAddressTokenDto;
-import cloud.cinder.web.erc20.service.CustomERC20Service;
-import cloud.cinder.web.token.service.TokenService;
+import cloud.cinder.core.erc20.service.CustomERC20Service;
+import cloud.cinder.core.token.service.TokenService;
 import cloud.cinder.ethereum.erc20.service.ERC20Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

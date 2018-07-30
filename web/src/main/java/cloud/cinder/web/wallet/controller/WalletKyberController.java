@@ -1,6 +1,6 @@
 package cloud.cinder.web.wallet.controller;
 
-import cloud.cinder.web.wallet.service.AuthenticationService;
+import cloud.cinder.core.wallet.service.AuthenticationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

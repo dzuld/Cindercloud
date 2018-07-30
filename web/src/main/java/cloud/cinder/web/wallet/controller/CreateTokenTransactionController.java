@@ -1,16 +1,16 @@
 package cloud.cinder.web.wallet.controller;
 
-import cloud.cinder.web.coinmarketcap.dto.Currency;
-import cloud.cinder.web.cryptocompare.service.TokenPriceService;
+import cloud.cinder.core.coinmarketcap.dto.Currency;
+import cloud.cinder.core.cryptocompare.service.TokenPriceService;
 import cloud.cinder.web.erc20.controller.dto.AddressTokenDto;
 import cloud.cinder.web.erc20.controller.dto.CustomAddressTokenDto;
-import cloud.cinder.web.erc20.service.CustomERC20Service;
-import cloud.cinder.web.security.domain.AuthenticationType;
-import cloud.cinder.web.token.service.TokenService;
-import cloud.cinder.web.wallet.controller.command.confirm.ConfirmTokenTransactionCommand;
+import cloud.cinder.core.erc20.service.CustomERC20Service;
+import cloud.cinder.core.security.domain.AuthenticationType;
+import cloud.cinder.core.token.service.TokenService;
+import cloud.cinder.core.wallet.service.command.ConfirmTokenTransactionCommand;
 import cloud.cinder.web.wallet.controller.command.create.CreateTokenTransactionCommand;
-import cloud.cinder.web.wallet.service.AuthenticationService;
-import cloud.cinder.web.wallet.service.Web3TransactionService;
+import cloud.cinder.core.wallet.service.AuthenticationService;
+import cloud.cinder.core.wallet.service.Web3TransactionService;
 import cloud.cinder.ethereum.erc20.service.ERC20Service;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;

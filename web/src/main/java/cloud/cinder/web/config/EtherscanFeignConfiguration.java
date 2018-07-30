@@ -1,8 +1,8 @@
 package cloud.cinder.web.config;
 
-import cloud.cinder.web.coinmarketcap.client.CoinMarketCapClient;
-import cloud.cinder.web.cryptocompare.client.CryptoCompareClient;
-import cloud.cinder.web.etherscan.EtherscanClient;
+import cloud.cinder.core.coinmarketcap.client.CoinMarketCapClient;
+import cloud.cinder.core.cryptocompare.client.CryptoCompareClient;
+import cloud.cinder.core.etherscan.EtherscanClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;
 import feign.Logger;

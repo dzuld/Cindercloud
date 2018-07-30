@@ -2,8 +2,8 @@ package cloud.cinder.web.vechain.block.controller;
 
 import cloud.cinder.vechain.block.domain.VechainBlock;
 import cloud.cinder.vechain.transaction.VechainTransaction;
-import cloud.cinder.web.vechain.block.service.VechainBlockService;
-import cloud.cinder.web.vechain.block.service.VechainTransactionService;
+import cloud.cinder.core.vechain.block.service.VechainBlockService;
+import cloud.cinder.core.vechain.block.service.VechainTransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

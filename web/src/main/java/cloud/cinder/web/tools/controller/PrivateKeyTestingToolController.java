@@ -1,7 +1,7 @@
 package cloud.cinder.web.tools.controller;
 
 import cloud.cinder.web.tools.controller.command.TestPrivateKeysCommand;
-import cloud.cinder.web.tools.service.PrivateKeyService;
+import cloud.cinder.core.tools.service.PrivateKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

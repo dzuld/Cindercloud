@@ -1,8 +1,8 @@
 package cloud.cinder.web.token.listener;
 
 import cloud.cinder.web.token.listener.model.UserTokenRequest;
-import cloud.cinder.web.token.service.TokenService;
-import cloud.cinder.web.token.service.TokenTransferService;
+import cloud.cinder.core.token.service.TokenService;
+import cloud.cinder.core.token.service.TokenTransferService;
 import cloud.cinder.ethereum.token.domain.Token;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
 import lombok.extern.slf4j.Slf4j;

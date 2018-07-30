@@ -11,6 +11,8 @@ out/
 build/
 target/
 
+*.iml
+
 .gradle
 common/docker_data
 

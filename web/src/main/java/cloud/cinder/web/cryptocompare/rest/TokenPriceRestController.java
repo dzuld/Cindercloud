@@ -1,7 +1,7 @@
 package cloud.cinder.web.cryptocompare.rest;
 
-import cloud.cinder.web.coinmarketcap.dto.Currency;
-import cloud.cinder.web.cryptocompare.service.TokenPriceService;
+import cloud.cinder.core.coinmarketcap.dto.Currency;
+import cloud.cinder.core.cryptocompare.service.TokenPriceService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

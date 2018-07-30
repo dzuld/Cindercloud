@@ -1,7 +1,7 @@
 package cloud.cinder.web.ethereum.block.rest;
 
 import cloud.cinder.ethereum.block.domain.Block;
-import cloud.cinder.web.ethereum.block.service.BlockService;
+import cloud.cinder.core.ethereum.block.service.BlockService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

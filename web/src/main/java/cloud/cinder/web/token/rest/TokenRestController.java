@@ -1,7 +1,7 @@
 package cloud.cinder.web.token.rest;
 
 import cloud.cinder.ethereum.token.domain.Token;
-import cloud.cinder.web.token.service.TokenService;
+import cloud.cinder.core.token.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

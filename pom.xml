@@ -25,6 +25,7 @@
         <module>whitehat</module>
         <module>ethereum-importer</module>
         <module>vechain-importer</module>
+        <module>core</module>
         <module>web</module>
     </modules>
 

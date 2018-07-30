@@ -53,9 +53,9 @@ logging:
 cloud:
   cinder:
     wallet:
-      baseUrl: https://cinder.cloud
+      baseUrl: https://wallet.cinder.cloud
     explorer:
-      baseUrl: https://explorer.cinder.cloud
+      baseUrl: https://cinder.cloud
     mailgun:
       api-key: 'api-xxx'
       domain: cinder.cloud

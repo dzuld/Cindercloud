@@ -9,11 +9,13 @@ cache:
 script: mvn clean install
 after_success:
   - docker build -t cindercloud/web:"$TRAVIS_BRANCH" web
+  - docker build -t cindercloud/wallet:"$TRAVIS_BRANCH" wallet
   - docker build -t cindercloud/whitehat:"$TRAVIS_BRANCH" whitehat
   - docker build -t cindercloud/ethereum-importer:"$TRAVIS_BRANCH" ethereum-importer
   - docker build -t cindercloud/vechain-importer:"$TRAVIS_BRANCH" vechain-importer
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker push cindercloud/web:"$TRAVIS_BRANCH"
+  - docker push cindercloud/wallet:"$TRAVIS_BRANCH"
   - docker push cindercloud/whitehat:"$TRAVIS_BRANCH"
   - docker push cindercloud/ethereum-importer:"$TRAVIS_BRANCH"
   - docker push cindercloud/vechain-importer:"$TRAVIS_BRANCH"

@@ -5,6 +5,7 @@ import cloud.cinder.core.coinmarketcap.service.PriceService;
 import cloud.cinder.core.ethereum.block.service.BlockService;
 import cloud.cinder.core.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +22,12 @@ public class EthereumIndexController {
     @Autowired
     private TransactionService transactionService;
 
+    @Value("${cloud.cinder.wallet.baseUrl}")
+    private String walletBaseUrl;
+
     @GetMapping
     public String redirect() {
-        return "redirect:/ethereum";
+        return "redirect:" + walletBaseUrl;
     }
 
     @GetMapping(value = "/ethereum")

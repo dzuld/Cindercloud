@@ -1,0 +1,71 @@
+spring:
+    application:
+        name: Cindercloud-Wallet
+    messages:
+        basename: i18n/messages
+    thymeleaf:
+        mode: HTML5
+    datasource:
+        url: jdbc:postgresql://localhost:5432/cindercloud
+        username: cindercloud
+        password: cindercloud
+        driver-class-name: org.postgresql.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+          validation-timeout: 3000
+          minimum-idle: 2
+          idle-timeout: 10000
+          maximum-pool-size: 6
+    http:
+      multipart:
+        location: /tmp
+        max-file-size: 150MB
+        max-request-size: 200MB
+    freemarker:
+      enabled: false
+    groovy:
+      template:
+        enabled: false
+    jmx:
+      enabled: false
+    rabbitmq:
+      password: xxx
+      username: cindercloud-web
+      virtual-host: cindercloud
+      host: cindercloud-rabbitmq
+      port: 5672
+server:
+    port: 9090
+    session:
+        cookie:
+            http-only: true
+endpoints:
+  enabled: false
+
+#logging
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          socket:
+            config: error
+cloud:
+  cinder:
+    wallet:
+      baseUrl: https://cinder.cloud
+    explorer:
+      baseUrl: https://explorer.cinder.cloud
+    mailgun:
+      api-key: 'api-xxx'
+      domain: cinder.cloud
+      default-to: info@cinder.cloud
+    etherscan-api-key: 'na-ah'
+    etherscan-enabled: true
+    etherscan-api: 'https://api.etherscan.io/api'
+    disqus:
+      name: cindercloud-app
+contracts:
+  parity:
+    signature-registry:
+      address: '0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86'

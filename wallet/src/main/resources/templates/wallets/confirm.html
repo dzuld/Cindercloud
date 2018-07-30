@@ -1,0 +1,147 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+
+</div>
+
+<body>
+<div layout:fragment="main-content">
+    <div class="container g-pt-70 g-pb-30">
+        <div class="row">
+            <!-- Profile Settings -->
+            <div class="col-lg-3 g-mb-50">
+                <th:block th:replace="components/profile :: sidenav(active='send-ether')"></th:block>
+            </div>
+            <!-- End Profile Settings -->
+
+            <!-- Wallet -->
+            <div class="col-lg-9 g-mb-50">
+                <!-- Balance & Rewards -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-px-30 g-pt-30">
+                    <h3 class="h5 mb-3">Confirm your transaction</h3>
+
+                    <!-- Balance Info -->
+                    <div class="row justify-content-between">
+                        <div class="col-md-12">
+                            <ul class="list-unstyled g-mb-30">
+                                <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
+                                    <div class="g-pr-10">
+                                        <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">To</strong>
+                                        <span class="align-top" th:text="${confirm.to}"></span>
+                                    </div>
+                                </li>
+
+                                <!-- Your ID -->
+                                <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
+                                    <div class="g-pr-10">
+                                        <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">Gas
+                                                                                                                           Price</strong>
+                                        <span class="align-top"><span th:text="${confirm.gasPrice}"></span> <b>gwei</b></span>
+                                    </div>
+                                    <span>
+                      </span>
+                                </li>
+                                <!-- End Your ID -->
+
+                                <!-- Company Name -->
+                                <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
+                                    <div class="g-pr-10">
+                                        <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">Gas
+                                                                                                                           Limit</strong>
+                                        <span class="align-top" th:text="${confirm.gasLimit}"></span>
+                                    </div>
+                                </li>
+                                <!-- End Company Name -->
+
+                                <!-- Position -->
+                                <li class="d-flex align-items-center justify-content-between g-brd-bottom g-brd-gray-light-v4 g-py-15">
+                                    <div class="g-pr-10">
+                                        <strong class="d-block d-md-inline-block g-color-gray-dark-v2 g-width-200 g-pr-10">Amount</strong>
+                                        <span class="align-top" th:text="${confirm.amount}">moneyz</span>
+                                    </div>
+                                    <span>
+                      </span>
+                                </li>
+                            </ul>
+
+                            <div th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).CINDERCLOUD}">
+                                <form th:object="${confirm}" method="POST" th:action="@{/wallet/confirm}">
+                                    <input type="hidden" th:field="*{to}" id="confirmTo" />
+                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
+                                    <input type="hidden" th:field="*{gasPriceInWei}" id="gasPriceInWei" />
+                                    <input type="hidden" th:field="*{amount}" id="confirmAmount" />
+                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice" />
+                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit" />
+                                    <button type="submit" id="btnConfirm"
+                                            class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
+                                    </button>
+                                </form>
+                                <button type="submit" id="btnCancel" class="btn btn-md u-btn-red pull-right rounded-0">
+                                    Cancel
+                                </button>
+                            </div>
+
+                            <div th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).WEB3}">
+                                <form th:object="${confirm}">
+                                    <input type="hidden" th:field="*{to}" id="confirmTo" />
+                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
+                                    <input type="hidden" th:field="*{amount}" id="confirmAmount" />
+                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice" />
+                                    <input type="hidden" th:field="*{gasPriceInWei}" id="confirmGasPriceInWei" />
+                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit" />
+                                </form>
+                                <button type="submit" id="btnConfirm"
+                                        class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
+                                </button>
+                                <button type="submit" id="btnCancel" class="btn btn-md u-btn-red pull-right rounded-0">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Balance Info -->
+
+                </div>
+                <!-- End Balance & Rewards -->
+            </div>
+            <!-- End Wallet -->
+        </div>
+    </div>
+
+
+</div>
+<div layout:fragment="footer-content">
+    <script th:src="@{/assets/vendor/jquery-ui/ui/widget.js}"></script>
+    <script th:src="@{/assets/vendor/jquery-ui/ui/version.js}"></script>
+    <script th:src="@{/assets/vendor/jquery-ui/ui/keycode.js}"></script>
+    <script th:src="@{/assets/vendor/jquery-ui/ui/position.js}"></script>
+    <script th:src="@{/assets/vendor/jquery-ui/ui/unique-id.js}"></script>
+    <script th:src="@{/assets/vendor/jquery-ui/ui/safe-active-element.js}"></script>
+
+    <script th:src="@{/assets/vendor/jquery-ui/ui/widgets/menu.js}"></script>
+    <script th:src="@{/assets/vendor/jquery-ui/ui/widgets/mouse.js}"></script>
+    <script th:src="@{/assets/vendor/jquery-ui/ui/widgets/slider.js}"></script>
+    <script th:src="@{/assets/js/components/hs.slider.js}"></script>
+
+    <script>
+		$(document).on('ready', function () {
+			// initialization of forms
+			$.HSCore.components.HSSlider.init('#regularSlider3');
+
+			$("#frmSendTransaction").submit(function (ev) {
+				ev.preventDefault();
+				const gasPrice = $('#regularSliderAmount3').html();
+				$('#gasPrice').val(gasPrice);
+				this.submit();
+			});
+		});
+    </script>
+
+    <script th:src="@{/assets/ethereum/confirm-ether.js}"
+            type="application/javascript"
+            th:if="${authenticationType == T(cloud.cinder.web.security.domain.AuthenticationType).WEB3}"></script>
+</div>
+</body>
+</html>

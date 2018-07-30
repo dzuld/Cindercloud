@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+    <title>Wallet Login | Cindercloud | The Ethereum Blockchain Interactor and Explorer</title>
+</div>
+
+<body>
+<div layout:fragment="main-content">
+
+    <section class="breadcrumbs g-bg-gray-light-v5 g-py-50">
+        <div class="container">
+            <div class="d-sm-flex text-center">
+                <div class="align-self-center">
+                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Login to your wallet</h2>
+                </div>
+
+                <div class="align-self-center ml-auto">
+                    <ul class="u-list-inline">
+                        <li class="list-inline-item g-mr-5">
+                            <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">Wallets</a>
+                            <i class="g-color-gray-light-v2 g-ml-5">/</i>
+                        </li>
+                        <li class="list-inline-item g-color-primary">
+                            <span>Login</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="clientSideWeb3Enabled g-bg-primary g-color-white g-pa-30 "
+             style="display: none; background-image: url(/assets/img/bg/pattern5.png);">
+        <div class="d-md-flex justify-content-md-center text-center">
+            <div class="align-self-md-center">
+                <p class="lead g-font-weight-400 g-mr-20--md g-mb-15 g-mb-0--md">It would appear your browser is
+                    web3-enabled!</p>
+            </div>
+            <div class="align-self-md-center">
+                <a th:href="@{/web3/login}"
+                   class="btn btn-lg u-btn-white text-uppercase g-font-weight-600 g-font-size-12">Login With Web3</a>
+            </div>
+        </div>
+    </section>
+    <!-- Login -->
+    <section class="container-fluid g-pt-100">
+        <div class="row justify-content-between">
+
+
+            <div class="col-md-12 order-lg-1 g-m-80">
+                <div class="5">
+                    <h2 class="h1 g-font-weight-400 mb-3 text-center">Choose your preferenced login method</h2>
+                    <p class="g-color-gray-dark-v4 text-center">We support a variety of login methods. Below you can see a list of
+                        what we support, sorted by level of security.</p>
+                </div>
+
+                <div class="row equal">
+                    <div class="col-md-2"></div>
+                    <th:block th:replace="components/login :: web3"></th:block>
+                    <th:block th:replace="components/login :: keystore"></th:block>
+                </div>
+                <div class="row equal">
+                    <th:block th:replace="components/login :: mnemonic"></th:block>
+                    <th:block th:replace="components/login :: privateKey"></th:block>
+                </div>
+                <div class="row equal">
+                    <th:block th:replace="components/login :: trezor"></th:block>
+                    <th:block th:replace="components/login :: keepkey"></th:block>
+                    <th:block th:replace="components/login :: ledger"></th:block>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Login -->
+
+
+</div>
+<div layout:fragment="footer-content">
+    <th:block th:replace="components/login :: mnemonicJs"></th:block>
+   <!-- <th:block th:replace="components/login :: trezorJs"></th:block> -->
+
+</div>
+</body>
+</html>

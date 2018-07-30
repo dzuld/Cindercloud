@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div>
+    <head th:fragment="headTag">
+
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-NP5LV3P');</script>
+        <!-- End Google Tag Manager -->
+
+        <!-- Required Meta Tags Always Come First -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+        <meta name="google-site-verification" content="LwTDvyDMaFSpliLWurg3tKztDsw1IyMHHSfjsuiUGMo" />
+        <meta name="google-site-verification" content="XODCdXSwBUmIQHNuU5hv_ySehh8V2Mut__K1Hi4htT4" />
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-97187183-1"></script>
+        <script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-97187183-1');
+			gtag('config', 'AW-1023123526');
+        </script>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+
+        <meta name="_disqusname" th:content="${@environment.getProperty('cloud.cinder.disqus.name')}"/>
+
+        <meta name="_walletBaseUrl" th:content="${@environment.getProperty('cloud.cinder.wallet.baseUrl')}"/>
+        <meta name="_explorerBaseUrl" th:content="${@environment.getProperty('cloud.cinder.explorer.baseUrl')}"/>
+
+        <meta name="description" content="Cindercloud is an open source blockchain explorer, Ethereum and ERC20 wallet and provides various services for interacting with the blockchain." />
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon-32x32.png}" />
+
+        <link rel="icon" type="image/png" th:href="@{/assets/images/logo/favicon-16x16.png}" sizes="16x16" />
+        <link rel="icon" type="image/png" th:href="@{/assets/images/logo/favicon-32x32.png}" sizes="32x32" />
+        <link rel="icon" type="image/png" th:href="@{/assets/images/logo/favicon-96x96.png}" sizes="96x96" />
+
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700" />
+
+        <!-- CSS Global Compulsory -->
+        <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/bootstrap.min.css}" />
+
+        <!-- CSS Implementing Plugins -->
+        <link rel="stylesheet" th:href="@{/assets/vendor/icon-awesome/css/font-awesome.min.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/icon-line/css/simple-line-icons.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/icon-etlinefont/style.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/icon-line-pro/style.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/icon-hs/style.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/dzsparallaxer/dzsparallaxer.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/dzsparallaxer/dzsscroller/scroller.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/dzsparallaxer/advancedscroller/plugin.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/slick-carousel/slick/slick.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/animate.css}" />
+        <link  rel="stylesheet" th:href="@{/assets/vendor/custombox/custombox.min.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/hs-megamenu/src/hs.megamenu.css}" />
+        <link rel="stylesheet" th:href="@{/assets/vendor/hamburgers/hamburgers.min.css}" />
+
+        <!-- CSS Unify -->
+        <link rel="stylesheet" th:href="@{/assets/css/unify-core.css}" />
+        <link rel="stylesheet" th:href="@{/assets/css/unify-components.css}" />
+        <link rel="stylesheet" th:href="@{/assets/css/unify-globals.css}" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" />
+
+
+        <!-- CSS Customization -->
+        <link rel="stylesheet" th:href="@{/assets/css/custom.css}" />
+
+        <div layout:fragment="header-content" th:remove="tag"></div>
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <th:block th:replace="components/web3js :: header"></th:block>
+
+        <title>Cindercloud | Blockchain Platform</title>
+    </head>
+</div>
+</body>
+</html>

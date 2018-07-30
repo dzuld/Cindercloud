@@ -1,0 +1,92 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+
+</div>
+
+<body>
+<div layout:fragment="main-content">
+    <div class="container g-pt-70 g-pb-30">
+        <div class="row">
+            <!-- Profile Settings -->
+            <div class="col-lg-3 g-mb-50">
+                <th:block th:replace="components/profile :: sidenav(active='transactions')"></th:block>
+            </div>
+            <!-- End Profile Settings -->
+
+            <!-- Wallet -->
+            <div class="col-lg-9 g-mb-50">
+                <!-- Balance & Rewards -->
+                <div class="g-brd-around g-brd-gray-light-v4 rounded g-px-30 g-pt-30">
+                    <h3 class="h5 mb-3">Balance &amp; History</h3>
+
+                    <!-- Balance Info -->
+                    <div class="row justify-content-between">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Hash</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr th:each="tx : ${transactions.getContent()}">
+                                        <td><a th:href="@{'/blocks/' + ${tx.blockHash}}"  th:text="${tx.prettyBlockTimestamp()}"></a></td>
+                                        <td><a th:href="@{'/tx/' + ${tx.hash}}"><span
+                                                th:text="${tx.prettyHash()}"></span></a></td>
+                                        <td>
+                                            <a th:href="@{'/address/' + ${tx.fromAddress}}"
+                                               th:if="${tx.direction(hash) == T(cloud.cinder.ethereum.transaction.domain.Transaction.Direction).IN}"><span
+                                                    th:text="${tx.prettyFromAddress()}"></span></a>
+                                            <span th:unless="${tx.direction(hash) == T(cloud.cinder.ethereum.transaction.domain.Transaction.Direction).IN}"
+                                                  th:text="${tx.prettyFromAddress()}"></span>
+                                        </td>
+                                        <td>
+                                            <div th:if="${tx.isContractCreation()}">
+                                                <a th:href="@{'/address/' + ${tx.creates}}"><span
+                                                        th:text="${tx.prettyToAddress()}"></span></a>
+                                            </div>
+                                            <div th:unless="${tx.isContractCreation()}">
+                                                <a th:href="@{'/address/' + ${tx.toAddress}}"><span
+                                                        th:text="${tx.prettyToAddress()}"></span></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                            <span class="u-label u-label-success g-color-white"
+                                  th:text="${tx.formattedValue()}">0</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Balance Info -->
+
+                    <!-- Add Balance -->
+                    <div class="g-mb-50" th:if="${transactions == null || !transactions.hasContent()}">
+                        <th:block th:replace="components/alerts :: warning(title='Fresh account?', body='No transactions were found for this account. Either we did not index them yet, or this is a new account.')"/>
+                    </div>
+                </div>
+                <!-- End Balance & Rewards -->
+            </div>
+            <!-- End Wallet -->
+        </div>
+    </div>
+
+
+</div>
+<div layout:fragment="footer-content">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="sidenav">
+    <aside class="g-brd-around g-brd-gray-light-v4 rounded g-px-20 g-py-30">
+        <div class="text-center g-pos-rel g-mb-30">
+            <h2 class="h3">Address</h2>
+            <div style="overflow-wrap: break-word">
+                <a th:href="@{'/address/'} +${address}" target="_blank">
+                    <span class="d-block g-font-weight-500" th:text="${address}">James Collins</span>
+                </a>
+            </div>
+        </div>
+
+        <hr class="g-brd-gray-light-v5 g-my-30" />
+
+        <!-- Profile Settings List -->
+        <ul class="list-unstyled mb-0">
+            <li class="g-pb-3">
+                <a th:classappend="${'index'.equals(active)} ? ' active g-color-primary--parent-active g-bg-gray-light-v5--active' : idle"
+                   class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+                   th:href="@{/wallet}">
+                                <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i
+                                        class="icon-finance-059 u-line-icon-pro"></i></span>
+                    Your Wallet
+                </a>
+            </li>
+            <li class="g-pb-3">
+                <a th:classappend="${'exchange'.equals(active)} ? ' active g-color-primary--parent-active g-bg-gray-light-v5--active' : idle"
+                   class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+                   th:href="@{/wallet/kyber}">
+                                <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i
+                                        class="icon-finance-196 u-line-icon-pro"></i></span>
+                    Exchange
+                </a>
+            </li>
+            <li class="g-py-3">
+                <a th:classappend="${'transactions'.equals(active)} ? ' active g-color-primary--parent-active g-bg-gray-light-v5--active' : idle"
+                   class="d-block active align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+                   th:href="@{/wallet/transactions}">
+                                <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i
+                                        class="icon-finance-078 u-line-icon-pro"></i></span>
+                    Your Transactions
+                </a>
+            </li>
+            <li class="g-pb-3">
+                <a th:classappend="${'send-ether'.equals(active)} ? ' active g-color-primary--parent-active g-bg-gray-light-v5--active' : idle"
+                   class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+                   th:href="@{/wallet/send}">
+                                <span class="u-icon-v1 g-color-primary mr-2"><i
+                                        class="icon-communication-015 u-line-icon-pro"></i></span>
+                    Send Ether
+                </a>
+            </li>
+            <li class="g-pb-3">
+                <a th:classappend="${'send-tokens'.equals(active)} ? ' active g-color-primary--parent-active g-bg-gray-light-v5--active' : idle"
+                   class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+                   th:href="@{/wallet/tokens/send}">
+                                <span class="u-icon-v1 g-color-orange mr-2"><i
+                                        class="icon-communication-015 u-line-icon-pro"></i></span>
+                    Send Tokens
+                </a>
+            </li>
+            <li class="g-pb-3">
+                <a th:classappend="${'address-book'.equals(active)} ? ' active g-color-primary--parent-active g-bg-gray-light-v5--active' : idle"
+                   class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+                   th:href="@{/wallet/address-book}">
+                                <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i
+                                        class="icon-communication-154 u-line-icon-pro"></i></span>
+                    Address Book
+                </a>
+            </li>
+
+            <li class="g-pb-3">
+                <a th:classappend="${'custom-tokens'.equals(active)} ? ' active g-color-primary--parent-active g-bg-gray-light-v5--active' : idle"
+                   class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3"
+                   th:href="@{/wallet/custom-tokens}">
+                                <span class="u-icon-v1 g-color-gray-dark-v5 mr-2"><i
+                                        class="icon-science-001 u-line-icon-pro"></i></span>
+                    Custom Tokens
+                </a>
+            </li>
+        </ul>
+        <!-- End Profile Settings List -->
+    </aside>
+</th:block>
+
+<th:block th:fragment="tokenSelection">
+
+        <div class="col-md-4" th:each="token : ${customTokens}">
+            <label class="u-check w-100 g-mb-25">
+                <strong class="d-block g-color-gray-dark-v2 g-font-weight-700 g-mb-10"><span
+                        th:text="${token.balance}"></span> <span th:text="${token.token.symbol}"></span> (custom)</strong>
+                <input class="g-hidden-xs-up g-pos-abs g-top-10 g-right-10" type="radio"
+                       th:value="${token.token.address}"
+                       name="tokenAddress" checked="" />
+
+                <div style="width: 100%;"
+                     class="g-brd-primary--checked g-bg-primary-opacity-0_2--checked g-brd-around g-brd-gray-light-v2 g-rounded-5">
+                    <div class="media g-pa-12">
+                        <div class="media-body align-self-center">
+                            <img style="height: 35px;"
+                                 th:src="@{https://raw.githubusercontent.com/TrustWallet/tokens/master/images/} + ${#strings.toLowerCase(token.token.address)} + .png" />
+                            <span th:text="${token.token.name}"></span>
+                        </div>
+
+                        <div class="d-flex align-self-center g-width-20 g-ml-15">
+                            <div class="u-check-icon-radio-v5 g-pos-rel g-width-20 g-height-20"><i></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-4" th:each="token : ${availableTokens}">
+            <label class="u-check w-100 g-mb-25">
+                <strong class="d-block g-color-gray-dark-v2 g-font-weight-700 g-mb-10"><span
+                        th:text="${token.balance}"></span> <span th:text="${token.token.symbol}"></span></strong>
+                <input class="g-hidden-xs-up g-pos-abs g-top-10 g-right-10" type="radio"
+                       th:value="${token.token.address}"
+                       name="tokenAddress" checked="" />
+
+                <div style="width: 100%;"
+                     class="g-brd-primary--checked g-bg-primary-opacity-0_2--checked g-brd-around g-brd-gray-light-v2 g-rounded-5">
+                    <div class="media g-pa-12">
+                        <div class="media-body align-self-center">
+                            <img style="height: 35px;"
+                                 th:src="@{https://raw.githubusercontent.com/TrustWallet/tokens/master/images/} + ${#strings.toLowerCase(token.token.address)} + .png" />
+                            <span th:text="${token.token.name}"></span>
+                        </div>
+
+                        <div class="d-flex align-self-center g-width-20 g-ml-15">
+                            <div class="u-check-icon-radio-v5 g-pos-rel g-width-20 g-height-20"><i></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </label>
+        </div>
+</th:block>
+
+</html>

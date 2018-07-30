@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="scripts">
+
+
+    <!-- JS Global Compulsory -->
+    <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/assets/vendor/jquery-migrate/jquery-migrate.min.js}"></script>
+    <script th:src="@{/assets/vendor/jquery.easing/js/jquery.easing.js}"></script>
+    <script th:src="@{/assets/vendor/popper.min.js}"></script>
+    <script th:src="@{/assets/vendor/bootstrap/bootstrap.min.js}"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script th:src="@{/assets/vendor/hs-megamenu/src/hs.megamenu.js}"></script>
+    <script th:src="@{/assets/vendor/dzsparallaxer/dzsparallaxer.js}"></script>
+    <script th:src="@{/assets/vendor/dzsparallaxer/dzsscroller/scroller.js}"></script>
+    <script th:src="@{/assets/vendor/dzsparallaxer/advancedscroller/plugin.js}"></script>
+    <script th:src="@{/assets/vendor/chosen/chosen.jquery.js}"></script>
+    <script th:src="@{/assets/vendor/image-select/src/ImageSelect.jquery.js}"></script>
+    <script th:src="@{/assets/vendor/masonry/dist/masonry.pkgd.min.js}"></script>
+    <script th:src="@{/assets/vendor/slick-carousel/slick/slick.js}"></script>
+
+    <!-- JS Unify -->
+    <script th:src="@{/assets/js/hs.core.js}"></script>
+    <script th:src="@{/assets/js/components/hs.header.js}"></script>
+    <script th:src="@{/assets/js/helpers/hs.hamburgers.js}"></script>
+    <script th:src="@{/assets/js/components/hs.scroll-nav.js}"></script>
+    <script th:src="@{/assets/js/components/hs.go-to.js}"></script>
+    <script th:src="@{/assets/js/helpers/hs.height-calc.js}"></script>
+    <script th:src="@{/assets/js/components/hs.carousel.js}"></script>
+    <script th:src="@{/assets/js/components/hs.scroll-nav.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" ></script>
+    <script th:src="@{/assets/js/custom/notifications/websockets.js}"></script>
+    <script th:src="@{/assets/js/custom/notifications/notifications.js}"></script>
+
+    <!-- JS Custom -->
+    <script th:src="@{/assets/js/custom.js}"></script>
+
+    <script>
+		var m_explorer = $("meta[name=_explorerBaseUrl]");
+		var m_wallet = $("meta[name=_walletBaseUrl]");
+		var explorerBaseUrl = m_explorer.attr("content");
+		var walletBaseUrl = m_wallet.attr("content");
+    </script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+		$(document).on('ready', function () {
+			// initialization of HSMegaMenu plugin
+			$('.js-mega-menu').HSMegaMenu({
+				event: 'hover',
+				pageContainer: $('.container'),
+				breakpoint: 991
+			});
+		});
+    </script>
+
+    <script src="https://connect.trezor.io/4/connect.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <th:block th:replace="components/web3js :: footer"></th:block>
+
+    <div layout:fragment="footer-content" th:remove="tag"></div>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+		var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+		(function () {
+			var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+			s1.async = true;
+			s1.src = 'https://embed.tawk.to/5aab0f1c4b401e45400dc64b/default';
+			s1.charset = 'UTF-8';
+			s1.setAttribute('crossorigin', '*');
+			s0.parentNode.insertBefore(s1, s0);
+		})();
+    </script>
+    <!--End of Tawk.to Script-->
+
+</div>
+
+<div th:fragment="footTag">
+    <div class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">
+        <div class="container">
+            <div class="row">
+                <!-- Footer Content -->
+                <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
+                    <a class="d-block g-mb-20" th:href="@{/}">
+                        <img class="img-fluid" th:src="@{/assets/images/logo/logo-white-128x30.png}" alt="Logo" />
+                    </a>
+                </div>
+                <!-- End Footer Content -->
+
+
+                <!-- Footer Content -->
+                <div class="col-lg-6 col-md-6 g-mb-40 g-mb-0--lg">
+                    <div class="u-heading-v3-1 g-brd-white-opacity-0_3 g-mb-25">
+                        <h2 class="u-heading-v3__title h6 text-uppercase g-brd-primary">Useful Links</h2>
+                    </div>
+
+                    <nav class="text-uppercase1">
+                        <ul class="list-unstyled g-mt-minus-10 mb-0">
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                                <h4 class="h6 g-pr-20 mb-0">
+                                    <a class="g-color-white-opacity-0_8 g-color-white--hover"
+                                       th:href="@{/wallet/create}">Create Wallet</a>
+                                    <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                </h4>
+                            </li>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                                <h4 class="h6 g-pr-20 mb-0">
+                                    <a class="g-color-white-opacity-0_8 g-color-white--hover"
+                                       th:href="@{/wallet}">Access Wallet</a>
+                                    <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                </h4>
+                            </li>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                                <h4 class="h6 g-pr-20 mb-0">
+                                    <a class="g-color-white-opacity-0_8 g-color-white--hover" th:href="${@environment.getProperty('cloud.cinder.explorer.baseUrl') + '/blocks'}">Blocks</a>
+                                    <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                </h4>
+                            </li>
+                            <li class="g-pos-rel g-py-10">
+                                <h4 class="h6 g-pr-20 mb-0">
+                                    <a class="g-color-white-opacity-0_8 g-color-white--hover" th:href="${@environment.getProperty('cloud.cinder.explorer.baseUrl') + '/tx'}">Transactions</a>
+                                    <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                </h4>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- End Footer Content -->
+
+                <!-- Footer Content -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="u-heading-v3-1 g-brd-white-opacity-0_3 g-mb-25">
+                        <h2 class="u-heading-v3__title h6 text-uppercase g-brd-primary">Contact</h2>
+                    </div>
+
+                    <address class="g-bg-no-repeat g-line-height-2 g-mt-minus-4"
+                             style="background-image: url(/assets/img/maps/map2.png);">
+                        <br /><br />
+                        Blockchain
+                        <br /> Email: <a href="mailto:info@cinder.cloud" class="">info@cinder.cloud</a>
+                    </address>
+                </div>
+                <!-- End Footer Content -->
+            </div>
+        </div>
+    </div>
+    <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 text-center text-md-left g-mb-15 g-mb-0--md">
+                    <div class="d-lg-flex">
+                        <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md"><span
+                                th:text="${#dates.year(#dates.createNow())}"></span> © Cindercloud.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

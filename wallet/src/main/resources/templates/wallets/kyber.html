@@ -1,0 +1,217 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+    <style type="text/css">
+        #kyberApp .dropdown li {
+            border-bottom: 1px solid rgba(112, 128, 144, 0.1)
+        }
+
+        #kyberApp .dropdown li:last-child {
+            border-bottom: none;
+        }
+
+        #kyberApp .dropdown li a {
+            padding: 10px 20px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            font-size: 1.25em;
+        }
+
+        #kyberApp .dropdown li a .fa {
+            padding-right: 0.5em;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</div>
+
+<body>
+<div layout:fragment="main-content">
+    <div class="container g-pt-70 g-pb-30">
+        <div class="row">
+            <!-- Profile Settings -->
+            <div class="col-lg-3 g-mb-50">
+                <th:block th:replace="components/profile :: sidenav(active='kyber')"></th:block>
+            </div>
+            <!-- End Profile Settings -->
+
+            <!-- Wallet -->
+            <div class="col-lg-9 g-mb-50">
+                <div th:if="${warning != null}"
+                     class="alert alert-dismissible fade show g-bg-primary g-color-white rounded-0" role="alert">
+                    <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+
+                    <div class="media">
+                        <span class="d-flex g-mr-10 g-mt-5">
+                          <i class="icon-ban g-font-size-25"></i>
+                        </span>
+                        <span class="media-body align-self-center">
+                          <strong>Warning!</strong> <span th:text="${warning}"></span>
+                        </span>
+                    </div>
+                </div>
+                <div th:if="${success != null}"
+                     class="alert alert-dismissible fade show g-bg-primary g-color-white rounded-0" role="alert">
+                    <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+
+                    <div class="media">
+                        <span class="d-flex g-mr-10 g-mt-5">
+                          <i class="icon-ban g-font-size-25"></i>
+                        </span>
+                        <span class="media-body align-self-center">
+                          <strong>Success!</strong> <span th:text="${success}"></span>
+                        </span>
+                    </div>
+                </div>
+                <div th:if="${error != null}" class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0"
+                     role="alert">
+                    <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+
+                    <div class="media">
+                        <span class="d-flex g-mr-10 g-mt-5">
+                          <i class="icon-ban g-font-size-25"></i>
+                        </span>
+                        <span class="media-body align-self-center">
+                          <strong>Error!</strong> <span th:text="${error}"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <div id="kyberApp">
+                    <div v-cloak="v-cloak">
+                        <div v-if="authenticationType == 'WEB3'" class="g-brd-round g-brd-gray-light-v5 rounded">
+                            <div class="row">
+                                <div class="col col-md-5">
+                                    <h4>Source</h4>
+                                    <v-select :options="Object.values(tokens)" v-on:input="sourceUpdated"
+                                              v-model="source" label="name">
+                                        <template slot="option" slot-scope="option">
+                                            <img class="g-width-25 g-height-25 g-mr-15"
+                                                 :src="'https://raw.githubusercontent.com/TrustWallet/tokens/master/images/' + option.image.toLowerCase() + '.png'" />
+                                            {{option.symbol}} - {{ option.name }}
+                                        </template>
+                                    </v-select>
+                                    <div class="form-group g-mb-20">
+                                        <input v-model="sourceAmount" style="text-align: right;"
+                                               v-on:input="updateFromSource" id="sourceAmount"
+                                               class="form-control form-control-md rounded-0" type="number" />
+                                        <p class="pull-right">Address Balance {{ balance }} {{ source.symbol }}</p>
+                                    </div>
+                                </div>
+                                <div class="col col-md-2" style="text-align: center; margin-top: 40px;">
+                                    <i class="fa fa-exchange"></i>
+                                </div>
+                                <div class="col col-md-5">
+                                    <h4>Target</h4>
+                                    <v-select :options="targets" v-model="target" label="name">
+                                        <template slot="option" slot-scope="option">
+                                            <img class="g-width-25 g-height-25 g-mr-15"
+                                                 :src="'https://raw.githubusercontent.com/TrustWallet/tokens/master/images/' + option.image.toLowerCase() + '.png'" />
+                                            {{option.symbol}} - {{ option.name }}
+                                        </template>
+                                    </v-select>
+                                    <div class="form-group g-mb-20">
+                                        <input v-model="targetAmount" style="text-align: right;"
+                                               v-on:input="updateFromTarget" id="targetAmount"
+                                               class="form-control form-control-md rounded-0" type="number" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-md-12 text-center">
+                                    <p v-if="target">1 {{ source.symbol }} = {{ expectedRate }} {{ target.symbol }}</p>
+                                    <button href="#!" v-on:click="exchange"
+                                            class="btn btn-xl u-btn-teal u-btn-hover-v1-3 g-letter-spacing-0_5 text-uppercase g-rounded-50 g-px-30 g-mr-10 g-mb-15">
+  <span class="pull-left text-left">
+    Exchange
+  </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-md-12">
+                                    <div v-if="errorMessage"
+                                         class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0"
+                                         role="alert">
+
+                                        <div class="media">
+                        <span class="d-flex g-mr-10 g-mt-5">
+                          <i class="icon-ban g-font-size-25"></i>
+                        </span>
+                                            <span class="media-body align-self-center">
+                          <strong>Error!</strong> <span>{{errorMessage}}</span>
+                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col col-md-12 text-center">
+                                    <div v-if="warningMessage"
+                                         class="alert alert-dismissible fade show g-bg-orange g-color-white rounded-0"
+                                         role="alert">
+                                        <div class="media">
+                                            <span class="media-body align-self-center"><span>{{warningMessage}}</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="display: none;">
+                                    <div id="transactionConfirm" v-if="target !== null &amp;&amp; source !== null">
+                                        <h3>Are you sure?</h3>
+                                        <p>Are you sure you want to trade:</p>
+                                        <p>{{ sourceAmount }} {{ source.symbol }}</p>
+                                        <p>for</p>
+                                        <p>{{ targetAmount}} {{ target.symbol }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="authenticationType !== 'WEB3'" class="g-brd-round g-brd-gray-light-v5 rounded">
+
+
+                            <div class="row text-center">
+                                <div class="col-md-12">
+                                    <h1>Exchange</h1>
+                                    <h3 class="h5 mb-3">Unfortunately, our exchange feature is only available for people
+                                                        who
+                                                        logged in through web3 :(.</h3>
+                                    <p>We're working hard to allow everyone to be able to exchange directly from their
+                                       wallet.</p>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <img th:src="@{/assets/images/dogs/working-hard.gif}"
+                                         class="img-fluid u-shadow-v6 g-width-500 rounded" alt="dog working hard" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div layout:fragment="footer-content">
+    <input type="hidden" id="currentAddress" th:value="${address}" />
+    <input type="hidden" id="authenticationType" th:value="${authenticationType}" />
+
+    <script type="application/javascript" th:src="@{https://unpkg.com/vue-select@latest}"></script>
+    <script type="application/javascript" th:src="@{/assets/abi/abi.js}"></script>
+    <script type="application/javascript" th:src="@{/assets/ethereum/bignumber.min.js}"></script>
+    <script type="application/javascript" th:src="@{/assets/js/custom/exchange/kyber.js}"></script>
+</div>
+</body>
+</html>

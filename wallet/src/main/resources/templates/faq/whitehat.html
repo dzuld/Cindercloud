@@ -1,0 +1,355 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+    <link rel="stylesheet" th:href="@{/assets/vendor/icon-hs/style.css}" />
+</div>
+
+<body>
+<div layout:fragment="main-content">
+    <section class="breadcrumbs g-bg-gray-light-v5 g-py-50">
+        <div class="container">
+            <div class="d-sm-flex text-center">
+                <div class="align-self-center">
+                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Whitehat FAQ
+                    </h2>
+                </div>
+
+                <div class="align-self-center ml-auto">
+                    <ul class="u-list-inline">
+                        <li class="list-inline-item g-mr-5">
+                            <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">Whitehat</a>
+                            <i class="g-color-gray-light-v2 g-ml-5">/</i>
+                        </li>
+                        <li class="list-inline-item g-color-primary">
+                            <span>FAQ</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h1 style="display: none;">Ethereum Whitehat FAQ</h1>
+    <section class="container text-center g-pt-120 g-pb-30">
+        <h2 class="g-color-black g-font-weight-600 g-font-size-50 g-mb-70">Frequently Asked Questions</h2>
+        <ul class="list-inline mb-0">
+            <li class="list-inline-item g-brd-right g-brd-gray-light-v4 px-4 mx-0">
+                <a class="js-go-to g-color-gray-dark-v5 g-font-weight-600 text-uppercase g-text-underline--none--hover"
+                   href="#!" data-target="#whitehat">
+                    About Cindercloud Whitehat
+                </a>
+            </li>
+            <li class="list-inline-item g-brd-right g-brd-gray-light-v4 px-4 mx-0">
+                <a class="js-go-to g-color-gray-dark-v5 g-font-weight-600 text-uppercase g-text-underline--none--hover"
+                   href="#!" data-target="#redeem">
+                    Redeeming stolen funds
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <section class="container g-pb-100">
+        <div id="whitehat" class="u-shadow-v11 rounded g-py-100 g-mb-100">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Heading -->
+                    <div class="text-center g-mb-60">
+                        <h2 class="g-font-weight-600 text-uppercase mb-2">About Cindercloud Whitehat</h2>
+                    </div>
+                    <!-- End Heading -->
+
+                    <div id="accordion" class="u-accordion u-accordion-color-primary" role="tablist"
+                         aria-multiselectable="true">
+                        <!-- Card -->
+                        <div class="card g-brd-none rounded-0 g-mb-20">
+                            <div id="accordion-heading-01" class="g-brd-bottom g-brd-gray-light-v4 g-pa-0" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover rounded-0 g-px-30 g-py-20"
+                                       href="#accordion-body-01" data-toggle="collapse" data-parent="#accordion"
+                                       aria-expanded="false" aria-controls="accordion-body-01">
+                                        Why are we sweeping addresses?
+                                        <span class="u-accordion__control-icon">
+                          <i class="fa fa-angle-down"></i>
+                          <i class="fa fa-angle-up"></i>
+                        </span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="accordion-body-01" class="collapse" role="tabpanel"
+                                 aria-labelledby="accordion-heading-01">
+                                <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
+                                    Our application is constantly expanding its database with transactions, blocks,
+                                    addresses and statistics of the Ethereum blockchain.
+                                    <br />We noticed that quite some accounts got compromised and funds were being
+                                    stolen
+                                    on a daily basis.
+                                    <br /><br />
+                                    Because we have a lot of data on the blockchain, we're sometimes able to figure out
+                                    how accounts were compromised. Having this information, it happens
+                                    that we're able to have access to these credentials. As a security measure, <b>we're
+                                                                                                                   actively
+                                                                                                                   sweeping
+                                                                                                                   these
+                                                                                                                   accounts
+                                                                                                                   trying
+                                                                                                                   to be
+                                                                                                                   faster
+                                                                                                                   than
+                                                                                                                   malicious
+                                                                                                                   actors.</b>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Card -->
+
+                        <!-- Card -->
+                        <div class="card g-brd-none rounded-0 g-mb-20">
+                            <div id="accordion-heading-02" class="g-brd-bottom g-brd-gray-light-v4 g-pa-0" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover rounded-0 g-px-30 g-py-20"
+                                       href="#accordion-body-02" data-toggle="collapse" data-parent="#accordion"
+                                       aria-expanded="false" aria-controls="accordion-body-02">
+                                        How are we sweeping those addresses?
+                                        <span class="u-accordion__control-icon">
+                          <i class="fa fa-angle-down"></i>
+                          <i class="fa fa-angle-up"></i>
+                        </span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="accordion-body-02" class="collapse" role="tabpanel"
+                                 aria-labelledby="accordion-heading-02">
+                                <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
+                                    First of all we're constantly checking every address that we have credentials to in
+                                    our database to see if they have balance.
+                                    If one does, we initiate a transaction to one of our own accounts. <br />
+                                    <br /><br />
+                                    Our second modus operandi to try and beat malicious actors is to check pending and
+                                    fresh transactions to see if one of our compromised accounts
+                                    will receive or just received a balance. If it does, we sweep the account.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Card -->
+
+                        <!-- Card -->
+                        <div class="card g-brd-none rounded-0 g-mb-20">
+                            <div id="accordion-heading-04" class="g-brd-bottom g-brd-gray-light-v4 g-pa-0" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover rounded-0 g-px-30 g-py-20"
+                                       href="#accordion-body-04" data-toggle="collapse" data-parent="#accordion"
+                                       aria-expanded="false" aria-controls="accordion-body-04">
+                                        Is this stealing?
+                                        <span class="u-accordion__control-icon">
+                          <i class="fa fa-angle-down"></i>
+                          <i class="fa fa-angle-up"></i>
+                        </span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="accordion-body-04" class="collapse" role="tabpanel"
+                                 aria-labelledby="accordion-heading-03">
+                                <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
+                                    We're not stealing your funds. We're sweeping them to make sure no hacker can steal
+                                    them from you.
+                                    <b>If you're able to prove it was your account in the first place, we'll be
+                                       transferring them to a secure wallet.</b>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Card -->
+
+                        <!-- Card -->
+                        <div class="card g-brd-none rounded-0 g-mb-20">
+                            <div id="accordion-heading-03" class="g-brd-bottom g-brd-gray-light-v4 g-pa-0" role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover rounded-0 g-px-30 g-py-20"
+                                       href="#accordion-body-03" data-toggle="collapse" data-parent="#accordion"
+                                       aria-expanded="false" aria-controls="accordion-body-03">
+                                        What happens to these sweeped funds?
+                                        <span class="u-accordion__control-icon">
+                          <i class="fa fa-angle-down"></i>
+                          <i class="fa fa-angle-up"></i>
+                        </span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="accordion-body-03" class="collapse" role="tabpanel"
+                                 aria-labelledby="accordion-heading-03">
+                                <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
+                                    Sweeped funds are being stored in cold storage. If a user has proven ownership of
+                                    one of the compromised accounts - which can sometimes take some time -
+                                    he will be redeemed the sweeped funds.
+                                    <br /><br />
+                                    Sometimes funds will be moved around to a new cold storage, but there's nothing to
+                                    worry, we'll never sell your coins and will always have the equivalent of the stolen
+                                    funds in cold storage.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Card -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="redeem" class="u-shadow-v11 rounded g-py-100 g-mb-100">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Heading -->
+                    <div class="text-center g-mb-60">
+                        <h2 class="g-font-weight-600 text-uppercase mb-2">Redeeming stolen funds</h2>
+                    </div>
+                    <!-- End Heading -->
+
+                    <div id="accordion-redeem" class="u-accordion u-accordion-color-primary" role="tablist"
+                         aria-multiselectable="true">
+                        <!-- Card -->
+                        <div class="card g-brd-none rounded-0 g-mb-20">
+                            <div id="accordion-heading-01-redeem" class="g-brd-bottom g-brd-gray-light-v4 g-pa-0"
+                                 role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover rounded-0 g-px-30 g-py-20"
+                                       href="#accordion-body-01-redeem" data-toggle="collapse" data-parent="#accordion"
+                                       aria-expanded="false" aria-controls="accordion-body-01-redeem">
+                                        How can know it was Cindercloud that sweeped my funds?
+                                        <span class="u-accordion__control-icon">
+                          <i class="fa fa-angle-down"></i>
+                          <i class="fa fa-angle-up"></i>
+                        </span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="accordion-body-01-redeem" class="collapse" role="tabpanel"
+                                 aria-labelledby="accordion-heading-01">
+                                <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
+                                    At the moment, we're working on a page where a user can enter his address and email
+                                    and we'll investigate if cindercloud
+                                    sweeped the funds. However, as this is not available yet, we urge you to comment on
+                                    the <b>cindercloud address disqus page</b> or on <b>etherscan</b>.
+                                    <br /><br />
+                                    You can always contact us on <a target="_blank"
+                                                                    href="https://twitter.com/cindercloudapp">twitter</a>
+                                    or by shooting us an email too.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Card -->
+
+                        <!-- Card -->
+                        <div class="card g-brd-none rounded-0 g-mb-20">
+                            <div id="accordion-heading-02-redeem" class="g-brd-bottom g-brd-gray-light-v4 g-pa-0"
+                                 role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover rounded-0 g-px-30 g-py-20"
+                                       href="#accordion-body-02-redeem" data-toggle="collapse" data-parent="#accordion"
+                                       aria-expanded="false" aria-controls="accordion-body-02-redeem">
+                                        Why and how can I prove that I was the original owner?
+                                        <span class="u-accordion__control-icon">
+                          <i class="fa fa-angle-down"></i>
+                          <i class="fa fa-angle-up"></i>
+                        </span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="accordion-body-02-redeem" class="collapse" role="tabpanel"
+                                 aria-labelledby="accordion-heading-02-redeem">
+                                <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
+                                    First of all, after we've checked that it was us who sweeped your account, we'll be
+                                    asking a few questions depending on
+                                    the history of your account. If another account originally sent you funds, we'll ask
+                                    for a signed message from that address
+                                    or a <b>verification transactions to our account with 0 eth.</b>
+                                    <br />
+                                    If funds originated from an exchange, we'll need proof from the exchange that it was
+                                    you who initiated the transaction.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Card -->
+
+                        <!-- Card -->
+                        <div class="card g-brd-none rounded-0 g-mb-20">
+                            <div id="accordion-heading-03-redeem" class="g-brd-bottom g-brd-gray-light-v4 g-pa-0"
+                                 role="tab">
+                                <h5 class="mb-0">
+                                    <a class="collapsed d-flex justify-content-between g-color-main g-text-underline--none--hover rounded-0 g-px-30 g-py-20"
+                                       href="#accordion-body-03-redeem" data-toggle="collapse" data-parent="#accordion"
+                                       aria-expanded="false" aria-controls="accordion-body-03-redeem">
+                                        Why so many verification steps?
+                                        <span class="u-accordion__control-icon">
+                          <i class="fa fa-angle-down"></i>
+                          <i class="fa fa-angle-up"></i>
+                        </span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="accordion-body-03-redeem" class="collapse" role="tabpanel"
+                                 aria-labelledby="accordion-heading-03-redeem">
+                                <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
+                                    We first started with way less security measures, but after a few days, it because
+                                    quite clear that some people just tried to <b>act as if it was their compromised
+                                                                                  address</b>, effectively trying to
+                                    scam us.<br />
+                                    <br />
+                                    The only way we can reimburse the original owner is by knowing 100% sure that it
+                                    were his funds. If it's really you, I'm sure you'll
+                                    be able to prove how you acquired the funds.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Card -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<div layout:fragment="footer-content">
+
+    <script th:src="@{/assets/js/hs.core.js}"></script>
+    <script th:src="@{/assets/js/components/hs.tabs.js}"></script>
+    <script th:src="@{/assets/js/components/hs.header.js}"></script>
+    <script th:src="@{/assets/js/helpers/hs.hamburgers.js}"></script>
+    <script th:src="@{/assets/js/components/hs.go-to.js}"></script>
+
+    <script type="application/javascript">
+
+
+		$(document).on('ready', function () {
+			// initialization of tabs
+			$.HSCore.components.HSTabs.init('[role="tablist"]');
+
+			// initialization of go to
+			$.HSCore.components.HSGoTo.init('.js-go-to');
+		});
+
+		$(window).on('load', function () {
+			// initialization of header
+			$.HSCore.components.HSHeader.init($('#js-header'));
+			$.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+			// initialization of HSMegaMenu component
+			$('.js-mega-menu').HSMegaMenu({
+				event: 'hover',
+				pageContainer: $('.container'),
+				breakpoint: 991
+			});
+		});
+
+		$(window).on('resize', function () {
+			setTimeout(function () {
+				$.HSCore.components.HSTabs.init('[role="tablist"]');
+			}, 200);
+		});
+
+    </script>
+
+</div>
+</body>
+</html>

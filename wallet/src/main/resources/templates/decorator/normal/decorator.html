@@ -1,0 +1,40 @@
+<!DOCTYPE html >
+<!--[if IE 8]>
+<html lang="en" class="ie8"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+> <!--<![endif]-->
+
+<div th:replace="decorator/normal/head :: headTag"></div>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP5LV3P"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<main>
+
+    <th:block th:replace="decorator/normal/navigation :: topnavigation"></th:block>
+
+    <div layout:fragment="main-content" th:remove="tag"></div>
+
+    <th:block th:replace="decorator/normal/footer :: footTag"></th:block>
+    <th:block th:replace="decorator/normal/footer :: scripts"></th:block>
+</main>
+
+
+</body>
+</html>

@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Component
-@ConditionalOnBean(ParitySignatureRegistry.class)
 public class MethodSignatureService {
 
     private final ParitySignatureRegistryService paritySignatureRegistryService;

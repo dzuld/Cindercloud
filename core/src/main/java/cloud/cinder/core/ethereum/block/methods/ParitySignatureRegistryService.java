@@ -7,7 +7,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
-@ConditionalOnBean(ParitySignatureRegistry.class)
 public class ParitySignatureRegistryService {
 
     private final ParitySignatureRegistry paritySignatureRegistry;

@@ -2,6 +2,7 @@ package cloud.cinder.web;
 
 import cloud.cinder.common.CindercloudCommon;
 import cloud.cinder.common.infrastructure.IgnoreDuringComponentScan;
+import cloud.cinder.core.CindercloudCore;
 import cloud.cinder.ethereum.CindercloudEthereum;
 import cloud.cinder.vechain.CindercloudVechain;
 import lombok.extern.slf4j.Slf4j;
@@ -24,22 +25,32 @@ import org.springframework.cloud.netflix.ribbon.RibbonAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
+
 @EntityScan(basePackageClasses = {
         CindercloudCommon.class,
         CindercloudEthereum.class,
         CindercloudVechain.class,
-        CindercloudWeb.class
+        CindercloudCore.class
+
+})
+@EnableJpaRepositories(basePackageClasses = {
+        CindercloudCommon.class,
+        CindercloudEthereum.class,
+        CindercloudVechain.class,
+        CindercloudCore.class
 })
 @ComponentScan(
         basePackageClasses = {
                 CindercloudCommon.class,
                 CindercloudEthereum.class,
                 CindercloudVechain.class,
+                CindercloudCore.class,
                 CindercloudWeb.class
         },
         excludeFilters = {

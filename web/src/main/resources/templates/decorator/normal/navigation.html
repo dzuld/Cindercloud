@@ -31,12 +31,6 @@
                     <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--lg"
                          id="navBar">
                         <ul class="navbar-nav text-uppercase g-pos-rel g-font-weight-600 ml-auto">
-                            <!-- Intro -->
-                            <li class="nav-item active g-mx-10--lg g-mx-15--xl">
-                                <a th:href="@{/}" class="nav-link g-py-7 g-px-0">HOME</a>
-                            </li>
-
-
                             <li class="hs-has-sub-menu nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                                 data-animation-out="fadeOut">
                                 <a id="nav-link-pages" class="nav-link g-py-7 g-px-0" th:href="@{/vechain}" aria-haspopup="true"
@@ -91,10 +85,10 @@
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
                                     id="nav-submenu-wallet" aria-labelledby="nav-link-wallets">
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/wallet/create}">Create Wallet</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/wallet/create'}">Create Wallet</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/wallet}">Access Wallet</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/wallet'}">Access Wallet</a>
                                     </li>
                                 </ul>
 
@@ -110,13 +104,13 @@
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
                                     id="nav-submenu-wallet" aria-labelledby="nav-link-wallets">
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/services}">About us</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services'}">About us</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/services/smart-contract-development-and-security}">Development</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services/smart-contract-development-and-security'}">Development</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/services/smart-contract-development-and-security}">Security Review</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services/smart-contract-development-and-security'}">Security Review</a>
                                     </li>
                                 </ul>
 
@@ -132,13 +126,13 @@
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
                                     id="nav-submenu-tools" aria-labelledby="nav-link-tools">
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/contract}">Access Contract</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/contract'}">Access Contract</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/tools/converter}">Ethereum Unit Converter</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/tools/converter'}">Ethereum Unit Converter</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/tools/leaked}">Leaked Credentials</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/tools/leaked'}">Leaked Credentials</a>
                                     </li>
                                 </ul>
                             </li>
@@ -153,10 +147,10 @@
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
                                     id="nav-submenu-whitehat" aria-labelledby="nav-link-tools">
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/faq/whitehat}">Whitehat</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/faq/whitehat'}">Whitehat</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="@{/faq/how-to-create-a-wallet}">How to create a wallet</a>
+                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/faq/how-to-create-a-wallet'}">How to create a wallet</a>
                                     </li>
                                 </ul>
                             </li>
@@ -165,7 +159,7 @@
                     </div>
 
                     <th:block sec:authorize="isAnonymous()">
-                        <a th:href="@{/web3/login}" style="display: none;" href="#!"
+                        <a th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/web3/login'}" style="display: none;" href="#!"
                            class="clientSideWeb3Enabled btn btn-md u-btn-skew u-btn-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-rounded-50 g-mr-10 g-mb-15">
                             <span class="u-btn-skew__inner">
                               <i class="fa fa-check-circle g-mr-3"></i>
@@ -174,7 +168,7 @@
                         </a>
                     </th:block>
                     <th:block sec:authorize="isAuthenticated()">
-                        <a th:href="@{/logout}" href="#!"
+                        <a th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/logout'}" href="#!"
                            class="btn btn-md u-btn-orange g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-rounded-50 g-mr-10 g-mb-15">
                             <span>
                               <i class="fa fa-check-circle g-mr-3"></i>

@@ -7,20 +7,6 @@ cache:
   - ".autoconf"
   - "$HOME/.m2"
 script: mvn clean install
-deploy:
-  skip_cleanup: true
-  provider: releases
-  api_key:
-    secure: Uh/5o/LY6/dRV0HN+fHNCtqge/ZS6nnh5BDsH0a3rcMT3cvRsKAgLAf0bpDCDb80p/5UJW7BXFCQXSRSGuOv03bj5wIS3QH6iwq844IH9y6IP4izX3VkgMPgEV8dD10L/UUgigZWN6VJ5j3bC83CgfXZwhgeW2SalPuvqZpbBf8z8Uv0qdMC/XXkg6RTqi3jX0ZIv1TOqeanbYlSuQZUV6JN7MLzMmgPvuHfGVbRZ9Pz+biITTsUzjCKUYgL3VnG8iLqQDYphfr9xiE9myL99mN+TkMTQIUYldPVFatYKTtfoa/hIBVyMkynhEIUdr8O2ZHkLsL8BQSYqmQ9AUOWr2R+B8kT7EdnDQYiJV8QxkP+gsWdSp8DGXzCLWergdYsg4L0/LSV0WivAZXeCqYZ9Mhjgvp6Xhj144ry16+8Q1Zgd6YkMlb17pFRd5wELLnI5pEHlShV18KY7on3UZbAzUyBfSsl/MNlXJC2jW+Fq9qfwik58udXNPaHCYOMF/e/CoKPiEftvNWkJbaV2aTMdkQqlpQwapDPTvfvWKaRHefyRBy84Yn+C3MjssBbL8ld5tPnf/9Wnlsv3ESQ7Hmoww1Eov/nxA8tHss51G+43iqm2e/83a4TMoed+9cdaavIITP6FHdku5etURJLl13uWuwlvqtAFQ5K6brPv+wQHA8=
-  file:
-    - web/build/libs/web.jar
-    - importer/build/libs/importer.jar
-    - whitehat/build/libs/whitehat.jar
-  on:
-    repo: Cindercloud/Cindercloud
-    tags: true
-    branch: master
-
 after_success:
   - docker build -t cindercloud/web:"$TRAVIS_BRANCH" web
   - docker build -t cindercloud/whitehat:"$TRAVIS_BRANCH" whitehat

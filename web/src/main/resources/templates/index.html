@@ -87,10 +87,10 @@
 			};
 
 			const loadComponents = function () {
-				$.get('/?section=blocks', function (result) {
+				$.get('/ethereum/?section=blocks', function (result) {
 					$("#lastBlocks").html(result);
 				});
-				$.get('/?section=transactions', function (result) {
+				$.get('/ethereum/?section=transactions', function (result) {
 					$("#lastTransactions").html(result);
 				});
 			};

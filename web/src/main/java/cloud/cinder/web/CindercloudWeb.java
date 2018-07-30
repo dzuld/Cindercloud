@@ -31,7 +31,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
-
 @EntityScan(basePackageClasses = {
         CindercloudCommon.class,
         CindercloudEthereum.class,

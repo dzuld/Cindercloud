@@ -5,6 +5,8 @@ import cloud.cinder.vechain.importer.block.repository.VechainBlockRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Component
 public class VechainBlockService {
 
@@ -24,4 +26,5 @@ public class VechainBlockService {
     public void save(final VechainBlock vechainBlock) {
         vechainBlockRepository.save(vechainBlock);
     }
+
 }

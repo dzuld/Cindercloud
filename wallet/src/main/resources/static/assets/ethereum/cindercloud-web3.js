@@ -7,7 +7,6 @@ const CindercloudWeb3 = (function () {
 		if (typeof window.web3 !== 'undefined') {
 			_clientWeb3Enabled = true;
 			// Use Mist/MetaMask's provider
-			console.log("already had a web3");
 			_web3 = new Web3(window.web3.currentProvider);
 			$('.clientSideWeb3Enabled').show();
 			$('.clientSideWeb3Disabled').hide();
@@ -15,7 +14,6 @@ const CindercloudWeb3 = (function () {
 			_clientWeb3Enabled = false;
 			$('.clientSideWeb3Enabled').hide();
 			$('.clientSideWeb3Disabled').show();
-			console.log("no web3");
 		}
 		_globalWeb3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.fundrequest.io'));
 	})();

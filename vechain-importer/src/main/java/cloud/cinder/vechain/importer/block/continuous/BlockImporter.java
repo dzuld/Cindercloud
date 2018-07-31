@@ -8,39 +8,52 @@ import cloud.cinder.vechain.thorifyj.domain.ThorifyBlock;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Component
 @Slf4j
 @EnableScheduling
+@EnableAsync
 public class BlockImporter {
 
     private ThorifyjGateway thorifyjGateway;
     private VechainBlockService vechainBlockService;
     private QueueSender queueSender;
     private ObjectMapper objectMapper;
+    private HistoricBlockImporter historicBlockImporter;
 
     @Value("${cloud.cinder.queue.vechain-block-added}")
     private String blockAddedQueue;
 
+    @Value("${cloud.cinder.vechain.live-block-import:false}")
+    private boolean autoBlockImport;
+
     public BlockImporter(final ThorifyjGateway thorifyjGateway,
                          final VechainBlockService vechainBlockService,
                          final QueueSender queueSender,
-                         final ObjectMapper objectMapper) {
+                         final ObjectMapper objectMapper,
+                         final HistoricBlockImporter historicBlockImporter) {
         this.thorifyjGateway = thorifyjGateway;
         this.vechainBlockService = vechainBlockService;
         this.queueSender = queueSender;
         this.objectMapper = objectMapper;
+        this.historicBlockImporter = historicBlockImporter;
     }
 
-    @Value("${cloud.cinder.vechain.live-block-import:false}")
-    private boolean autoBlockImport;
 
-    @Scheduled(fixedRate = 5000)
+
+    @PostConstruct
+    public void init() {
+        historicBlockImporter.importHistoricBlocks();
+    }
+
+    @Scheduled(fixedRate = 1000)
     public void listenForBlocks() {
         if (autoBlockImport) {
             importNewestBlock();

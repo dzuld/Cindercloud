@@ -19,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 @RequestMapping(value = "/tx")
-public class TransactionController {
+public class EthereumTransactionController {
 
     @Autowired
     private TransactionService transactionService;

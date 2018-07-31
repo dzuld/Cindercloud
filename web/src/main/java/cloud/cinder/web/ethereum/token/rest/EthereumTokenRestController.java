@@ -12,11 +12,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/rest/tokens")
-public class TokenRestController {
+public class EthereumTokenRestController {
 
     private TokenService tokenService;
 
-    public TokenRestController(final TokenService tokenService) {
+    public EthereumTokenRestController(final TokenService tokenService) {
         this.tokenService = tokenService;
     }
 

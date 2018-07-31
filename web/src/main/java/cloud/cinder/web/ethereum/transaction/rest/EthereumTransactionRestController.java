@@ -12,7 +12,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping(value = "/rest/tx")
-public class TransactionRestController {
+public class EthereumTransactionRestController {
 
     @Autowired
     private TransactionService transactionService;

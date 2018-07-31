@@ -1,6 +1,15 @@
 version: '2'
 
 services:
+  cindercloud-redis:
+    image: redis:4.0
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker_data/redis:/data
+    networks:
+      - cindercloud
+    container_name: cindercloud-redis
   cindercloud-postgres:
     image: postgres:10.3
     ports:

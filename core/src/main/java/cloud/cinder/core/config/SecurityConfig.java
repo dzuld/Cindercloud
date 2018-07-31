@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://wallet.cinder.cloud", "https://cinder.cloud", "http://localhost:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("https://wallet.cinder.cloud", "https://cinder.cloud", "http://localhost:8080", "http://localhost:9090"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

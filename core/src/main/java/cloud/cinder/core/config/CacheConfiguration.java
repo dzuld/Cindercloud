@@ -1,28 +1,34 @@
 package cloud.cinder.core.config;
 
-import com.google.common.cache.CacheBuilder;
-import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCache;
-import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.concurrent.TimeUnit;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @EnableCaching
 public class CacheConfiguration {
 
-    @Bean
-    public ConcurrentMapCacheManager cacheManager() {
-        return new ConcurrentMapCacheManager() {
+    private final RedisSerializer serializer = new StringRedisSerializer();
 
-            @Override
-            protected Cache createConcurrentMapCache(final String name) {
-                return new ConcurrentMapCache(name,
-                        CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build().asMap(), false);
-            }
-        };
+    @Bean
+    RedisTemplate<Object, Object> redisTemplate(JedisConnectionFactory jedisConnectionFactory) {
+        RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(jedisConnectionFactory);
+        return redisTemplate;
     }
+
+    @Bean
+    public RedisCacheManager redisCacheManager(JedisConnectionFactory jedisConnectionFactory) {
+        RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate(jedisConnectionFactory));
+        redisCacheManager.setUsePrefix(true);
+        redisCacheManager.setCachePrefix(cacheName -> serializer.serialize((String.format("cc.%s:", cacheName))));
+        redisCacheManager.setDefaultExpiration(300);
+        return redisCacheManager;
+    }
+
 }

@@ -1,8 +1,8 @@
 package cloud.cinder.web.erc20.controller;
 
 import cloud.cinder.web.erc20.controller.model.NewCustomTokenModel;
-import cloud.cinder.web.erc20.service.CustomERC20Service;
-import cloud.cinder.web.wallet.service.AuthenticationService;
+import cloud.cinder.core.erc20.service.CustomERC20Service;
+import cloud.cinder.core.wallet.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

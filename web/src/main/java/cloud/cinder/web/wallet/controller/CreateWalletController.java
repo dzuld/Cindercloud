@@ -1,8 +1,8 @@
 package cloud.cinder.web.wallet.controller;
 
 import cloud.cinder.web.wallet.controller.command.create.CreateKeystoreCommand;
-import cloud.cinder.web.wallet.domain.GeneratedCredentials;
-import cloud.cinder.web.wallet.service.WalletService;
+import cloud.cinder.core.wallet.domain.GeneratedCredentials;
+import cloud.cinder.core.wallet.service.WalletService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

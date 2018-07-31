@@ -4,10 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import net.sargue.mailgun.Configuration;
 import net.sargue.mailgun.Mail;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
+@ConditionalOnBean(Configuration.class)
 public class MailService {
 
     private Configuration configuration;

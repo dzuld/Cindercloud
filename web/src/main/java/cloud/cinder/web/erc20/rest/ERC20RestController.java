@@ -1,7 +1,7 @@
 package cloud.cinder.web.erc20.rest;
 
-import cloud.cinder.web.token.service.TokenService;
-import cloud.cinder.web.wallet.service.AuthenticationService;
+import cloud.cinder.core.token.service.TokenService;
+import cloud.cinder.core.wallet.service.AuthenticationService;
 import cloud.cinder.ethereum.erc20.service.ERC20Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

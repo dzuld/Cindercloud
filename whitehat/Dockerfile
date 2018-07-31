@@ -1,7 +1,7 @@
 FROM frolvlad/alpine-oraclejdk8:slim
 
 VOLUME /tmp
-ADD build/libs/whitehat.jar whitehat.jar
+ADD target/whitehat-0.0.1-SNAPSHOT.jar whitehat.jar
 RUN sh -c 'touch /whitehat.jar' && \
     mkdir config
 

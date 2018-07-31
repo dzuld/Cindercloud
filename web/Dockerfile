@@ -1,7 +1,7 @@
 FROM frolvlad/alpine-oraclejdk8:slim
 
 VOLUME /tmp
-ADD build/libs/web.jar web.jar
+ADD target/web-0.0.1-SNAPSHOT.jar web.jar
 RUN sh -c 'touch /web.jar' && \
     mkdir config
 

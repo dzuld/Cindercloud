@@ -4,15 +4,14 @@ auth0.properties
 application-production.yml
 application-dev.yml
 
-web/build/
-web/out/
-
-
 
 .idea
 out/
 
 build/
+target/
+
+*.iml
 
 .gradle
 common/docker_data

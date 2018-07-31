@@ -1,10 +1,10 @@
 package cloud.cinder.web.wallet.controller;
 
-import cloud.cinder.web.security.domain.AuthenticationType;
-import cloud.cinder.web.wallet.controller.command.confirm.ConfirmEtherTransactionCommand;
+import cloud.cinder.core.security.domain.AuthenticationType;
+import cloud.cinder.core.wallet.service.command.ConfirmEtherTransactionCommand;
 import cloud.cinder.web.wallet.controller.command.create.CreateEtherTransactionCommand;
-import cloud.cinder.web.wallet.service.AuthenticationService;
-import cloud.cinder.web.wallet.service.Web3TransactionService;
+import cloud.cinder.core.wallet.service.AuthenticationService;
+import cloud.cinder.core.wallet.service.Web3TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;

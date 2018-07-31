@@ -1,6 +1,6 @@
 package cloud.cinder.web.token.controller;
 
-import cloud.cinder.web.token.service.TokenService;
+import cloud.cinder.core.token.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;

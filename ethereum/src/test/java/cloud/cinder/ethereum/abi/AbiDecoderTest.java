@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 public class AbiDecoderTest {
 
     private AbiDecoder decoder = new AbiDecoder();

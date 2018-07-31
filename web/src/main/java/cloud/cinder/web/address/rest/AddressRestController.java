@@ -1,6 +1,6 @@
 package cloud.cinder.web.address.rest;
 
-import cloud.cinder.web.address.service.AddressService;
+import cloud.cinder.core.address.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

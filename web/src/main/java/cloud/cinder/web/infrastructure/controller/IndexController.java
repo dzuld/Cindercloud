@@ -1,13 +1,13 @@
 package cloud.cinder.web.infrastructure.controller;
 
-import cloud.cinder.web.block.service.BlockService;
-import cloud.cinder.web.coinmarketcap.dto.Currency;
-import cloud.cinder.web.coinmarketcap.service.PriceService;
+import cloud.cinder.core.ethereum.block.service.BlockService;
+import cloud.cinder.core.coinmarketcap.dto.Currency;
+import cloud.cinder.core.coinmarketcap.service.PriceService;
 import cloud.cinder.common.event.domain.EventType;
-import cloud.cinder.web.event.service.EventService;
-import cloud.cinder.web.login.service.LoginEventService;
-import cloud.cinder.web.token.service.TokenService;
-import cloud.cinder.web.transaction.service.TransactionService;
+import cloud.cinder.core.event.service.EventService;
+import cloud.cinder.core.login.service.LoginEventService;
+import cloud.cinder.core.token.service.TokenService;
+import cloud.cinder.core.transaction.service.TransactionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,11 +39,16 @@ public class IndexController {
     }
 
     @GetMapping("/ethereum")
-    public String index(final ModelMap modelMap) {
+    public String ethereum(final ModelMap modelMap) {
         modelMap.put("ethPriceUsd", priceService.getPriceAsString(Currency.USD));
         modelMap.put("ethPriceEur", priceService.getPriceAsString(Currency.EUR));
         modelMap.put("lastBlock", blockService.getLastBlock().toBlocking().first().getBlockNumber().longValue());
         return "index";
+    }
+
+    @GetMapping("/vechain")
+    public String vechain() {
+        return "redirect:/vechain/blocks";
     }
 
     @GetMapping("/")

@@ -12,7 +12,7 @@ public class EthereumSweeperTest {
     private EthereumSweeper sweeper;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         sweeper = new EthereumSweeper();
     }
 

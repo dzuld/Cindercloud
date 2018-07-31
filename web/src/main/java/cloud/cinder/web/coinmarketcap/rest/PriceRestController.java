@@ -1,7 +1,7 @@
 package cloud.cinder.web.coinmarketcap.rest;
 
-import cloud.cinder.web.coinmarketcap.dto.Currency;
-import cloud.cinder.web.coinmarketcap.service.PriceService;
+import cloud.cinder.core.coinmarketcap.dto.Currency;
+import cloud.cinder.core.coinmarketcap.service.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

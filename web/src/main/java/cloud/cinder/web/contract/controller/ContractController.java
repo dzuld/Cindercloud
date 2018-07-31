@@ -2,7 +2,7 @@ package cloud.cinder.web.contract.controller;
 
 import cloud.cinder.ethereum.abi.AbiDecoder;
 import cloud.cinder.ethereum.abi.domain.AbiContractFunction;
-import cloud.cinder.web.address.service.AddressService;
+import cloud.cinder.core.address.service.AddressService;
 import cloud.cinder.web.contract.controller.command.AccessContractCommand;
 import cloud.cinder.web.contract.controller.command.GenerateUICommand;
 import org.springframework.stereotype.Controller;

@@ -1,0 +1,35 @@
+spring:
+    application:
+        name: Cindercloud-importer
+    datasource:
+        url: jdbc:postgresql://localhost:5432/cindercloud
+        username: cindercloud
+        password: cindercloud
+        driver-class-name: org.postgresql.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+          validation-timeout: 3000
+          minimum-idle: 2
+          idle-timeout: 10000
+          maximum-pool-size: 6
+    rabbitmq:
+      password: xxx
+      username: cindercloud-worker
+      virtual-host: cindercloud
+      host: cindercloud-rabbitmq
+      port: 5672
+      listener:
+        simple:
+          concurrency: 10
+#logging
+logging:
+  level:
+    org:
+      springframework: info
+    cloud:
+      cinder: DEBUG
+
+cloud:
+  cinder:
+    transactions:
+      historic-threshold: 500000

@@ -1,7 +1,7 @@
 package cloud.cinder.web.wallet.controller;
 
-import cloud.cinder.web.login.handler.LoginHandler;
-import cloud.cinder.web.wallet.service.WalletService;
+import cloud.cinder.core.login.handler.LoginHandler;
+import cloud.cinder.core.wallet.service.WalletService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

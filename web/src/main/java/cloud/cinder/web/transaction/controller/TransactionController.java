@@ -1,6 +1,6 @@
 package cloud.cinder.web.transaction.controller;
 
-import cloud.cinder.web.transaction.service.TransactionService;
+import cloud.cinder.core.transaction.service.TransactionService;
 import cloud.cinder.ethereum.parity.domain.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

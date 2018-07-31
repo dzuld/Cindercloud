@@ -1,12 +1,12 @@
 package cloud.cinder.web.wallet.controller;
 
-import cloud.cinder.web.login.handler.LoginHandler;
+import cloud.cinder.core.login.handler.LoginHandler;
 import cloud.cinder.web.wallet.controller.command.login.KeystoreLoginCommand;
 import cloud.cinder.web.wallet.controller.command.login.MnemonicLoginCommand;
 import cloud.cinder.web.wallet.controller.command.login.PrivateKeyLoginCommand;
 import cloud.cinder.web.wallet.controller.command.mnemonic.MnemonicAddressesRequest;
 import cloud.cinder.web.wallet.controller.dto.MnemonicAddressDto;
-import cloud.cinder.web.wallet.service.WalletService;
+import cloud.cinder.core.wallet.service.WalletService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.stereotype.Controller;

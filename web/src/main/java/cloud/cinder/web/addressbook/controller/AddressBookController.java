@@ -1,12 +1,12 @@
 package cloud.cinder.web.addressbook.controller;
 
-import cloud.cinder.web.address.service.AddressService;
+import cloud.cinder.core.address.service.AddressService;
 import cloud.cinder.web.addressbook.controller.model.NewContactModel;
 import cloud.cinder.web.addressbook.controller.vo.ContactVO;
-import cloud.cinder.web.addressbook.service.AddressBookService;
-import cloud.cinder.web.coinmarketcap.dto.Currency;
-import cloud.cinder.web.coinmarketcap.service.PriceService;
-import cloud.cinder.web.wallet.service.AuthenticationService;
+import cloud.cinder.core.addressbook.service.AddressBookService;
+import cloud.cinder.core.coinmarketcap.dto.Currency;
+import cloud.cinder.core.coinmarketcap.service.PriceService;
+import cloud.cinder.core.wallet.service.AuthenticationService;
 import cloud.cinder.ethereum.util.EthUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.ocpsoft.prettytime.PrettyTime;

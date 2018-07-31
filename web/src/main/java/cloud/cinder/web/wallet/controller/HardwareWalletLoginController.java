@@ -1,7 +1,7 @@
 package cloud.cinder.web.wallet.controller;
 
-import cloud.cinder.web.login.handler.LoginHandler;
-import cloud.cinder.web.trezor.TrezorVerificationService;
+import cloud.cinder.core.login.handler.LoginHandler;
+import cloud.cinder.core.trezor.TrezorVerificationService;
 import cloud.cinder.web.wallet.controller.command.login.TrezorLoginCommand;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

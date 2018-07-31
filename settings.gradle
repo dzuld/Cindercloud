@@ -1,7 +1,0 @@
-rootProject.name = theName
-
-include 'web'
-include 'importer'
-include 'whitehat'
-include 'common'
-include 'ethereum'

@@ -1,0 +1,165 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+    <title>VeChain Blocks | Cindercloud</title>
+    <meta name="description" content="An overview of all VeChain blocks" />
+</div>
+
+<body>
+<div layout:fragment="main-content">
+    <section class="breadcrumbs g-bg-gray-light-v5 g-py-50">
+        <div class="container">
+            <div class="d-sm-flex text-center">
+                <div class="align-self-center">
+                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">VeChain Blocks</h2>
+                </div>
+
+                <div class="align-self-center ml-auto">
+                    <ul class="u-list-inline">
+                        <li class="list-inline-item g-mr-5">
+                            <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">VeChain</a>
+                            <i class="g-color-gray-light-v2 g-ml-5">/</i>
+                        </li>
+                        <li class="list-inline-item g-color-primary">
+                            <span>Blocks</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll loaded dzsprx-readyall"
+             data-options="{direction: &quot;reverse&quot;, settings_mode_oneelement_max_offset: &quot;150&quot;}">
+        <!-- Parallax Image -->
+        <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-white-gradient-opacity-v2--after"
+             style="height: 100%; background-image: url(&quot;/assets/images/bg1.jpeg&quot;);"></div>
+        <!-- End Parallax Image -->
+
+        <div class="container text-center g-py-50--md g-py-30">
+
+            <!-- Search Form -->
+            <form class="g-width-60x--md mx-auto" th:action="@{/vechain/blocks}">
+                <div class="form-group g-mb-20">
+                    <div class="input-group u-shadow-v21 rounded g-mb-15">
+                        <input name="q"
+                               class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15"
+                               type="text" placeholder="Search for Blocks (hashes or heights)" />
+                        <div class="input-group-addon d-flex align-items-center g-bg-white g-brd-white g-color-gray-light-v1 g-pa-2">
+                            <button class="btn u-btn-primary g-font-size-16 g-py-15 g-px-20" type="submit">
+                                <i class="icon-magnifier g-pos-rel g-top-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- End Search Form -->
+        </div>
+    </section>
+
+    <section class="container g-pt-12 g-pb-30">
+
+        <h1 style="display: none;">Vechain Blocks Overview</h1>
+
+        <br />
+        <div class="row g-pb-30">
+
+            <div class="col-md-12">
+
+                <nav class="text-center" aria-label="Page Navigation">
+                    <ul class="list-inline">
+                        <li th:if="${blocks.hasPrevious()}" class="list-inline-item float-sm-left">
+                            <a th:href="@{/vechain/blocks(page=${blocks.number-1}, q=${q}, mined_by=${mined_by})}"
+                               class="u-pagination-v1__item g-brd-around g-color-primary g-brd-gray-light-v3 g-bg-gray-dark-v2--hover g-brd-gray-dark-v2--hover g-color-white--hover g-rounded-50 g-pa-7-16"
+                               href="#" aria-label="Previous">
+        <span aria-hidden="true">
+          <i class="fa fa-angle-left g-mr-5"></i>
+          Previous
+        </span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+
+                        <li th:if="${blocks.hasNext()} " class="list-inline-item float-sm-right">
+                            <a th:href="@{/vechain/blocks(page=${blocks.number+1}, q=${q}, mined_by=${mined_by})}"
+                               class="u-pagination-v1__item g-brd-around g-color-primary g-brd-gray-light-v3 g-bg-gray-dark-v2--hover g-brd-gray-dark-v2--hover g-color-white--hover g-rounded-50 g-pa-7-16"
+                               href="#" aria-label="Next">
+        <span aria-hidden="true">
+          Next
+          <i class="fa fa-angle-right g-ml-5"></i>
+        </span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Height</th>
+                            <th>Hash</th>
+                            <th>Age</th>
+                            <th>Miner</th>
+                            <th>Gas Used</th>
+                            <th>Gas Limit</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="block : ${blocks}">
+                            <td><a th:href="@{/vechain/blocks/} + ${block.id}"><span th:text="${block.number}"></span></a>
+                            </td>
+                            <td><span th:text="${block.prettyHash()}"></span></td>
+                            <td><span th:text="${block.prettyTimestamp()}"></span></td>
+                            <td>
+                                <a th:href="@{'/address/' + ${block.signer}}"><span
+                                        th:text="${block.prettySigner()}"></span></a>
+                            </td>
+                            <td>
+                                <span th:text="${block.gasUsed}"></span> <b>(
+                                <span th:text="${block.gasUsedPercentage()}"></span>)</b>
+                            </td>
+                            <td>
+                                <span th:text="${block.gasLimit}"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div layout:fragment="footer-content">
+    <!-- JS Implementing Plugins -->
+    <script th:src="@{/assets/vendor/appear.js}"></script>
+
+    <!-- JS Unify -->
+    <script th:src="@{/assets/js/components/hs.counter.js}"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script th:src="@{/assets/vendor/circles/circles.min.js}"></script>
+
+    <!-- JS Unify -->
+    <script th:src="@{/assets/js/components/hs.chart-pie.js}"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+		$(document).on('ready', function () {
+			// initialization of counters
+			var counters = $.HSCore.components.HSCounter.init('[class*="js-counter"]', {time: 1000});
+			var items = $.HSCore.components.HSChartPie.init('.js-pie');
+		});
+    </script>
+
+</div>
+</body>
+</html>

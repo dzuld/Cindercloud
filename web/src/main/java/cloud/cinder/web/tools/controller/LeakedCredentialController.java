@@ -1,7 +1,7 @@
 package cloud.cinder.web.tools.controller;
 
 import cloud.cinder.web.tools.controller.command.CheckLeakedCredentialsCommand;
-import cloud.cinder.web.tools.service.LeakedCredentialService;
+import cloud.cinder.core.tools.service.LeakedCredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

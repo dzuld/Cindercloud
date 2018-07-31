@@ -35,17 +35,28 @@ public class EthereumSweeper {
     @Value("${cloud.cinder.whitehat.address}")
     private String whitehatAddress;
 
-    @Value("${cloud.cinder.whitehat.gasPrice}")
-    private Long gasPrice;
+    @Value("${cloud.cinder.whitehat.tiny-gas-price}")
+    private Long tinyGasPrice;
+    @Value("${cloud.cinder.whitehat.low-gas-price}")
+    private Long lowGasPrice;
+    @Value("${cloud.cinder.whitehat.medium-gas-price}")
+    private Long mediumGasPrice;
+    @Value("${cloud.cinder.whitehat.high-gas-price}")
+    private Long highGasPrice;
 
-    private BigInteger GAS_PRICE;
+    private BigInteger TINY_GAS_PRICE;
+    private BigInteger LOW_GAS_PRICE;
+    private BigInteger MEDIUM_GAS_PRICE;
+    private BigInteger HIGH_GAS_PRICE;
 
 
     @PostConstruct
     public void init() {
-        this.GAS_PRICE = BigInteger.valueOf(gasPrice);
+        this.TINY_GAS_PRICE = BigInteger.valueOf(tinyGasPrice);
+        this.LOW_GAS_PRICE = BigInteger.valueOf(lowGasPrice);
+        this.MEDIUM_GAS_PRICE = BigInteger.valueOf(mediumGasPrice);
+        this.HIGH_GAS_PRICE = BigInteger.valueOf(highGasPrice);
     }
-
 
     public void sweep(final String privateKey) {
         try {
@@ -54,7 +65,7 @@ public class EthereumSweeper {
 
             web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
                     .filter(Objects::nonNull)
-                    .subscribe(balanceFetched(keypair, GAS_PRICE));
+                    .subscribe(balanceFetched(keypair));
         } catch (final Exception ex) {
             log.error("something went wrong while trying sweep {}: {}", privateKey, ex.getMessage());
             if (ex.getMessage().contains("timeout")) {
@@ -63,38 +74,50 @@ public class EthereumSweeper {
         }
     }
 
-    private void sweepWithHigherGasPrice(final BigInteger privateKey, final BigInteger newGasPrice) {
-        try {
-            final ECKeyPair keypair = ECKeyPair.create(privateKey);
-            final String address = Keys.getAddress(keypair);
+//    private void sweepWithHigherGasPrice(final BigInteger privateKey, final BigInteger newGasPrice) {
+//        try {
+//            final ECKeyPair keypair = ECKeyPair.create(privateKey);
+//            final String address = Keys.getAddress(keypair);
+//
+//            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
+//                    .filter(Objects::nonNull)
+//                    .subscribe(balanceFetched(keypair, newGasPrice));
+//        } catch (final Exception ex) {
+//            log.error("something went wrong while trying to resubmit with higher gas price {}: {}", privateKey, ex.getMessage());
+//        }
+//    }
 
-            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
-                    .filter(Objects::nonNull)
-                    .subscribe(balanceFetched(keypair, newGasPrice));
-        } catch (final Exception ex) {
-            log.error("something went wrong while trying to resubmit with higher gas price {}: {}", privateKey, ex.getMessage());
+    private BigInteger calculateOptimalGasPrice(final BigInteger balance) {
+        if (balance.compareTo(HIGH_GAS_PRICE.multiply(ETHER_TRANSACTION_GAS_LIMIT)) >= 0) {
+            return HIGH_GAS_PRICE;
+        }
+        if (balance.compareTo(MEDIUM_GAS_PRICE.multiply(ETHER_TRANSACTION_GAS_LIMIT)) >= 0) {
+            return MEDIUM_GAS_PRICE;
+        }
+        if (balance.compareTo(LOW_GAS_PRICE.multiply(ETHER_TRANSACTION_GAS_LIMIT)) >= 0) {
+            return LOW_GAS_PRICE;
+        }
+        if (balance.compareTo(TINY_GAS_PRICE.multiply(ETHER_TRANSACTION_GAS_LIMIT)) >= 0) {
+            return TINY_GAS_PRICE;
+        } else {
+            return BigInteger.ZERO;
         }
     }
 
-    private Action1<EthGetBalance> balanceFetched(final ECKeyPair keyPair, final BigInteger gasPrice) {
+
+    private Action1<EthGetBalance> balanceFetched(final ECKeyPair keyPair) {
         return balance -> {
             if (balance.getBalance().longValue() != 0L) {
 
+                final BigInteger gasPrice = calculateOptimalGasPrice(balance.getBalance());
+                if (!gasPrice.equals(BigInteger.ZERO)) {
 
-                //if balance is more than gasCost
-                final BigInteger gasCost = gasPrice.multiply(ETHER_TRANSACTION_GAS_LIMIT);
-                if (balance.getBalance().compareTo(gasCost) >= 0) {
-
-                    final BigInteger priority = calculatePriority(balance.getBalance(), gasCost);
-
-                    final BigInteger actualGasPrice = priority.multiply(gasPrice);
-
-                    log.trace("[Sweeper] {} has a balance of about {}", Keys.getAddress(keyPair), EthUtil.format(balance.getBalance()));
+                    log.debug("[Sweeper] {} has a balance of about {}", Keys.getAddress(keyPair), EthUtil.format(balance.getBalance()));
 
                     final EthGetTransactionCount transactionCount = calculateNonce(keyPair);
 
                     if (transactionCount != null) {
-                        final RawTransaction etherTransaction = generateTransaction(balance, transactionCount, actualGasPrice);
+                        final RawTransaction etherTransaction = generateTransaction(balance, transactionCount, gasPrice);
 
                         final byte[] signedMessage = sign(keyPair, etherTransaction);
                         final String signedMessageAsHex = prettify(Hex.toHexString(signedMessage));
@@ -104,9 +127,9 @@ public class EthereumSweeper {
                                 log.info("txHash: {}", send.getTransactionHash());
                                 mailService.send("Saved funds from compromised wallet!", "Hi Admin,\nWe just saved " + EthUtil.format(balance.getBalance()).toString() + " from a compromised wallet[" + prettify(Keys.getAddress(keyPair) + "].\nKind regards,\nCindercloud"));
                             } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("already imported")) {
-                                sweepWithHigherGasPrice(keyPair.getPrivateKey(), actualGasPrice.multiply(BigInteger.valueOf(2)));
+                                log.debug("already imported");
                             } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("with same nonce")) {
-                                sweepWithHigherGasPrice(keyPair.getPrivateKey(), actualGasPrice.multiply(BigInteger.valueOf(12).divide(BigInteger.TEN)));
+                                log.debug("same nonce already available");
                             } else {
                                 if (send.getError() != null) {
                                     log.debug("Unable to send: {}", send.getError().getMessage());

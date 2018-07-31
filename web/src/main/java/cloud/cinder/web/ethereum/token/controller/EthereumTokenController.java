@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/tokens")
-public class TokenListController {
+public class EthereumTokenController {
 
-    @Autowired
     private TokenService tokenService;
+
+    public EthereumTokenController(final TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(final ModelMap modelMap) {

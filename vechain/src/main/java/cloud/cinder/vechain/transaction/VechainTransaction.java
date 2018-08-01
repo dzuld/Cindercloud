@@ -55,6 +55,9 @@ public class VechainTransaction {
         return id.substring(0, 66) + "";
     }
 
+    public String prettyFromAddress() {
+        return origin.substring(0, 18) + "...";
+    }
 
     public static VechainTransaction of(final ThorifyTransaction thorifyTransaction) {
         return VechainTransaction
@@ -73,5 +76,17 @@ public class VechainTransaction {
                 .dependsOn(thorifyTransaction.getDependsOn())
                 .size(thorifyTransaction.getSize())
                 .build();
+    }
+
+    public Direction direction(final String address) {
+        if (origin.equals(address)) {
+            return Direction.OUT;
+        } else {
+            return Direction.IN;
+        }
+    }
+
+    public enum Direction {
+        IN, OUT
     }
 }

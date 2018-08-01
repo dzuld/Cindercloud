@@ -1,0 +1,290 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+</div>
+
+<body>
+<div layout:fragment="main-content">
+
+    <h1 style="display: none;">Ethereum Transaction: <span th:text="${tx.hash}"></span></h1>
+
+    <section class="breadcrumbs g-bg-gray-light-v5 g-py-50">
+        <div class="container">
+            <div class="d-sm-flex text-center">
+                <div class="align-self-center">
+                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Transaction
+                        <small class="h5 g-font-weight-100"
+                               style="word-wrap: break-word;"
+                               th:text="${tx.hash}"></small>
+                    </h2>
+                </div>
+
+                <div class="align-self-center ml-auto">
+                    <ul class="u-list-inline">
+                        <li class="list-inline-item g-mr-5">
+                            <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">Home</a>
+                            <i class="g-color-gray-light-v2 g-ml-5">/</i>
+                        </li>
+                        <li class="list-inline-item g-mr-5">
+                            <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">Transactions</a>
+                            <i class="g-color-gray-light-v2 g-ml-5">/</i>
+                        </li>
+                        <li class="list-inline-item g-color-primary">
+                            <span>transaction</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container g-pt-10 g-pb-30">
+
+        <!-- Nav tabs -->
+        <ul class="nav u-nav-v8-1" role="tablist" data-target="nav-8-1-default-hor-left"
+            data-tabs-mobile-type="slide-up-down"
+            data-btn-classes="btn btn-md btn-block rounded-0 u-btn-outline-lightgray">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#transactionInformation" role="tab">
+      <span class="u-nav-v8__icon u-icon-v3 u-icon-size--lg g-rounded-50x g-brd-around g-brd-4 g-brd-white">
+        <i class="fa fa-binoculars"></i>
+      </span>
+                    <strong class="text-uppercase u-nav-v8__title">Information</strong>
+                    <em class="u-nav-v8__description">General information about this transaction.</em>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#transactionComments" role="tab">
+      <span class="u-nav-v8__icon u-icon-v3 u-icon-size--lg g-rounded-50x g-brd-around g-brd-4 g-brd-white">
+        <i class="fa fa-comments-o"></i>
+      </span>
+                    <strong class="text-uppercase u-nav-v8__title">Comments</strong>
+                    <em class="u-nav-v8__description">Join the conversation.</em>
+                </a>
+            </li>
+        </ul>
+        <!-- End Nav tabs -->
+
+        <!-- Tab panes -->
+        <div id="nav-8-1-default-hor-left" class="tab-content g-pt-20">
+            <div class="tab-pane fade show active" id="transactionInformation" role="tabpanel">
+
+                <div class="row text-center text-uppercase">
+                    <div class="col-lg-2 col-sm-12 g-mb-20">
+                        <div class="g-brd-around g-brd-blue g-pa-20">
+                            <div class="g-font-size-16 g-font-weight-300 g-mb-7" th:text="${tx.formattedValue()}">87904
+                            </div>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Value</h4>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-sm-6 g-mb-50">
+                        <div class="g-brd-around g-brd-orange g-pa-20">
+                            <a th:href="@{/address/} + ${tx.fromAddress}">
+                                <div th:if="${tx.specialFrom == null}" class="g-font-size-16 g-font-weight-300 g-mb-7"
+                                     style="word-wrap: break-word;"
+                                     th:text="${tx.fromAddress}">from
+                                </div>
+                                <div th:unless="${tx.specialFrom == null}"
+                                     class="g-font-size-16 g-font-weight-300 g-mb-7" th:text="${tx.specialFrom.name}">
+                                    from
+                                </div>
+                            </a>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">FROM</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 col-sm-6 g-mb-50">
+                        <div class="g-brd-around g-brd-primary g-pa-20">
+                            <a th:href="@{/address/} + ${tx.toAddress}" th:unless="${tx.isContractCreation()}">
+                                <div th:if="${tx.specialTo == null}" class="g-font-size-16 g-font-weight-300 g-mb-7"
+                                     style="word-wrap: break-word;"
+                                     th:text="${tx.toAddress}">87904
+                                </div>
+                                <div th:unless="${tx.specialTo == null}" class="g-font-size-16 g-font-weight-300 g-mb-7"
+                                     th:text="${tx.specialTo}">87904
+                                </div>
+                            </a>
+                            <a th:href="@{/address/} + ${tx.creates}" th:if="${tx.isContractCreation()}">
+                                <div th:if="${tx.specialTo == null}" class="g-font-size-16 g-font-weight-300 g-mb-7"
+                                     th:text="${tx.creates}">87904
+                                </div>
+                                <div th:unless="${tx.specialTo == null}" class="g-font-size-16 g-font-weight-300 g-mb-7"
+                                     th:text="${tx.specialTo}">87904
+                                </div>
+                            </a>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">TO</h4>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row text-center text-uppercase">
+                    <div class="col-lg-4 col-sm-6 g-mb-50">
+                        <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
+                            <div class=" g-font-size-25 g-font-weight-300 g-mb-7" th:text="${tx.formattedGasPrice()}">
+                                52147
+                            </div>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Gas Price</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 g-mb-50">
+                        <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
+                            <div class=" g-font-size-25 g-font-weight-300 g-mb-7"
+                                 th:text="${tx.gas}">24583
+                            </div>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Gas</h4>
+                        </div>
+                    </div>
+
+                    <div class="d-none d-lg-inline-block col-lg-2 col-sm-6 g-mb-50">
+                        <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
+                            <div class=" g-font-size-35 g-font-weight-300 g-mb-7"
+                                 th:text="${tx.nonce}">7348
+                            </div>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Nonce</h4>
+                        </div>
+                    </div>
+
+                    <div class="d-none d-lg-inline-block col-lg-3 g-mb-50">
+                        <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
+                            <div class=" g-font-size-35 g-font-weight-300 g-mb-7"
+                                 th:text="${tx.transactionIndex}">7348
+                            </div>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Tx-index</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-center text-uppercase">
+
+                    <div class="col-lg-12 col-sm-12 g-mb-50">
+                        <div class="g-brd-around g-brd-gray-light-v3 g-pa-20">
+                            <a th:href="@{/blocks/} + ${tx.blockHash}">
+                                <div class="g-font-size-18 g-font-weight-300 g-mb-7" style="word-wrap: break-word;"
+                                     th:text="${tx.blockHash}"></div>
+                            </a>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Block Hash</h4>
+                        </div>
+                    </div>
+
+                    <th:block th:if="${!tx.isContractCreation()}">
+                        <div class="col-lg-6 col-sm-6 g-mb-50" th:if="${tx.hasInput()}">
+                            <div class="g-bg-white g-rounded-4 g-brd-bottom g-brd-2 g-brd-gray-light-v3 g-pa-20">
+                                <div class="g-font-size-18 g-font-weight-300 g-mb-7">
+                                    <span th:text="${tx.input}" style="word-wrap: break-word;"></span>
+                                </div>
+                                <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Input Data</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 g-mb-50" th:if="${tx.hasInput()}">
+                            <div class="g-bg-white g-rounded-4 g-brd-bottom g-brd-2 g-brd-gray-light-v3 g-pa-20">
+                                <div class="g-font-size-18 g-font-weight-300 g-mb-7">
+                                    <span th:text="${tx.inputString()}" style="word-wrap: break-word;"></span>
+                                </div>
+                                <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Input Data</h4>
+                            </div>
+                        </div>
+                    </th:block>
+
+                    <th:block th:if="${tx.isContractCreation()}">
+                        <div class="col-lg-12 col-sm-12 g-mb-50">
+                            <div id="accordion-03" class="u-accordion" role="tablist" aria-multiselectable="true">
+                                <!-- Card -->
+                                <div class="card rounded-0 g-mb-5">
+                                    <div id="accordion-03-heading-01" class="u-accordion__header" role="tab">
+                                        <h5 class="mb-0">
+                                            <a class="d-block u-link-v5 g-color-main g-color-primary--hover g-font-size-16 "
+                                               href="#accordion-03-body-01" data-toggle="collapse"
+                                               data-parent="#accordion-03" aria-expanded="true"
+                                               aria-controls="accordion-03-body-01">Data
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="accordion-03-body-01" class="collapse hide" role="tabpanel"
+                                         aria-labelledby="accordion-03-heading-01">
+                                        <div class="u-accordion__body g-brd-top g-brd-gray-light-v4 g-color-gray-dark-v5">
+                                            <span th:text="${tx.input}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Card -->
+                            </div>
+                        </div>
+
+                    </th:block>
+
+                    <div id="methodSignatureDiv" class="col-lg-12 col-sm-12 g-mb-50" style="display: none;"
+                         th:if="${tx.hasInput()}">
+                        <div class="g-bg-white g-rounded-4 g-brd-bottom g-brd-2 g-brd-gray-light-v3 g-pa-20">
+                            <div class="g-font-size-18 g-font-weight-300 g-mb-7">
+                                <span id="methodSignature" style="word-wrap: break-word;"></span>
+                            </div>
+                            <h4 class="h5 g-color-gray-dark-v4 g-mb-5">Method Signature</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-1" th:unless="${tx.hasInput()}"></div>
+                    <div class="col-lg-10" th:unless="${tx.hasInput()}">
+                        <div class="g-mb-50">
+                            <div class="alert fade show g-brd-around g-brd-primary rounded-0" role="alert">
+
+
+                                <div class="media">
+
+                                    <div class="media-body">
+
+                                        <p class="m-0 g-font-size-14">No extra data was provided as input.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="transactionComments" role="tabpanel">
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+        <!-- End Tab panes -->
+    </section>
+</div>
+
+<div layout:fragment="footer-content">
+
+    <span id="currentTransaction" th:attr="data-hash=${tx.hash}"></span>
+
+    <!-- JS Implementing Plugins -->
+    <script th:src="@{/assets/vendor/appear.js}"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script th:src="@{/assets/vendor/circles/circles.min.js}"></script>
+
+    <!-- JS Unify -->
+    <script th:src="@{/assets/js/components/hs.chart-pie.js}"></script>
+
+    <script type="application/javascript">
+		$(document).ready(function () {
+			var transactionHash = $('#currentTransaction').data('hash');
+			console.log(transactionHash);
+			$.get('/tx/' + transactionHash + '/method-signature', function (result) {
+				if (result) {
+					$('#methodSignature').html(result.signature);
+					$('#methodSignatureDiv').show();
+					console.log(result);
+				}
+			})
+		});
+    </script>
+
+    <th:block th:replace="components/disqus :: footer"></th:block>
+</div>
+</body>
+</html>

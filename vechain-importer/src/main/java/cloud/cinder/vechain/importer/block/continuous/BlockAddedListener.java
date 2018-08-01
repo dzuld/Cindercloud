@@ -2,8 +2,8 @@ package cloud.cinder.vechain.importer.block.continuous;
 
 import cloud.cinder.vechain.importer.transaction.service.VechainTransactionService;
 import cloud.cinder.vechain.thorifyj.ThorifyjGateway;
-import cloud.cinder.vechain.thorifyj.domain.ThorifyBlock;
-import cloud.cinder.vechain.thorifyj.domain.ThorifyTransaction;
+import cloud.cinder.vechain.thorifyj.block.domain.ThorifyBlock;
+import cloud.cinder.vechain.thorifyj.transaction.domain.ThorifyTransaction;
 import cloud.cinder.vechain.transaction.VechainTransaction;
 import cloud.cinder.vechain.transaction.VechainTransactionClause;
 import com.fasterxml.jackson.databind.ObjectMapper;

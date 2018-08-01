@@ -1,6 +1,6 @@
 package cloud.cinder.vechain.block.domain;
 
-import cloud.cinder.vechain.thorifyj.domain.ThorifyBlock;
+import cloud.cinder.vechain.thorifyj.block.domain.ThorifyBlock;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

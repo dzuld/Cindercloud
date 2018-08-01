@@ -1,6 +1,6 @@
-package cloud.cinder.vechain.thorifyj.repository;
+package cloud.cinder.vechain.thorifyj.block.repository;
 
-import cloud.cinder.vechain.thorifyj.domain.ThorifyBlock;
+import cloud.cinder.vechain.thorifyj.block.domain.ThorifyBlock;
 import feign.Param;
 import feign.RequestLine;
 

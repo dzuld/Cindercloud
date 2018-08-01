@@ -1,7 +1,7 @@
 package cloud.cinder.vechain.config;
 
-import cloud.cinder.vechain.thorifyj.repository.ThorifyTransactionRepository;
-import cloud.cinder.vechain.thorifyj.repository.ThorifyjBlockRepository;
+import cloud.cinder.vechain.thorifyj.transaction.repository.ThorifyTransactionRepository;
+import cloud.cinder.vechain.thorifyj.block.repository.ThorifyjBlockRepository;
 import feign.Feign;
 import feign.codec.Decoder;
 import org.springframework.cloud.netflix.feign.FeignClientsConfiguration;

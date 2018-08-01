@@ -1,7 +1,7 @@
-package cloud.cinder.vechain.thorifyj;
+package cloud.cinder.vechain.thorifyj.block.service;
 
-import cloud.cinder.vechain.thorifyj.domain.ThorifyBlock;
-import cloud.cinder.vechain.thorifyj.repository.ThorifyjBlockRepository;
+import cloud.cinder.vechain.thorifyj.block.domain.ThorifyBlock;
+import cloud.cinder.vechain.thorifyj.block.repository.ThorifyjBlockRepository;
 import org.springframework.stereotype.Component;
 
 @Component

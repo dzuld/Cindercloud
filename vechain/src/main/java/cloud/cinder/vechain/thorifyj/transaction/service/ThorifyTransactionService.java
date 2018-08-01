@@ -1,6 +1,8 @@
-package cloud.cinder.vechain.thorifyj.repository;
+package cloud.cinder.vechain.thorifyj.transaction.service;
 
-import cloud.cinder.vechain.thorifyj.domain.ThorifyTransaction;
+import cloud.cinder.vechain.thorifyj.transaction.domain.ThorifyTransaction;
+import cloud.cinder.vechain.thorifyj.transaction.domain.ThorifyTransactionReceipt;
+import cloud.cinder.vechain.thorifyj.transaction.repository.ThorifyTransactionRepository;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,5 +15,9 @@ public class ThorifyTransactionService {
 
     public ThorifyTransaction get(final String id) {
         return thorifyTransactionRepository.get(id);
+    }
+
+    public ThorifyTransactionReceipt getReceipt(final String id) {
+        return thorifyTransactionRepository.getReceipt(id);
     }
 }

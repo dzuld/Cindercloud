@@ -1,4 +1,4 @@
-package cloud.cinder.vechain.thorifyj.domain;
+package cloud.cinder.vechain.thorifyj.transaction.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

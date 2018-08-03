@@ -4,7 +4,7 @@ import cloud.cinder.common.queue.QueueSender;
 import cloud.cinder.vechain.block.domain.VechainBlock;
 import cloud.cinder.vechain.importer.block.service.VechainBlockService;
 import cloud.cinder.vechain.thorifyj.ThorifyjGateway;
-import cloud.cinder.vechain.thorifyj.domain.ThorifyBlock;
+import cloud.cinder.vechain.thorifyj.block.domain.ThorifyBlock;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

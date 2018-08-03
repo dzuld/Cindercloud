@@ -1,9 +1,10 @@
 package cloud.cinder.vechain.importer.block.continuous;
 
+import cloud.cinder.vechain.importer.transaction.TransactionReceiptProcessor;
 import cloud.cinder.vechain.importer.transaction.service.VechainTransactionService;
 import cloud.cinder.vechain.thorifyj.ThorifyjGateway;
-import cloud.cinder.vechain.thorifyj.domain.ThorifyBlock;
-import cloud.cinder.vechain.thorifyj.domain.ThorifyTransaction;
+import cloud.cinder.vechain.thorifyj.block.domain.ThorifyBlock;
+import cloud.cinder.vechain.thorifyj.transaction.domain.ThorifyTransaction;
 import cloud.cinder.vechain.transaction.VechainTransaction;
 import cloud.cinder.vechain.transaction.VechainTransactionClause;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,13 +23,16 @@ public class BlockAddedListener {
     private ObjectMapper objectMapper;
     private VechainTransactionService vechainTransactionService;
     private ThorifyjGateway thorifyjGateway;
+    private TransactionReceiptProcessor transactionReceiptProcessor;
 
     public BlockAddedListener(final ObjectMapper objectMapper,
                               final VechainTransactionService vechainTransactionService,
-                              final ThorifyjGateway thorifyjGateway) {
+                              final ThorifyjGateway thorifyjGateway,
+                              final TransactionReceiptProcessor transactionReceiptProcessor) {
         this.objectMapper = objectMapper;
         this.vechainTransactionService = vechainTransactionService;
         this.thorifyjGateway = thorifyjGateway;
+        this.transactionReceiptProcessor = transactionReceiptProcessor;
     }
 
     public void receiveMessage(final String blockAsString) {
@@ -56,8 +60,13 @@ public class BlockAddedListener {
                                 .map(x -> VechainTransactionClause.of(x, savedTransaction.getId()))
                                 .collect(Collectors.toList()));
                     }
+                    importReceipt(transactionhash);
                 });
 
+    }
+
+    private void importReceipt(final String transactionhash) {
+        transactionReceiptProcessor.importTransactionReceipt(transactionhash);
     }
 
     private Optional<ThorifyTransaction> getTransaction(final String transactionhash) {

@@ -1,6 +1,6 @@
 package cloud.cinder.vechain.transaction;
 
-import cloud.cinder.vechain.thorifyj.domain.ThorifyTransactionClause;
+import cloud.cinder.vechain.thorifyj.transaction.domain.ThorifyTransactionClause;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

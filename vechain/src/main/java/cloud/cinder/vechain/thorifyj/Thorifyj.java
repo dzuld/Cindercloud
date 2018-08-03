@@ -1,6 +1,7 @@
 package cloud.cinder.vechain.thorifyj;
 
-import cloud.cinder.vechain.thorifyj.repository.ThorifyTransactionService;
+import cloud.cinder.vechain.thorifyj.block.service.ThorifyBlockService;
+import cloud.cinder.vechain.thorifyj.transaction.service.ThorifyTransactionService;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -80,6 +80,7 @@ public class BlockImporter {
         try {
             return Optional.ofNullable(thorifyjGateway.thorify().blocks().getLatest());
         } catch (final Exception ex) {
+            log.debug("Unable to get latest block: {}", ex.getMessage());
             return Optional.empty();
         }
     }

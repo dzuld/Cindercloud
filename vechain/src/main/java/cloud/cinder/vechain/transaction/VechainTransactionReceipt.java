@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -47,7 +49,7 @@ public class VechainTransactionReceipt {
     }
 
     public static VechainTransactionReceipt of(final String transactionId, final ThorifyTransactionReceipt receipt) {
-        final VechainTransactionReceipt retVal = VechainTransactionReceipt
+        return VechainTransactionReceipt
                 .builder()
                 .blockId(receipt.getMeta().getBlockId())
                 .blockNumber(receipt.getMeta().getBlockNumber())
@@ -59,10 +61,23 @@ public class VechainTransactionReceipt {
                 .gasUsed(receipt.getGasUsed())
                 .id(transactionId)
                 .build();
-        return retVal;
+    }
+
+    public String formattedPaid() {
+        return toVTHO(paid);
+    }
+
+    public String formattedReward() {
+        return toVTHO(reward);
     }
 
     private static BigInteger toBigInt(final String reward) {
         return new BigInteger(reward != null ? reward.startsWith("0x") ? reward.substring(2) : reward : "0", 16);
+    }
+
+    public static String toVTHO(BigInteger bigInteger) {
+        BigDecimal theValue = new BigDecimal(bigInteger);
+        BigDecimal divider = BigDecimal.valueOf(10L).pow(18);
+        return theValue.divide(divider, 1, RoundingMode.HALF_DOWN).toString() + " VTHO";
     }
 }

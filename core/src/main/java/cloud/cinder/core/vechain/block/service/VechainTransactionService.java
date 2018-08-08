@@ -1,8 +1,9 @@
 package cloud.cinder.core.vechain.block.service;
 
+import cloud.cinder.core.vechain.block.repository.VechainTransactionReceiptRepository;
 import cloud.cinder.core.vechain.block.repository.VechainTransactionRepository;
 import cloud.cinder.vechain.transaction.VechainTransaction;
-import com.sun.mail.imap.protocol.IMAPProtocol;
+import cloud.cinder.vechain.transaction.VechainTransactionReceipt;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,12 @@ import java.util.Optional;
 public class VechainTransactionService {
 
     private VechainTransactionRepository vechainTransactionRepository;
+    private VechainTransactionReceiptRepository vechainTransactionReceiptRepository;
 
-    public VechainTransactionService(final VechainTransactionRepository vechainTransactionRepository) {
+    public VechainTransactionService(final VechainTransactionRepository vechainTransactionRepository,
+                                     final VechainTransactionReceiptRepository vechainTransactionReceiptRepository) {
         this.vechainTransactionRepository = vechainTransactionRepository;
+        this.vechainTransactionReceiptRepository = vechainTransactionReceiptRepository;
     }
 
     @Transactional(readOnly = true)
@@ -30,7 +34,13 @@ public class VechainTransactionService {
         return vechainTransactionRepository.findAllOrderByBlockTimestamp(pageable);
     }
 
+    @Transactional(readOnly = true)
     public Optional<VechainTransaction> getTransaction(final String hash) {
-        return null;
+        return vechainTransactionRepository.findOne(hash);
+    }
+
+    @Transactional
+    public Optional<VechainTransactionReceipt> getTransactionReceipt(final String hash) {
+        return vechainTransactionReceiptRepository.findOne(hash);
     }
 }

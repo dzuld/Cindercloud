@@ -1,7 +1,6 @@
 package cloud.cinder.web.vechain.transaction.controller;
 
 import cloud.cinder.core.vechain.block.service.VechainTransactionService;
-import cloud.cinder.vechain.transaction.VechainTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -41,12 +40,14 @@ public class VechainTransactionController {
     @RequestMapping(value = "/{hash}", method = GET)
     public String getTransaction(@PathVariable("hash") final String hash,
                                  final ModelMap modelMap) {
-        final Optional<VechainTransaction> transaction = transactionService.getTransaction(hash);
-        if (transaction.isPresent()) {
-            modelMap.put("tx", transaction.get());
-            return "vechain/transactions/transaction";
-        } else {
-            return "error";
-        }
+        return transactionService.getTransaction(hash)
+                .map(x -> {
+                    modelMap.put("tx", x);
+                    return transactionService.getTransactionReceipt(hash)
+                            .map(receipt -> {
+                                modelMap.put("txReceipt", receipt);
+                                return "vechain/transactions/transaction";
+                            }).orElse("error");
+                }).orElse("error");
     }
 }

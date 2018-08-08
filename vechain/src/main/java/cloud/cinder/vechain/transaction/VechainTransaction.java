@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bouncycastle.util.encoders.Hex;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.*;
@@ -13,6 +14,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
+
+import static org.apache.commons.lang.StringUtils.isEmpty;
 
 @Data
 @AllArgsConstructor
@@ -57,6 +60,14 @@ public class VechainTransaction {
 
     public String prettyFromAddress() {
         return origin.substring(0, 18) + "...";
+    }
+
+    public BigInteger nonceAsInt() {
+        if (!isEmpty(nonce)) {
+            return new BigInteger(Hex.decode(nonce.substring(2)));
+        } else {
+            return BigInteger.ZERO;
+        }
     }
 
     public static VechainTransaction of(final ThorifyTransaction thorifyTransaction) {

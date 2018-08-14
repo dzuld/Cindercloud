@@ -2,7 +2,7 @@ package cloud.cinder.whitehat.credentials.repository;
 
 
 import cloud.cinder.common.credential.domain.LeakedCredential;
-import cloud.cinder.common.infrastructure.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;

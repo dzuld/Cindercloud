@@ -28,7 +28,7 @@ public class HistoricTransactionRemover {
         if (agedTransactions.hasContent()) {
             agedTransactions.getContent()
                     .forEach(x -> {
-                        transactionRepository.delete(x.getHash());
+                        transactionRepository.deleteById(x.getHash());
                     });
         }
     }

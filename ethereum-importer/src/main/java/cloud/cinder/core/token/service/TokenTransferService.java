@@ -60,7 +60,7 @@ public class TokenTransferService {
         return Optional.of(new TokenEvent(eventType.get(), new EventValues(indexedValues, nonIndexedValues)));
     }
 
-    public Optional<TokenEventType> getEventType(final Event event) {
+    private Optional<TokenEventType> getEventType(final Event event) {
         if (event != null && StringUtils.isNotBlank(event.getName())) {
             try {
                 return Optional.of(TokenEventType.valueOf(event.getName().toUpperCase()));

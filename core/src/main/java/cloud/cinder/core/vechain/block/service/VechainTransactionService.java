@@ -36,11 +36,11 @@ public class VechainTransactionService {
 
     @Transactional(readOnly = true)
     public Optional<VechainTransaction> getTransaction(final String hash) {
-        return vechainTransactionRepository.findOne(hash);
+        return vechainTransactionRepository.findById(hash);
     }
 
     @Transactional
     public Optional<VechainTransactionReceipt> getTransactionReceipt(final String hash) {
-        return vechainTransactionReceiptRepository.findOne(hash);
+        return vechainTransactionReceiptRepository.findById(hash);
     }
 }

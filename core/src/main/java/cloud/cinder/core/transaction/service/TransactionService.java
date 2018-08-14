@@ -68,7 +68,7 @@ public class TransactionService {
 
     @Transactional
     public Observable<Transaction> getTransaction(final String transactionHash) {
-        return transactionRepository.findOne(transactionHash)
+        return transactionRepository.findById(transactionHash)
                 .map(Observable::just)
                 .orElse(getInternalTransaction(transactionHash)
                         .map(this::enrichWithSpecialAddresses));
@@ -186,7 +186,7 @@ public class TransactionService {
     @Transactional
     public Transaction reindex(final String txId) {
         log.debug("reindexing " + txId);
-        transactionRepository.findOne(txId)
+        transactionRepository.findById(txId)
                 .ifPresent(x -> transactionRepository.delete(x));
         return getInternalTransaction(txId).toBlocking().first();
     }

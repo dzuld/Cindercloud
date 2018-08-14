@@ -1,7 +1,7 @@
 package cloud.cinder.web.block.continuous.repository;
 
 import cloud.cinder.ethereum.block.domain.BlockImportJob;
-import cloud.cinder.common.infrastructure.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;

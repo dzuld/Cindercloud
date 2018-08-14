@@ -1,7 +1,7 @@
 package cloud.cinder.core.address.repository;
 
 import cloud.cinder.ethereum.address.domain.SpecialAddress;
-import cloud.cinder.common.infrastructure.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

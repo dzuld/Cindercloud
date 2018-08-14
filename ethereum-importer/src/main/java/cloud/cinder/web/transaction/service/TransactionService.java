@@ -16,7 +16,7 @@ public class TransactionService {
 
     @Transactional
     public void save(final Transaction transaction) {
-        if (!transactionRepository.exists(transaction.getHash())) {
+        if (!transactionRepository.existsById(transaction.getHash())) {
             transactionRepository.save(transaction);
         }
     }

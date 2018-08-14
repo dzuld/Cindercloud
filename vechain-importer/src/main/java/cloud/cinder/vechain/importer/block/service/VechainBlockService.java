@@ -5,7 +5,6 @@ import cloud.cinder.vechain.importer.block.repository.VechainBlockRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Component
 public class VechainBlockService {
@@ -19,7 +18,7 @@ public class VechainBlockService {
 
     @Transactional(readOnly = true)
     public boolean exists(final String id) {
-        return vechainBlockRepository.exists(id);
+        return vechainBlockRepository.existsById(id);
     }
 
     @Transactional

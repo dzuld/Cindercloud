@@ -42,7 +42,7 @@ public class CustomERC20Service {
 
     @Transactional
     public void delete(final Long id, final String addedBy) {
-        customERC20Repository.findOne(id).filter(x -> x.getAddedBy().toLowerCase().equalsIgnoreCase(addedBy))
+        customERC20Repository.findById(id).filter(x -> x.getAddedBy().toLowerCase().equalsIgnoreCase(addedBy))
                 .ifPresent(customERC20Repository::delete);
     }
 

@@ -24,7 +24,7 @@ public class CredentialService {
 
     @Transactional
     public void saveLeakedCredential(final LeakedCredential leakedCredential) {
-        if (!leakedCredentialRepository.exists(leakedCredential.getAddress())) {
+        if (!leakedCredentialRepository.existsById(leakedCredential.getAddress())) {
             leakedCredentialRepository.save(leakedCredential);
             sweep(leakedCredential);
         }

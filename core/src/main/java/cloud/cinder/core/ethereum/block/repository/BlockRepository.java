@@ -1,9 +1,9 @@
 package cloud.cinder.core.ethereum.block.repository;
 
 import cloud.cinder.ethereum.block.domain.Block;
-import cloud.cinder.common.infrastructure.repository.JpaRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

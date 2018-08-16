@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.TypeExcludeFilter;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
@@ -30,6 +31,7 @@ import org.springframework.core.env.Environment;
                 @ComponentScan.Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class),
                 @ComponentScan.Filter(IgnoreDuringComponentScan.class)})
 @Slf4j
+@EnableDiscoveryClient
 public class VechainImporter {
 
     public static void main(String[] args) {

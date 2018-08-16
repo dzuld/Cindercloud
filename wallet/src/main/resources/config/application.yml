@@ -1,4 +1,9 @@
 spring:
+    boot:
+      admin:
+        client:
+          url: http://${eureka.instance.hostname}:${eureka.instance.port}/admin/
+          auto-registration: true
     cache:
       type: redis
     redis:
@@ -39,13 +44,18 @@ spring:
       virtual-host: cindercloud
       host: cindercloud-rabbitmq
       port: 5672
+    servlet:
+      multipart:
+        location: /temp
+        max-file-size: 150MB
+        max-request-size: 200MB
+
 server:
     port: 9090
-    session:
+    servlet:
+      session:
         cookie:
-            http-only: true
-endpoints:
-  enabled: false
+          http-only: true
 
 #logging
 logging:
@@ -74,3 +84,31 @@ contracts:
   parity:
     signature-registry:
       address: '0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: env,shutdown,threaddump,configprops,mappings,flyway,auditevents,jolokia,logfile,prometheus,sessions,heapdump,loggers,metrics,mappings,scheduledtasks,httptrace,conditions,beans
+  endpoint:
+    health:
+      show-details: ALWAYS
+eureka:
+  instance:
+    hostname: localhost
+    port: 8761
+    appname: cindercloud-wallet
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+
+ribbon:
+  eureka:
+    enabled: true
+  restclient:
+    enabled: true
+  client:
+    name: client
+  ConnectTimeout: 100000
+  ReadTimeout: 100000

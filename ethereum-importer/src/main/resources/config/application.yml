@@ -1,4 +1,9 @@
 spring:
+    boot:
+      admin:
+        client:
+          url: http://${eureka.instance.hostname}:${eureka.instance.port}/admin/
+          auto-registration: true
     application:
         name: Cindercloud-importer
     datasource:
@@ -33,3 +38,31 @@ cloud:
   cinder:
     transactions:
       historic-threshold: 500000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: env,shutdown,threaddump,configprops
+  endpoint:
+    health:
+      show-details: ALWAYS
+eureka:
+  instance:
+    hostname: localhost
+    port: 8761
+    appname: cindercloud-ethereum-importer
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+
+ribbon:
+  eureka:
+    enabled: true
+  restclient:
+    enabled: true
+  client:
+    name: client
+  ConnectTimeout: 100000
+  ReadTimeout: 100000

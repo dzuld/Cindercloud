@@ -41,12 +41,10 @@ spring:
       port: 5672
 server:
     port: 8080
-    session:
+    servlet:
+      session:
         cookie:
-            http-only: true
-endpoints:
-  enabled: false
-
+          http-only: true
 #logging
 logging:
   level:
@@ -74,3 +72,11 @@ contracts:
   parity:
     signature-registry:
       address: '0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86'
+management:
+  endpoints:
+    enabled-by-default: false
+
+eureka:
+  instance:
+    hostname: localhost
+    lease-renewal-interval-in-seconds:

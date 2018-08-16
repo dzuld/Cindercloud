@@ -46,6 +46,7 @@
         <h2.version>1.4.194</h2.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
+        <spring-boot-admin.version>2.0.2</spring-boot-admin.version>
     </properties>
 
     <dependencyManagement>
@@ -63,6 +64,16 @@
                <version>Apple-RELEASE</version>
                <type>pom</type>
                <scope>import</scope>
+           </dependency>
+           <dependency>
+               <groupId>de.codecentric</groupId>
+               <artifactId>spring-boot-admin-starter-client</artifactId>
+               <version>${spring-boot-admin.version}</version>
+           </dependency>
+           <dependency>
+               <groupId>de.codecentric</groupId>
+               <artifactId>spring-boot-admin-starter-server</artifactId>
+               <version>${spring-boot-admin.version}</version>
            </dependency>
            <dependency>
                <groupId>nz.net.ultraq.thymeleaf</groupId>

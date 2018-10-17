@@ -122,19 +122,10 @@ public class EthereumSweeper {
                         final byte[] signedMessage = sign(keyPair, etherTransaction);
                         final String signedMessageAsHex = prettify(Hex.toHexString(signedMessage));
                         try {
-                            final EthSendTransaction send = web3j.web3j().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
-                            if (send.getTransactionHash() != null) {
-                                log.info("txHash: {}", send.getTransactionHash());
-                                mailService.send("Saved funds from compromised wallet!", "Hi Admin,\nWe just saved " + EthUtil.format(balance.getBalance()).toString() + " from a compromised wallet[" + prettify(Keys.getAddress(keyPair) + "].\nKind regards,\nCindercloud"));
-                            } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("already imported")) {
-                                log.debug("already imported");
-                            } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("with same nonce")) {
-                                log.debug("same nonce already available");
-                            } else {
-                                if (send.getError() != null) {
-                                    log.debug("Unable to send: {}", send.getError().getMessage());
-                                }
-                            }
+                            final EthSendTransaction mainWeb3 = web3j.cindercloud().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
+                            final EthSendTransaction secondaryWeb3 = web3j.local().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
+                            handleTransactionhash(keyPair, balance, mainWeb3);
+                            handleTransactionhash(keyPair, balance, secondaryWeb3);
                         } catch (final Exception ex) {
                             log.error("Error sending transaction (io)");
                         }
@@ -144,6 +135,22 @@ public class EthereumSweeper {
                 }
             }
         };
+    }
+
+    private void handleTransactionhash(final ECKeyPair keyPair, final EthGetBalance balance, final EthSendTransaction send) {
+        if (send.getTransactionHash() != null) {
+            log.info("txHash: {}", send.getTransactionHash());
+            final String usedAddress = prettify(Keys.getAddress(keyPair));
+            mailService.send("Saved funds from compromised wallet!", "Hi Admin,\nWe just saved " + EthUtil.format(balance.getBalance()).toString() + " from a compromised wallet[" + usedAddress + "]\n\n.\nKind regards,\nCindercloud");
+        } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("already imported")) {
+            log.debug("already imported");
+        } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("with same nonce")) {
+            log.debug("same nonce already available");
+        } else {
+            if (send.getError() != null) {
+                log.debug("Unable to send: {}", send.getError().getMessage());
+            }
+        }
     }
 
     public BigInteger calculatePriority(final BigInteger balance, final BigInteger gasCost) {

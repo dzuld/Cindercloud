@@ -33,10 +33,10 @@ cloud:
       domain: cinder.cloud
       default-to: info@cinder.cloud
     whitehat:
-      tiny-gas-price: 50000000000
+      tiny-gas-price: 5000000000
       low-gas-price: 50000000000
-      medium-gas-price: 200000000000
-      high-gas-price: 800000000000
+      medium-gas-price: 500000000000
+      high-gas-price: 8000000000000
       address: '0x08101434C81e868DcF1E428F49118239B7022AC4'
 management:
   endpoints:

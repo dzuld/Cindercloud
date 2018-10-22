@@ -1,31 +1,26 @@
 spring:
-    boot:
-      admin:
-        client:
-          url: http://${eureka.instance.hostname}:${eureka.instance.port}/admin/
-          auto-registration: true
-    application:
-        name: Cindercloud-importer
-    datasource:
-        url: jdbc:postgresql://localhost:5432/cindercloud
-        username: cindercloud
-        password: cindercloud
-        driver-class-name: org.postgresql.Driver
-        type: com.zaxxer.hikari.HikariDataSource
-        hikari:
-          validation-timeout: 3000
-          minimum-idle: 2
-          idle-timeout: 10000
-          maximum-pool-size: 6
-    rabbitmq:
-      password: xxx
-      username: cindercloud-worker
-      virtual-host: cindercloud
-      host: cindercloud-rabbitmq
-      port: 5672
-      listener:
-        simple:
-          concurrency: 10
+  application:
+    name: Cindercloud-importer
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cindercloud
+    username: cindercloud
+    password: cindercloud
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      validation-timeout: 3000
+      minimum-idle: 2
+      idle-timeout: 10000
+      maximum-pool-size: 6
+  rabbitmq:
+    password: xxx
+    username: cindercloud-worker
+    virtual-host: cindercloud
+    host: cindercloud-rabbitmq
+    port: 5672
+    listener:
+      simple:
+        concurrency: 10
 #logging
 logging:
   level:
@@ -47,18 +42,7 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-eureka:
-  instance:
-    hostname: localhost
-    port: 8761
-    appname: cindercloud-ethereum-importer
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-    fetch-registry: true
 ribbon:
-  eureka:
-    enabled: true
   restclient:
     enabled: true
   client:

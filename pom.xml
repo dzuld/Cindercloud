@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.2.RELEASE</version>
+        <version>2.0.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -35,18 +35,24 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <web3j.version>3.3.1</web3j.version>
-        <lombok.version>1.16.20</lombok.version>
-        <postgresql.version>42.2.2</postgresql.version>
-        <hikaricp.version>3.1.0</hikaricp.version>
+        <lombok.version>1.18.2</lombok.version>
+        <postgresql.version>42.2.5</postgresql.version>
+        <hikaricp.version>3.2.0</hikaricp.version>
         <junit-jupiter.version>5.0.0</junit-jupiter.version>
         <junit-platform.version>1.0.0</junit-platform.version>
         <junit-vintage-engine.version>4.12.0</junit-vintage-engine.version>
-        <commons-codec.version>1.1</commons-codec.version>
+        <commons-codec.version>1.11</commons-codec.version>
         <spring-cloud-dependencies.version>Finchley.SR1</spring-cloud-dependencies.version>
         <h2.version>1.4.194</h2.version>
         <commons-collections.version>3.2.2</commons-collections.version>
-        <hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
-        <spring-boot-admin.version>2.0.2</spring-boot-admin.version>
+        <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
+        <thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
+        <bitcoinj-core.version>0.14.7</bitcoinj-core.version>
+        <commons-lang3.version>3.6</commons-lang3.version>
+        <prettytime.version>4.0.2.Final</prettytime.version>
+        <mailgun.version>1.9.0</mailgun.version>
+        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -66,14 +72,9 @@
                <scope>import</scope>
            </dependency>
            <dependency>
-               <groupId>de.codecentric</groupId>
-               <artifactId>spring-boot-admin-starter-client</artifactId>
-               <version>${spring-boot-admin.version}</version>
-           </dependency>
-           <dependency>
                <groupId>nz.net.ultraq.thymeleaf</groupId>
                <artifactId>thymeleaf-layout-dialect</artifactId>
-               <version>2.3.0</version>
+               <version>${thymeleaf-layout-dialect.version}</version>
            </dependency>
            <dependency>
                <groupId>org.web3j</groupId>
@@ -123,7 +124,7 @@
            <dependency>
                <groupId>org.bitcoinj</groupId>
                <artifactId>bitcoinj-core</artifactId>
-               <version>0.14.7</version>
+               <version>${bitcoinj-core.version}</version>
            </dependency>
            <dependency>
                <groupId>org.projectlombok</groupId>
@@ -138,12 +139,12 @@
            <dependency>
                <groupId>commons-codec</groupId>
                <artifactId>commons-codec</artifactId>
-               <version>${commons-codec.version}1</version>
+               <version>${commons-codec.version}</version>
            </dependency>
            <dependency>
                <groupId>org.apache.commons</groupId>
                <artifactId>commons-lang3</artifactId>
-               <version>3.6</version>
+               <version>${commons-lang3.version}</version>
            </dependency>
            <dependency>
                <groupId>org.postgresql</groupId>
@@ -158,12 +159,12 @@
            <dependency>
                <groupId>net.sargue</groupId>
                <artifactId>mailgun</artifactId>
-               <version>1.5.0</version>
+               <version>${mailgun.version}</version>
            </dependency>
            <dependency>
                <groupId>org.ocpsoft.prettytime</groupId>
                <artifactId>prettytime</artifactId>
-               <version>4.0.1.Final</version>
+               <version>${prettytime.version}</version>
            </dependency>
            <dependency>
                <groupId>org.junit.jupiter</groupId>
@@ -180,7 +181,7 @@
            <dependency>
                <groupId>org.assertj</groupId>
                <artifactId>assertj-core</artifactId>
-               <version>3.9.1</version>
+               <version>3.11.1</version>
                <scope>test</scope>
            </dependency>
        </dependencies>
@@ -211,11 +212,14 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
+                <version>0.8.2</version>
                 <configuration>
                     <excludes>
                         <exclude>**/*Config.*</exclude>
                         <exclude>**/*Configuration.*</exclude>
+                        <exclude>**/*Dto.*</exclude>
+                        <exclude>**/*Event.*</exclude>
+                        <exclude>**/*Exception.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -235,7 +239,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <includes>
                         <include>**/*Tests.java</include>

@@ -1,9 +1,4 @@
 spring:
-    boot:
-      admin:
-        client:
-          url: http://${eureka.instance.hostname}:${eureka.instance.port}/admin/
-          auto-registration: true
     cache:
       type: redis
     redis:
@@ -93,19 +88,7 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-eureka:
-  instance:
-    hostname: localhost
-    port: 8761
-    appname: cindercloud-wallet
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-    fetch-registry: true
-
 ribbon:
-  eureka:
-    enabled: true
   restclient:
     enabled: true
   client:

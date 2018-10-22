@@ -239,7 +239,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
+                <version>2.19.1</version>
                 <configuration>
                     <includes>
                         <include>**/*Tests.java</include>

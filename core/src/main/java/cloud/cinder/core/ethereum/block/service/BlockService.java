@@ -1,8 +1,8 @@
 package cloud.cinder.core.ethereum.block.service;
 
 import cloud.cinder.common.queue.QueueSender;
-import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.core.ethereum.block.repository.BlockRepository;
+import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -87,7 +87,7 @@ public class BlockService {
     public void importByHash(final String hash, final boolean uncle) {
         log.trace("importing block or uncle by hash");
         if (wasWronglySavedAsNormalBlock(hash, uncle)) {
-            blockRepository.delete(hash);
+            blockRepository.deleteById(hash);
         }
 
         web3j.web3j().ethGetBlockByHash(hash, false)
@@ -102,8 +102,8 @@ public class BlockService {
                     }
                 })
                 .forEach(newBlock -> {
-                    if (blockRepository.exists(newBlock.getHash())) {
-                        blockRepository.delete(newBlock.getHash());
+                    if (blockRepository.existsById(newBlock.getHash())) {
+                        blockRepository.deleteById(newBlock.getHash());
                         blockRepository.save(newBlock);
                     }
                 });

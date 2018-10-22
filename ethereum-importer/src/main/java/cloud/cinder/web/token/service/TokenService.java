@@ -1,4 +1,4 @@
-package cloud.cinder.core.token.service;
+package cloud.cinder.web.token.service;
 
 
 import cloud.cinder.ethereum.token.domain.Token;

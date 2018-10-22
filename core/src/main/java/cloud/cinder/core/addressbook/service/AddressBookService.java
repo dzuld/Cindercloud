@@ -43,21 +43,12 @@ public class AddressBookService {
     }
 
     @Transactional
-    public void updateNickname(final String owner, final String address, final String nickname) {
-        contactRepository.findByOwnerAndAddress(owner, address)
-                .ifPresent(contact -> {
-                    contact.setNickname(nickname);
-                    contactRepository.save(contact);
-                });
-    }
-
-    @Transactional
     public void deleteContact(final String owner, final Long id) {
-        Optional<Contact> foundOne = contactRepository.findOne(id);
+        Optional<Contact> foundOne = contactRepository.findById(id);
         foundOne
                 .filter(contact -> contact.getOwner().equalsIgnoreCase(owner))
                 .ifPresent(contact -> {
-                    contactRepository.delete(id);
+                    contactRepository.deleteById(id);
                 });
     }
 }

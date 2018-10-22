@@ -77,7 +77,7 @@ public class BlockService {
     public void importByHash(final String hash, final boolean uncle) {
         log.trace("importing block or uncle by hash");
         if (wasWronglySavedAsNormalBlock(hash, uncle)) {
-            blockRepository.delete(hash);
+            blockRepository.deleteById(hash);
         }
 
         web3j.web3j().ethGetBlockByHash(hash, false)
@@ -96,22 +96,5 @@ public class BlockService {
 
     private boolean wasWronglySavedAsNormalBlock(final String hash, final boolean uncle) {
         return uncle && blockRepository.findBlock(hash).isPresent();
-    }
-
-    @Transactional
-    public Observable<Block> getBlock(final String hash) {
-        return blockRepository.findBlock(hash)
-                .map(Observable::just)
-                .orElseGet(() ->
-                        {
-                            log.trace("Block {} was not found in repository, fetching from web3.", hash);
-                            return web3j.web3j().ethGetBlockByHash(hash, false)
-                                    .observable()
-                                    .map(EthBlock::getBlock)
-                                    .filter(Objects::nonNull)
-                                    .map(Block::asBlock)
-                                    .map(this::save);
-                        }
-                );
     }
 }

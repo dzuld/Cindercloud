@@ -1,4 +1,9 @@
 spring:
+    boot:
+      admin:
+        client:
+          url: http://${eureka.instance.hostname}:${eureka.instance.port}/admin/
+          auto-registration: true
     cache:
       type: redis
     redis:
@@ -21,11 +26,6 @@ spring:
           minimum-idle: 2
           idle-timeout: 10000
           maximum-pool-size: 6
-    http:
-      multipart:
-        location: /tmp
-        max-file-size: 150MB
-        max-request-size: 200MB
     freemarker:
       enabled: false
     groovy:
@@ -39,14 +39,17 @@ spring:
       virtual-host: cindercloud
       host: cindercloud-rabbitmq
       port: 5672
+    servlet:
+      multipart:
+        max-file-size: 150MB
+        max-request-size: 200MB
+        location: /temp
 server:
     port: 8080
-    session:
+    servlet:
+      session:
         cookie:
-            http-only: true
-endpoints:
-  enabled: false
-
+          http-only: true
 #logging
 logging:
   level:
@@ -74,3 +77,32 @@ contracts:
   parity:
     signature-registry:
       address: '0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: env,shutdown,threaddump,configprops,mappings,flyway,auditevents,jolokia,logfile,prometheus,sessions,heapdump,loggers,metrics,mappings,scheduledtasks,httptrace,conditions,beans
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+eureka:
+  instance:
+    hostname: localhost
+    port: 8761
+    appname: cindercloud-web
+  client:
+    service-url:
+      defaultZone: http://${application.instance.hostname}:${application.instance.port}/eureka/
+    fetch-registry: true
+
+ribbon:
+  eureka:
+    enabled: true
+  restclient:
+    enabled: true
+  client:
+    name: client
+  ConnectTimeout: 100000
+  ReadTimeout: 100000

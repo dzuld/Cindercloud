@@ -10,6 +10,10 @@ services:
     networks:
       - cindercloud
     container_name: cindercloud-redis
+  arkane-discovery-service:
+    image: fundrequestio/arkane-discovery-service:develop
+    ports:
+      - 8761:8761
   cindercloud-postgres:
     image: postgres:10.3
     ports:

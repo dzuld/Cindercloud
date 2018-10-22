@@ -29,6 +29,10 @@ public class Web3jGateway {
         return currentProvider;
     }
 
+    public Web3j cindercloud() {
+        return cindercloud;
+    }
+
     public Web3j local() {
         return localWeb3j;
     }

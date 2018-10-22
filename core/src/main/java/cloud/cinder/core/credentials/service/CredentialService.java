@@ -26,7 +26,7 @@ public class CredentialService {
         try {
             final ECKeyPair keypair = ECKeyPair.create(Numeric.decodeQuantity(privateKey.trim()));
             final String address = prettifyAddress(Keys.getAddress(keypair));
-            if (!leakedCredentialRepository.exists(address)) {
+            if (!leakedCredentialRepository.existsById(address)) {
                 leakedCredentialRepository.save(LeakedCredential.builder()
                         .dateAdded(new Date())
                         .address(address)

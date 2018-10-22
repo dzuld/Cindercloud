@@ -29,7 +29,7 @@ public class VechainTransactionService {
 
     @Transactional(readOnly = true)
     public boolean exists(final String transactionId) {
-        return vechainTransactionRepository.exists(transactionId);
+        return vechainTransactionRepository.existsById(transactionId);
     }
 
     @Transactional
@@ -39,12 +39,12 @@ public class VechainTransactionService {
 
     @Transactional
     public void save(final List<VechainTransactionClause> vechainTransactionClauses) {
-        vechainTransactionClauseRepository.save(vechainTransactionClauses);
+        vechainTransactionClauseRepository.saveAll(vechainTransactionClauses);
     }
 
     @Transactional(readOnly = true)
     public boolean receiptImported(final String id) {
-        return vechainTransactionReceiptRepository.exists(id);
+        return vechainTransactionReceiptRepository.existsById(id);
     }
 
     @Transactional

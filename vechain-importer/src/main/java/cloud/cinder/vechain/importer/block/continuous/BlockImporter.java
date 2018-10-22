@@ -53,7 +53,7 @@ public class BlockImporter {
         historicBlockImporter.importHistoricBlocks();
     }
 
-    @Scheduled(fixedRate = 1000)
+   // @Scheduled(fixedRate = 1000)
     public void listenForBlocks() {
         if (autoBlockImport) {
             importNewestBlock();

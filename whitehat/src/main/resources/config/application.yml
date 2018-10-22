@@ -1,4 +1,9 @@
 spring:
+    boot:
+      admin:
+        client:
+          url: http://${eureka.instance.hostname}:${eureka.instance.port}/admin/
+          auto-registration: true
     application:
         name: Cindercloud-whitehat
     datasource:
@@ -12,12 +17,6 @@ spring:
           minimum-idle: 1
           idle-timeout: 10000
           maximum-pool-size: 5
-    devtools:
-      livereload:
-        enabled: false
-      remote:
-        debug:
-          enabled: false
 
 #logging
 logging:
@@ -34,16 +33,36 @@ cloud:
       domain: cinder.cloud
       default-to: info@cinder.cloud
     whitehat:
-      tiny-gas-price: 50000000000
+      tiny-gas-price: 5000000000
       low-gas-price: 50000000000
-      medium-gas-price: 200000000000
-      high-gas-price: 800000000000
+      medium-gas-price: 500000000000
+      high-gas-price: 8000000000000
       address: '0x08101434C81e868DcF1E428F49118239B7022AC4'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: env,shutdown,threaddump,configprops
+  endpoint:
+    health:
+      show-details: ALWAYS
+eureka:
+  instance:
+    hostname: localhost
+    port: 8761
+    appname: cindercloud-wallet
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
 
-
-endpoints:
-  prometheus:
-    path: /metrics
-    sensitive: false
-  metrics:
-    path: /actuator-metrics
+ribbon:
+  eureka:
+    enabled: true
+  restclient:
+    enabled: true
+  client:
+    name: client
+  ConnectTimeout: 100000
+  ReadTimeout: 100000

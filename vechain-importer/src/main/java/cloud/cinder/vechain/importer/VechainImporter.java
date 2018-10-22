@@ -5,14 +5,11 @@ import cloud.cinder.common.infrastructure.IgnoreDuringComponentScan;
 import cloud.cinder.vechain.CindercloudVechain;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.HealthIndicatorAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.TypeExcludeFilter;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
@@ -33,12 +30,8 @@ import org.springframework.core.env.Environment;
                 @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
                 @ComponentScan.Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class),
                 @ComponentScan.Filter(IgnoreDuringComponentScan.class)})
-@EnableAutoConfiguration(exclude = {
-        EndpointAutoConfiguration.class,
-        HealthIndicatorAutoConfiguration.class,
-        InfoContributorAutoConfiguration.class
-})
 @Slf4j
+@EnableDiscoveryClient
 public class VechainImporter {
 
     public static void main(String[] args) {

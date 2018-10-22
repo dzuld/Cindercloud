@@ -1,7 +1,7 @@
 package cloud.cinder.web.token.repository;
 
-import cloud.cinder.common.infrastructure.repository.JpaRepository;
 import cloud.cinder.ethereum.token.domain.TokenTransfer;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

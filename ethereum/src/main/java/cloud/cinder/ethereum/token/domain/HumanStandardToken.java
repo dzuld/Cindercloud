@@ -1,26 +1,18 @@
 package cloud.cinder.ethereum.token.domain;
 
-import org.web3j.abi.EventEncoder;
-import org.web3j.abi.EventValues;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
-import org.web3j.abi.datatypes.Event;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.abi.datatypes.generated.Uint8;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.RemoteCall;
-import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.Contract;
-import rx.Observable;
 
 import java.math.BigInteger;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static cloud.cinder.ethereum.util.EthUtil.prettifyAddress;
 import static java.util.Arrays.asList;
@@ -32,75 +24,6 @@ public final class HumanStandardToken extends Contract {
 
     private HumanStandardToken(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
         super("", contractAddress, web3j, credentials, gasPrice, gasLimit);
-    }
-
-    public List<TransferEventResponse> getTransferEvents(TransactionReceipt transactionReceipt) {
-        final Event event = new Event("Transfer",
-                asList(new TypeReference<Address>() {
-                }, new TypeReference<Address>() {
-                }),
-                singletonList(new TypeReference<Uint256>() {
-                }));
-        final List<EventValues> valueList = extractEventParameters(event, transactionReceipt);
-        return valueList.stream()
-                .map(eventValues -> new TransferEventResponse(
-                        (String) eventValues.getIndexedValues().get(0).getValue(),
-                        (String) eventValues.getIndexedValues().get(1).getValue(),
-                        (BigInteger) eventValues.getNonIndexedValues().get(0).getValue()
-                )).collect(Collectors.toList());
-    }
-
-    public Observable<TransferEventResponse> transferEventObservable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
-        final Event event = new Event("Transfer",
-                asList(new TypeReference<Address>() {
-                }, new TypeReference<Address>() {
-                }),
-                singletonList(new TypeReference<Uint256>() {
-                }));
-        final EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
-        filter.addSingleTopic(EventEncoder.encode(event));
-        return web3j.ethLogObservable(filter).map(log -> {
-            final EventValues eventValues = extractEventParameters(event, log);
-            return new TransferEventResponse(
-                    (String) eventValues.getIndexedValues().get(0).getValue(),
-                    (String) eventValues.getIndexedValues().get(1).getValue(),
-                    (BigInteger) eventValues.getNonIndexedValues().get(0).getValue()
-            );
-        });
-    }
-
-    public List<ApprovalEventResponse> getApprovalEvents(TransactionReceipt transactionReceipt) {
-        final Event event = new Event("Approval",
-                asList(new TypeReference<Address>() {
-                }, new TypeReference<Address>() {
-                }),
-                singletonList(new TypeReference<Uint256>() {
-                }));
-        return extractEventParameters(event, transactionReceipt).stream()
-                .map(eventValues -> new ApprovalEventResponse(
-                        (String) eventValues.getIndexedValues().get(0).getValue(),
-                        (String) eventValues.getIndexedValues().get(1).getValue(),
-                        (BigInteger) eventValues.getNonIndexedValues().get(0).getValue()
-                )).collect(Collectors.toList());
-    }
-
-    public Observable<ApprovalEventResponse> approvalEventObservable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
-        final Event event = new Event("Approval",
-                asList(new TypeReference<Address>() {
-                }, new TypeReference<Address>() {
-                }),
-                singletonList(new TypeReference<Uint256>() {
-                }));
-        final EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
-        filter.addSingleTopic(EventEncoder.encode(event));
-        return web3j.ethLogObservable(filter).map(log -> {
-            final EventValues eventValues = extractEventParameters(event, log);
-            return new ApprovalEventResponse(
-                    (String) eventValues.getIndexedValues().get(0).getValue(),
-                    (String) eventValues.getIndexedValues().get(1).getValue(),
-                    (BigInteger) eventValues.getNonIndexedValues().get(0).getValue()
-            );
-        });
     }
 
     public RemoteCall<String> name() {

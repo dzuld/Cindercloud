@@ -37,7 +37,7 @@ public class HistoricTransaction {
     private BigInteger nonce;
     private String s;
     private String r;
-    private Integer v;
+    private Long v;
     @Column(name = "from_address")
     private String fromAddress;
     @Column(name = "to_address")

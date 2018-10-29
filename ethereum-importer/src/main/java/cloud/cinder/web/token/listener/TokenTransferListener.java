@@ -41,16 +41,8 @@ public class TokenTransferListener {
     private static final org.apache.commons.logging.Log LOG = LogFactory.getLog(TokenTransferListener.class);
 
     static final Event TRANSFER_EVENT = new Event("Transfer",
-            Arrays.asList(
-                    new TypeReference<Address>() {
-                    },
-                    new TypeReference<Address>() {
-                    }
-            ),
-            Arrays.asList(
-                    new TypeReference<Uint256>() {
-                    })
-    );
+            Arrays.asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
+
 
     private final Web3jGateway web3jGateway;
     private final TokenTransferService tokenTransferService;
@@ -63,7 +55,6 @@ public class TokenTransferListener {
         this.tokenTransferService = tokenTransferService;
         this.tokenService = tokenService;
     }
-
 
     @Scheduled(fixedRate = (60000 * 20))
     private void subscribeToLive() {

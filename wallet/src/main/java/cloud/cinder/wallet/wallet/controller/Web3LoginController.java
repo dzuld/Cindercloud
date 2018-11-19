@@ -32,7 +32,7 @@ public class Web3LoginController {
     public @ResponseBody
     String login(@RequestParam("address") final String address) {
         final String validatedAddress = walletService.loginWithWeb3(address);
-        loginHandler.clientsideLogin(validatedAddress);
+        loginHandler.web3login(validatedAddress);
         return "OK";
     }
 }

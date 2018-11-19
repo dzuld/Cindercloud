@@ -1,11 +1,11 @@
 package cloud.cinder.web.token.listener;
 
-import cloud.cinder.web.token.listener.model.TokenEvent;
-import cloud.cinder.web.token.service.TokenService;
-import cloud.cinder.web.token.service.TokenTransferService;
 import cloud.cinder.ethereum.token.domain.Token;
 import cloud.cinder.ethereum.token.domain.TokenTransfer;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import cloud.cinder.web.token.listener.model.TokenEvent;
+import cloud.cinder.web.token.service.TokenService;
+import cloud.cinder.web.token.service.TokenTransferService;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -41,8 +41,15 @@ public class TokenTransferListener {
     private static final org.apache.commons.logging.Log LOG = LogFactory.getLog(TokenTransferListener.class);
 
     static final Event TRANSFER_EVENT = new Event("Transfer",
-            Arrays.asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
-
+            Arrays.asList(
+                    new TypeReference<Address>(true) {
+                    },
+                    new TypeReference<Address>(true) {
+                    },
+                    new TypeReference<Uint256>() {
+                    }
+            )
+    );
 
     private final Web3jGateway web3jGateway;
     private final TokenTransferService tokenTransferService;
@@ -55,6 +62,7 @@ public class TokenTransferListener {
         this.tokenTransferService = tokenTransferService;
         this.tokenService = tokenService;
     }
+
 
     @Scheduled(fixedRate = (60000 * 20))
     private void subscribeToLive() {

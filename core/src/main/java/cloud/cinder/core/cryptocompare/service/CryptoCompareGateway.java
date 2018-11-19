@@ -14,7 +14,7 @@ public class CryptoCompareGateway {
         this.client = client;
     }
 
-    @Cacheable(value = "token_price", key = "#symbol")
+    //@Cacheable(value = "token_price", key = "#symbol")
     public PriceResultDto getPrice(final String symbol) {
         return client.getPrice(symbol);
     }

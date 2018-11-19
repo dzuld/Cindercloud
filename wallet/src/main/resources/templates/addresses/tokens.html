@@ -1,0 +1,136 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="transfers">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table text-lowercase table-striped">
+                    <thead>
+                    <tr>
+                        <th>Tx</th>
+                        <th>Time</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Token</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="transfer : ${tokenTransfers}">
+                        <td><a th:href="@{'/tx/' + ${transfer.transactionHash}}"><span
+                                th:text="${transfer.prettyTransactionHash()}"></span></a></td>
+                        <td>
+                            <span th:text="${transfer.prettyBlockTimestamp()}"></span>
+                        </td>
+                        <td><a th:href="@{'/address/' + ${transfer.from}}"><span
+                                th:text="${transfer.prettyFrom()}"></span></a></td>
+                        <td><a th:href="@{'/address/' + ${transfer.to}}"><span th:text="${transfer.prettyTo()}"></span></a>
+                        </td>
+                        <td th:text="${transfer.prettyAmount()}"></td>
+                        <td>
+                            <a th:href="@{'/token/' + ${transfer.tokenAddress}}">
+                                <img th:alt="${transfer.tokenName}" th:title="${transfer.tokenName}"
+                                     th:alt-title="${transfer.tokenName}" class="g-width-25 g-height-25"
+                                     th:src="@{https://raw.githubusercontent.com/TrustWallet/tokens/master/images/} + ${#strings.toLowerCase(transfer.tokenAddress)} + .png" />
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End Table Striped Rows -->
+    </div>
+
+</div>
+
+<div th:fragment="tokenlist">
+    <div class="row" th:if="${customTokens != null &amp;&amp; customTokens.size() > 0}">
+        <div th:each="token : ${customTokens}" class="col-lg-3 g-mb-30">
+            <!-- Figure -->
+            <figure class="u-block-hover u-shadow-v19 g-bg-white g-rounded-4 g-pa-15">
+                <div class="d-flex justify-content-start text-center">
+                    <img class="g-width-50 g-height-50 g-mr-15"
+                         th:src="@{https://raw.githubusercontent.com/TrustWallet/tokens/master/images/} + ${#strings.toLowerCase(token.token.address)} + .png" />
+                    <!-- Figure Info -->
+                    <div class="d-block">
+                        <div class="g-mb-5">
+                            <h4 class="h5 g-mb-0" th:text="${token.token.name}">Mikel Andrews</h4>
+                            <p class="g-mb-0">(custom)</p>
+                            <em class="d-block g-color-primary g-font-style-normal g-font-size-default"><span
+                                    th:text="${token.balance}"></span> <span
+                                    th:text="${token.token.symbol}"></span></em>
+                        </div>
+                        <em class="d-block g-color-gray-dark-v5 g-font-style-normal g-font-size-13 g-mb-2"></em>
+                    </div>
+                    <!-- End Figure Info -->
+
+                    <figcaption class="u-block-hover__additional--fade g-bg-white-opacity-0_9 g-pa-30">
+                        <div class="u-block-hover__additional--fade u-block-hover__additional--fade-down g-flex-middle">
+                            <!-- Figure Social Icons -->
+                            <ul class="list-inline text-center g-flex-middle-item">
+                                <li class="list-inline-item align-middle g-mx-7">
+                                    <a class="g-color-gray-dark-v5 g-color-primary--hover"
+                                       th:href="@{/address/} + ${token.token.address}">
+                                        <em class="d-block g-color-primary g-font-style-normal"><span>€</span> <span
+                                                th:text="${token.eurPrice}"></span></em>
+                                        <em class="d-block g-color-primary g-font-style-normal"><span>$</span> <span
+                                                th:text="${token.dollarPrice}"></span></em>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Figure Social Icons -->
+                        </div>
+                    </figcaption>
+                </div>
+            </figure>
+            <!-- End Figure -->
+        </div>
+    </div>
+    <div class="row">
+        <div th:each="token : ${tokens}" class="col-lg-3 g-mb-30">
+            <!-- Figure -->
+            <figure class="u-block-hover u-shadow-v19 g-bg-white g-rounded-4 g-pa-15">
+                <div class="d-flex justify-content-start text-center">
+                    <img class="g-width-50 g-height-50 g-mr-15"
+                         onerror="this.src='/assets/images/logo/favicon-96x96.png'"
+                         th:src="@{https://raw.githubusercontent.com/TrustWallet/tokens/master/images/} + ${#strings.toLowerCase(token.token.address)} + .png" />
+                    <!-- Figure Info -->
+                    <div class="d-block">
+                        <div class="g-mb-5">
+                            <h4 class="h5 g-mb-0" th:text="${token.token.name}">Mikel Andrews</h4>
+                            <em class="d-block g-color-primary g-font-style-normal g-font-size-default"><span
+                                    th:text="${token.balance}"></span> <span
+                                    th:text="${token.token.symbol}"></span></em>
+                        </div>
+                        <em class="d-block g-color-gray-dark-v5 g-font-style-normal g-font-size-13 g-mb-2"></em>
+                    </div>
+                    <!-- End Figure Info -->
+
+                    <figcaption class="u-block-hover__additional--fade g-bg-white-opacity-0_9 g-pa-30">
+                        <div class="u-block-hover__additional--fade u-block-hover__additional--fade-down g-flex-middle">
+                            <!-- Figure Social Icons -->
+                            <ul class="list-inline text-center g-flex-middle-item">
+                                <li class="list-inline-item align-middle g-mx-7">
+                                    <a class="g-color-gray-dark-v5 g-color-primary--hover"
+                                       th:href="@{/address/} + ${token.token.address}">
+                                        <em class="d-block g-color-primary g-font-style-normal"><span>€</span> <span
+                                                th:text="${token.eurPrice}"></span></em>
+                                        <em class="d-block g-color-primary g-font-style-normal"><span>$</span> <span
+                                                th:text="${token.dollarPrice}"></span></em>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Figure Social Icons -->
+                        </div>
+                    </figcaption>
+                </div>
+            </figure>
+            <!-- End Figure -->
+        </div>
+    </div>
+
+
+</div>
+</html>

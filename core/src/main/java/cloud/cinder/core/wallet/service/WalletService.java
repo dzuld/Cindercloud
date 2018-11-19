@@ -65,6 +65,11 @@ public class WalletService {
         return address;
     }
 
+    public String loginWithArkane(final String address) {
+        validateAddress(address);
+        return address;
+    }
+
     public Credentials loginWithMnemonic(final String mnemonic, final int index) {
         try {
             final ECKeyPair keypair = bip44Service.fromMnemonic(mnemonic, index);

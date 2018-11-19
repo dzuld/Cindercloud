@@ -1,14 +1,13 @@
 package cloud.cinder.core.login.handler;
 
 import cloud.cinder.common.login.domain.LoginEvent;
-import cloud.cinder.core.security.domain.ClientSideAuthentication;
-import cloud.cinder.core.security.domain.PrivateKeyAuthentication;
+import cloud.cinder.core.security.domain.ArkaneAuthentication;
 import cloud.cinder.core.security.domain.TrezorAuthentication;
+import cloud.cinder.core.security.domain.Web3Authentication;
 import com.google.common.base.Preconditions;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.web3j.crypto.Credentials;
 
 import java.util.Date;
 
@@ -23,16 +22,16 @@ public class LoginHandler {
         this.$ = applicationEventPublisher;
     }
 
-    public void login(final Credentials credentials) {
-        SecurityContextHolder.getContext().setAuthentication(new PrivateKeyAuthentication(credentials.getEcKeyPair(), prettifyAddress(credentials.getAddress())));
-        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
-        throwEvent(credentials.getAddress(), "CINDERCLOUD");
-    }
-
-    public void clientsideLogin(final String address) {
-        SecurityContextHolder.getContext().setAuthentication(new ClientSideAuthentication(prettifyAddress(address)));
+    public void web3login(final String address) {
+        SecurityContextHolder.getContext().setAuthentication(new Web3Authentication(prettifyAddress(address)));
         SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
         throwEvent(address, "WEB3");
+    }
+
+    public void arkaneLogin(final String bearerToken, final String address, final String walletId) {
+        SecurityContextHolder.getContext().setAuthentication(new ArkaneAuthentication(prettifyAddress(address), bearerToken, walletId));
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
+        throwEvent(address, "ARKANE");
     }
 
     public void trezorLogin(final String xpubkey,

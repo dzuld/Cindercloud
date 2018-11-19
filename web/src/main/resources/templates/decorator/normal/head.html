@@ -88,7 +88,9 @@
         <div layout:fragment="header-content" th:remove="tag"></div>
 
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <th:block th:replace="components/web3js :: header"></th:block>
+        <script type="application/javascript" th:src="@{/assets/vendor/web3/web3.js}"></script>
+        <script type="application/javascript" src="https://connect-staging.arkane.network/connect.js"></script>
+
 
         <title>Cindercloud | Blockchain Platform</title>
     </head>

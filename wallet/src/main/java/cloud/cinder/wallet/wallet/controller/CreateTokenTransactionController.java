@@ -3,16 +3,14 @@ package cloud.cinder.wallet.wallet.controller;
 import cloud.cinder.core.coinmarketcap.dto.Currency;
 import cloud.cinder.core.cryptocompare.service.TokenPriceService;
 import cloud.cinder.core.erc20.service.CustomERC20Service;
-import cloud.cinder.core.security.domain.AuthenticationType;
 import cloud.cinder.core.token.service.TokenService;
+import cloud.cinder.core.wallet.service.AuthenticationService;
+import cloud.cinder.core.wallet.service.Web3TransactionService;
 import cloud.cinder.core.wallet.service.command.ConfirmTokenTransactionCommand;
+import cloud.cinder.ethereum.erc20.service.ERC20Service;
 import cloud.cinder.wallet.erc20.controller.dto.AddressTokenDto;
 import cloud.cinder.wallet.erc20.controller.dto.CustomAddressTokenDto;
 import cloud.cinder.wallet.wallet.controller.command.create.CreateTokenTransactionCommand;
-import cloud.cinder.core.wallet.service.AuthenticationService;
-import cloud.cinder.core.wallet.service.Web3TransactionService;
-import cloud.cinder.ethereum.erc20.service.ERC20Service;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,7 +19,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -154,32 +151,4 @@ public class CreateTokenTransactionController {
         createTokenTransactionCommand.setTo(to.orElse(""));
         return createTokenTransactionCommand;
     }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/confirm")
-    public String confirmTransaction(@Valid @ModelAttribute("confirm") final ConfirmTokenTransactionCommand confirmEtherTransactionCommand,
-                                     final BindingResult bindingResult,
-                                     final RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("error", "Something went wrong while trying to confirm your transaction");
-            return "redirect:/wallet/tokens/send";
-        } else {
-            if (authenticationService.getType().equals(AuthenticationType.CINDERCLOUD)) {
-                try {
-                    final String transactionHash = web3TransactionService.submitTokenTransaction(confirmEtherTransactionCommand);
-                    redirectAttributes.addFlashAttribute("success", "Your transaction has been submitted to the network: " + transactionHash);
-                    return "redirect:/wallet/tokens/send";
-                } catch (final AuthenticationException e) {
-                    throw e;
-                } catch (final Exception ex) {
-                    redirectAttributes.addFlashAttribute("error", ex.getMessage());
-                    return "redirect:/wallet/tokens/send";
-                }
-            } else {
-                redirectAttributes.addFlashAttribute("error", "Something went wrong while trying to execute your transaction, please try again");
-                return "redirect:/wallet/tokens/send";
-            }
-        }
-    }
-
-
 }

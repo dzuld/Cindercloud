@@ -73,27 +73,25 @@
                       </span>
                                 </li>
                             </ul>
-
-                            <div th:if="${authenticationType == T(cloud.cinder.core.security.domain.AuthenticationType).CINDERCLOUD}">
-                                <form th:object="${confirm}" method="POST" th:action="@{/wallet/tokens/confirm}">
+                            <div th:if="${authenticationType == T(cloud.cinder.core.security.domain.AuthenticationType).ARKANE}">
+                                <form th:object="${confirm}">
                                     <input type="hidden" th:field="*{to}" id="confirmTo" />
-                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
                                     <input type="hidden" th:field="*{tokenAddress}" id="confirmTokenAddress" />
-                                    <input type="hidden" th:field="*{gasPriceInWei}" id="gasPriceInWei" />
+                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
                                     <input type="hidden" th:field="*{amount}" id="confirmAmount" />
                                     <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice" />
+                                    <input type="hidden" th:field="*{gasPriceInWei}" id="confirmGasPriceInWei" />
                                     <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit" />
-                                    <button type="submit" id="btnConfirm"
-                                            class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
-                                    </button>
                                 </form>
+                                <button type="submit" id="btnConfirm"
+                                        class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
+                                </button>
                                 <button type="submit" id="btnCancel" class="btn btn-md u-btn-red pull-right rounded-0">
                                     Cancel
                                 </button>
                             </div>
 
                             <div th:if="${authenticationType == T(cloud.cinder.core.security.domain.AuthenticationType).WEB3}">
-
                                 <form th:object="${confirm}">
                                     <input type="hidden" th:field="*{to}" id="confirmTo" />
                                     <input type="hidden" th:field="*{tokenAddress}" id="confirmTokenAddress" />
@@ -155,6 +153,11 @@
     <th:block th:if="${authenticationType == T(cloud.cinder.core.security.domain.AuthenticationType).WEB3}">
         <script type="application/javascript" th:src="@{/assets/abi/abi.js}"></script>
         <script type="application/javascript" th:src="@{/assets/ethereum/confirm-tokens.js}"></script>
+    </th:block>
+
+    <th:block th:if="${authenticationType == T(cloud.cinder.core.security.domain.AuthenticationType).ARKANE}">
+        <script type="application/javascript" th:src="@{/assets/abi/abi.js}"></script>
+        <script type="application/javascript" th:src="@{/assets/ethereum/confirm-tokens-arkane.js}"></script>
     </th:block>
 </div>
 </body>

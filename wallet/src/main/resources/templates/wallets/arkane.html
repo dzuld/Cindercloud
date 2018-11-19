@@ -1,0 +1,103 @@
+<!DOCTYPE html >
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorator="decorator/normal/decorator">
+<div layout:fragment="header-content">
+
+</div>
+
+<body>
+<div layout:fragment="main-content">
+
+    <section class="breadcrumbs g-bg-gray-light-v5 g-py-50">
+        <div class="container">
+            <div class="d-sm-flex text-center">
+                <div class="align-self-center">
+                    <h2 class="h3 g-font-weight-300 w-100 g-mb-10 g-mb-0--md">Login to your wallet</h2>
+                </div>
+
+                <div class="align-self-center ml-auto">
+                    <ul class="u-list-inline">
+                        <li class="list-inline-item g-mr-5">
+                            <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">Wallets</a>
+                            <i class="g-color-gray-light-v2 g-ml-5">/</i>
+                        </li>
+                        <li class="list-inline-item g-color-primary">
+                            <span>Login</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="d-sm-flex text-center">
+                <ul id="loginList" class="list-unstyled">
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login -->
+    <script id="hidden-template" type="text/x-custom-template">
+        <li class="media g-brd-around g-brd-gray-light-v4 g-brd-left-3 g-brd-teal-left g-rounded-3 g-pt-15 g-pl-15 g-pr-5 g-mb-7">
+            <div class="media-body">
+                <div class="d-flex justify-content-between">
+                    <h5 style="font-family: monospace;" class="h6 g-font-weight-400 g-color-black"><span
+                            id="address"></span> (<span id="description"></span>)</h5>
+                    <a class="mnemonicSubmit btn btn-xs u-btn-primary g-mr-10 g-mb-15" data-idx="0">
+                        <i class="signin fa fa-sign-in"></i>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </script>
+</div>
+
+
+<div layout:fragment="footer-content">
+    <script type="application/javascript">
+		(function () {
+			function signin(caller) {
+				const walletAddress = $(caller.target).data('wallet-address');
+				const bearerToken = $(caller.target).data('bearer-token');
+				const walletId = $(caller.target).data('wallet-id');
+				const auth = JSON.stringify({bearerToken: bearerToken, address: walletAddress, walletId: walletId});
+				console.log(auth);
+
+				$.ajax({
+					type: 'POST',
+					url: '/arkane/login',
+					data: auth,
+					contentType: "application/json",
+					dataType: 'json',
+					success: function(result) {
+						if (result) {
+							window.location = '/wallet';
+						}
+                    }
+				});
+			}
+
+			Arkane.login(function (wallets, auth) {
+				for (const wallet of wallets) {
+					console.log(wallet);
+					const template = $('#hidden-template').html();
+					const item = $(template).clone();
+					$(item).find('#description').html(wallet.description);
+					$(item).find('#address').html(wallet.address);
+					$(item).find('#balance').html(wallet.balance.balance);
+					$(item).find('#type').html(wallet.type);
+					$(item).find('.signin').data("wallet-id", wallet.id);
+					$(item).find('.signin').data("wallet-address", wallet.address);
+					$(item).find('.signin').data("bearer-token", auth);
+					$('#loginList').append(item);
+				}
+				$('.signin').click(signin);
+			});
+		})();
+    </script>
+</div>
+</body>
+</html>

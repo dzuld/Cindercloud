@@ -4,38 +4,34 @@ services:
   cindercloud-redis:
     image: redis:4.0
     ports:
-      - "6379:6379"
+    - "6379:6379"
     volumes:
-      - ./docker_data/redis:/data
+    - ./docker_data/redis:/data
     networks:
-      - cindercloud
+    - cindercloud
     container_name: cindercloud-redis
-  arkane-discovery-service:
-    image: fundrequestio/arkane-discovery-service:develop
-    ports:
-      - 8761:8761
   cindercloud-postgres:
     image: postgres:10.3
     ports:
-      - 5432:5432
+    - 5432:5432
     volumes:
-      - ./docker_data/postgres:/data/postgres
+    - ./docker_data/postgres:/data/postgres
     container_name: cindercloud-postgres
     environment:
-         POSTGRES_USER: cindercloud
-         POSTGRES_PASSWORD: cindercloud
-         PGDATA: /data/postgres
+      POSTGRES_USER: cindercloud
+      POSTGRES_PASSWORD: cindercloud
+      PGDATA: /data/postgres
   cindercloud-rabbitmq:
     image: rabbitmq:3.7-management
-    ports :
-      -  "5672:5672"
-      -  "9191:15672"
+    ports:
+    - "5672:5672"
+    - "9191:15672"
     volumes:
-      - ./docker_data/cindercloud/data:/var/lib/rabbitmq
+    - ./docker_data/cindercloud/data:/var/lib/rabbitmq
     container_name: cindercloud-rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_PASS=default_pass
+    - RABBITMQ_DEFAULT_PASS=default_pass
     networks:
-      - cindercloud
+    - cindercloud
 networks:
   cindercloud:

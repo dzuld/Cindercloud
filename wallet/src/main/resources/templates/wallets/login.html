@@ -31,16 +31,15 @@
         </div>
     </section>
 
-    <section class="clientSideWeb3Enabled g-bg-primary g-color-white g-pa-30 "
-             style="display: none; background-image: url(/assets/img/bg/pattern5.png);">
+    <section class="g-bg-primary g-color-white g-pa-30 "
+             style="background-image: url(/assets/img/bg/pattern5.png);">
         <div class="d-md-flex justify-content-md-center text-center">
             <div class="align-self-md-center">
-                <p class="lead g-font-weight-400 g-mr-20--md g-mb-15 g-mb-0--md">It would appear your browser is
-                    web3-enabled!</p>
+                <p class="lead g-font-weight-400 g-mr-20--md g-mb-15 g-mb-0--md">We recommend using Arkane Network to login!</p>
             </div>
             <div class="align-self-md-center">
-                <a th:href="@{/web3/login}"
-                   class="btn btn-lg u-btn-white text-uppercase g-font-weight-600 g-font-size-12">Login With Web3</a>
+                <a th:href="@{/arkane/login}"
+                   class="btn btn-lg u-btn-white text-uppercase g-font-weight-600 g-font-size-12">Login With Arkane</a>
             </div>
         </div>
     </section>
@@ -58,17 +57,8 @@
 
                 <div class="row equal">
                     <div class="col-md-2"></div>
+                    <th:block th:replace="components/login :: arkane"></th:block>
                     <th:block th:replace="components/login :: web3"></th:block>
-                    <th:block th:replace="components/login :: keystore"></th:block>
-                </div>
-                <div class="row equal">
-                    <th:block th:replace="components/login :: mnemonic"></th:block>
-                    <th:block th:replace="components/login :: privateKey"></th:block>
-                </div>
-                <div class="row equal">
-                    <th:block th:replace="components/login :: trezor"></th:block>
-                    <th:block th:replace="components/login :: keepkey"></th:block>
-                    <th:block th:replace="components/login :: ledger"></th:block>
                 </div>
             </div>
         </div>
@@ -78,9 +68,6 @@
 
 </div>
 <div layout:fragment="footer-content">
-    <th:block th:replace="components/login :: mnemonicJs"></th:block>
-   <!-- <th:block th:replace="components/login :: trezorJs"></th:block> -->
-
 </div>
 </body>
 </html>

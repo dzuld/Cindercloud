@@ -1,11 +1,11 @@
 package cloud.cinder.web.token.listener;
 
-import cloud.cinder.web.token.listener.model.TokenEvent;
-import cloud.cinder.web.token.service.TokenService;
-import cloud.cinder.web.token.service.TokenTransferService;
 import cloud.cinder.ethereum.token.domain.Token;
 import cloud.cinder.ethereum.token.domain.TokenTransfer;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import cloud.cinder.web.token.listener.model.TokenEvent;
+import cloud.cinder.web.token.service.TokenService;
+import cloud.cinder.web.token.service.TokenTransferService;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -42,14 +42,13 @@ public class TokenTransferListener {
 
     static final Event TRANSFER_EVENT = new Event("Transfer",
             Arrays.asList(
-                    new TypeReference<Address>() {
+                    new TypeReference<Address>(true) {
                     },
-                    new TypeReference<Address>() {
-                    }
-            ),
-            Arrays.asList(
+                    new TypeReference<Address>(true) {
+                    },
                     new TypeReference<Uint256>() {
-                    })
+                    }
+            )
     );
 
     private final Web3jGateway web3jGateway;

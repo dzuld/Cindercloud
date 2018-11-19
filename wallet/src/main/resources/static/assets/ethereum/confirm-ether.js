@@ -31,7 +31,7 @@
 			gasPrice: gasPrice
 		};
 
-		CindercloudWeb3.FgetWeb3().eth.sendTransaction(transactionObject, function (err, transactionHash) {
+		CindercloudWeb3.getWeb3().eth.sendTransaction(transactionObject, function (err, transactionHash) {
 			if (!err) {
 				swal("Transaction Sent!", "The transaction has been sent (" + transactionHash + ")", "success");
 			} else {

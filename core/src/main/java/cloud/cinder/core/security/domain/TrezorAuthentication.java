@@ -11,7 +11,7 @@ public class TrezorAuthentication extends HardwareWalletAuthentication {
     private String address;
     private String path;
 
-    final AuthenticationType type = AuthenticationType.CINDERCLOUD;
+    final AuthenticationType type = AuthenticationType.TREZOR;
 
     public TrezorAuthentication(final String xpubkey,
                                 final String publicKey,

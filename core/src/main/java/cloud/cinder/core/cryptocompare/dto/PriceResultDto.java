@@ -4,6 +4,7 @@ import cloud.cinder.core.coinmarketcap.dto.Currency;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -11,7 +12,10 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class PriceResultDto implements Serializable {
+
+    static final long serialVersionUID = 1L;
 
     @JsonProperty("EUR")
     private String EUR;

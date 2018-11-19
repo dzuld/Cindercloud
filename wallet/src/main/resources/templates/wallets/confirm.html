@@ -99,6 +99,23 @@
                                     Cancel
                                 </button>
                             </div>
+
+                            <div th:if="${authenticationType == T(cloud.cinder.core.security.domain.AuthenticationType).ARKANE}">
+                                <form th:object="${confirm}">
+                                    <input type="hidden" th:field="*{to}" id="confirmTo" />
+                                    <input type="hidden" th:field="*{amountInWei}" id="confirmAmountInWei" />
+                                    <input type="hidden" th:field="*{amount}" id="confirmAmount" />
+                                    <input type="hidden" th:field="*{gasPrice}" id="confirmGasPrice" />
+                                    <input type="hidden" th:field="*{gasPriceInWei}" id="confirmGasPriceInWei" />
+                                    <input type="hidden" th:field="*{gasLimit}" id="confirmGasLimit" />
+                                </form>
+                                <button type="submit" id="btnConfirm"
+                                        class="btn btn-md u-btn-primary pull-right rounded-0">Confirm
+                                </button>
+                                <button type="submit" id="btnCancel" class="btn btn-md u-btn-red pull-right rounded-0">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <!-- End Balance Info -->
@@ -142,6 +159,10 @@
     <script th:src="@{/assets/ethereum/confirm-ether.js}"
             type="application/javascript"
             th:if="${authenticationType == T(cloud.cinder.core.security.domain.AuthenticationType).WEB3}"></script>
+
+    <script th:src="@{/assets/ethereum/confirm-ether-arkane.js}"
+            type="application/javascript"
+            th:if="${authenticationType == T(cloud.cinder.core.security.domain.AuthenticationType).ARKANE}"></script>
 </div>
 </body>
 </html>

@@ -149,7 +149,7 @@
 			};
 
 			const populateTokens = function () {
-				$.get(explorerBaseUrl + '/address/' + $("#currentAddress").data('hash') + '/tokens', function (result) {
+				$.get('/address/' + $("#currentAddress").data('hash') + '/tokens', function (result) {
 					$("#tokenSection").html(result.replaceAll('col-lg-3', 'col-lg-4'));
 				});
 			};

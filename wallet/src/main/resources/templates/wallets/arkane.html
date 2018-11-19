@@ -31,27 +31,37 @@
         </div>
 
         <div class="container">
-            <div class="d-sm-flex text-center">
-                <ul id="loginList" class="list-unstyled">
+            <div id="loginList" class="row">
 
-                </ul>
             </div>
         </div>
     </section>
 
     <!-- Login -->
     <script id="hidden-template" type="text/x-custom-template">
-        <li class="media g-brd-around g-brd-gray-light-v4 g-brd-left-3 g-brd-teal-left g-rounded-3 g-pt-15 g-pl-15 g-pr-5 g-mb-7">
-            <div class="media-body">
-                <div class="d-flex justify-content-between">
-                    <h5 style="font-family: monospace;" class="h6 g-font-weight-400 g-color-black"><span
-                            id="address"></span> (<span id="description"></span>)</h5>
-                    <a class="mnemonicSubmit btn btn-xs u-btn-primary g-mr-10 g-mb-15" data-idx="0">
-                        <i class="signin fa fa-sign-in"></i>
-                    </a>
+
+        <div class="col-md-6 g-mb-30">
+            <!-- Article -->
+            <article class="signin d-flex justify-content-between align-items-center u-shadow-v19 g-bg-white rounded g-pa-20">
+                <!-- Article Image -->
+                <div class="d-block g-max-width-100 g-mr-20" href="#!">
+                    <img class="w-100 g-rounded-50x" th:src="@{/assets/images/cindercloud.png}" alt="Image Description">
                 </div>
-            </div>
-        </li>
+                <!-- End Article Image -->
+
+                <!-- Article Content -->
+                <div class="g-mr-20">
+                    <h3 class="g-color-black g-font-weight-700 g-font-size-13 text-uppercase">
+                        <a id="description" class="u-link-v5 g-color-black g-color-primary--hover" href="#!">
+                            Unify Template
+                        </a>
+                    </h3>
+                    <p id="address">Address</p>
+                    <p id="balance">0.0</p>
+                </div>
+            </article>
+            <!-- End Article -->
+        </div>
     </script>
 </div>
 
@@ -60,9 +70,10 @@
     <script type="application/javascript">
 		(function () {
 			function signin(caller) {
-				const walletAddress = $(caller.target).data('wallet-address');
-				const bearerToken = $(caller.target).data('bearer-token');
-				const walletId = $(caller.target).data('wallet-id');
+				let target = $(caller.target).closest('.signin');
+				const walletAddress = $(target).data('wallet-address');
+				const bearerToken = $(target).data('bearer-token');
+				const walletId = $(target).data('wallet-id');
 				const auth = JSON.stringify({bearerToken: bearerToken, address: walletAddress, walletId: walletId});
 				console.log(auth);
 
@@ -72,11 +83,11 @@
 					data: auth,
 					contentType: "application/json",
 					dataType: 'json',
-					success: function(result) {
+					success: function (result) {
 						if (result) {
 							window.location = '/wallet';
 						}
-                    }
+					}
 				});
 			}
 
@@ -89,6 +100,7 @@
 					$(item).find('#address').html(wallet.address);
 					$(item).find('#balance').html(wallet.balance.balance);
 					$(item).find('#type').html(wallet.type);
+					$(item).find('#balance').html(wallet.balance.balance + ' ' + wallet.balance.symbol);
 					$(item).find('.signin').data("wallet-id", wallet.id);
 					$(item).find('.signin').data("wallet-address", wallet.address);
 					$(item).find('.signin').data("bearer-token", auth);

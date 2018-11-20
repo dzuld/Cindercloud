@@ -5,11 +5,13 @@ const Arkane = (function () {
 	let walletId;
 
 	$.get('/arkane/login/token', (result) => {
-		console.log(result);
-		bearerToken = result.bearerToken;
-		address = result.address;
-		walletId = result.walletId;
-		arkaneConnect.init(() => bearerToken);
+		if (result) {
+			console.log('we got a result');
+			bearerToken = result.bearerToken;
+			address = result.address;
+			walletId = result.walletId;
+			arkaneConnect.init(() => bearerToken);
+		}
 	}).fail((fail) => {
 		console.log('not logged in with arkane');
 	});

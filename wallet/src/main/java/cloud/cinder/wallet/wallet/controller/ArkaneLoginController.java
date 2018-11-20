@@ -44,7 +44,7 @@ public class ArkaneLoginController {
                     SecurityContextHolder.getContext().getAuthentication().getCredentials().toString(),
                     ((ArkaneAuthentication) SecurityContextHolder.getContext().getAuthentication()).getWalletId());
         } else {
-            throw new IllegalArgumentException("Not logged in with arkane");
+            return null;
         }
     }
 }

@@ -34,5 +34,4 @@ public class IndexController {
         modelMap.put("generatedWalletCount", eventService.countByType(EventType.WALLET_CREATED) + 1241 /* take into account the amount of wallets pre-event table */);
         return "landing";
     }
-
 }

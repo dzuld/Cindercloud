@@ -25,6 +25,8 @@ const Arkane = (function () {
 			}).notAuthenticated((auth) => {
 				arkaneConnect.authenticate();
 			});
+		}).catch((error) => {
+			console.log(error);
 		});
 	};
 

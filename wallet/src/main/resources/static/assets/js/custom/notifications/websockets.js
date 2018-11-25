@@ -6,7 +6,6 @@ const cindercloudWS = (function () {
 	let callbacksAfterInit = [];
 
 	const connect = function() {
-		console.log('connecting to websockets');
 		stompClient = Stomp.over(socket);
 		stompClient.debug = null;
 		stompClient.connect({}, onConnected, onError);

@@ -5,7 +5,9 @@
 
 <div th:fragment="scripts">
 
-    <script type="application/javascript" src="https://connect-staging.arkane.network/connect.js"></script>
+    <script defer="defer" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script defer="defer" type="application/javascript" th:src="@{/assets/vendor/web3/web3.js}"></script>
+    <script defer="defer" async="async" type="application/javascript" src="https://connect-staging.arkane.network/connect.js"></script>
 
     <!-- JS Global Compulsory -->
     <script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
@@ -16,13 +18,8 @@
 
     <!-- JS Implementing Plugins -->
     <script th:src="@{/assets/vendor/hs-megamenu/src/hs.megamenu.js}"></script>
-    <script th:src="@{/assets/vendor/dzsparallaxer/dzsparallaxer.js}"></script>
-    <script th:src="@{/assets/vendor/dzsparallaxer/dzsscroller/scroller.js}"></script>
-    <script th:src="@{/assets/vendor/dzsparallaxer/advancedscroller/plugin.js}"></script>
     <script th:src="@{/assets/vendor/chosen/chosen.jquery.js}"></script>
-    <script th:src="@{/assets/vendor/image-select/src/ImageSelect.jquery.js}"></script>
     <script th:src="@{/assets/vendor/masonry/dist/masonry.pkgd.min.js}"></script>
-    <script th:src="@{/assets/vendor/slick-carousel/slick/slick.js}"></script>
 
     <!-- JS Unify -->
     <script th:src="@{/assets/js/hs.core.js}"></script>
@@ -33,12 +30,12 @@
     <script th:src="@{/assets/js/helpers/hs.height-calc.js}"></script>
     <script th:src="@{/assets/js/components/hs.carousel.js}"></script>
     <script th:src="@{/assets/js/components/hs.scroll-nav.js}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" ></script>
-    <script th:src="@{/assets/js/custom/notifications/websockets.js}"></script>
-    <script th:src="@{/assets/js/custom/notifications/notifications.js}"></script>
+    <script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" ></script>
+    <script defer="defer" th:src="@{/assets/js/custom/notifications/websockets.js}"></script>
+    <script defer="defer" th:src="@{/assets/js/custom/notifications/notifications.js}"></script>
 
     <!-- JS Custom -->
     <script th:src="@{/assets/js/custom.js}"></script>
@@ -51,7 +48,7 @@
     </script>
 
     <!-- JS Plugins Init. -->
-    <script>
+    <script async="async">
 		$(document).on('ready', function () {
 			// initialization of HSMegaMenu plugin
 			$('.js-mega-menu').HSMegaMenu({

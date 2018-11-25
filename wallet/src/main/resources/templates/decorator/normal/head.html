@@ -23,7 +23,7 @@
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-97187183-1"></script>
-        <script>
+        <script aync="async">
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
@@ -33,7 +33,6 @@
         </script>
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
-
 
         <meta name="_disqusname" th:content="${@environment.getProperty('cloud.cinder.disqus.name')}"/>
 
@@ -50,7 +49,7 @@
         <link rel="icon" type="image/png" th:href="@{/assets/images/logo/favicon-96x96.png}" sizes="96x96" />
 
         <!-- Google Fonts -->
-        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700" />
+        <link media="screen" rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700" />
 
         <!-- CSS Global Compulsory -->
         <link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/bootstrap.min.css}" />
@@ -61,10 +60,9 @@
         <link rel="stylesheet" th:href="@{/assets/vendor/icon-etlinefont/style.css}" />
         <link rel="stylesheet" th:href="@{/assets/vendor/icon-line-pro/style.css}" />
         <link rel="stylesheet" th:href="@{/assets/vendor/icon-hs/style.css}" />
-        <link rel="stylesheet" th:href="@{/assets/vendor/dzsparallaxer/dzsparallaxer.css}" />
-        <link rel="stylesheet" th:href="@{/assets/vendor/dzsparallaxer/dzsscroller/scroller.css}" />
+        <link media="screen" rel="stylesheet" th:href="@{/assets/vendor/dzsparallaxer/dzsparallaxer.css}" />
+        <link media="screen" rel="stylesheet" th:href="@{/assets/vendor/dzsparallaxer/dzsscroller/scroller.css}" />
         <link rel="stylesheet" th:href="@{/assets/vendor/dzsparallaxer/advancedscroller/plugin.css}" />
-        <link rel="stylesheet" th:href="@{/assets/vendor/slick-carousel/slick/slick.css}" />
         <link rel="stylesheet" th:href="@{/assets/vendor/animate.css}" />
         <link  rel="stylesheet" th:href="@{/assets/vendor/custombox/custombox.min.css}" />
         <link rel="stylesheet" th:href="@{/assets/vendor/hs-megamenu/src/hs.megamenu.css}" />
@@ -75,13 +73,11 @@
         <link rel="stylesheet" th:href="@{/assets/css/unify-components.css}" />
         <link rel="stylesheet" th:href="@{/assets/css/unify-globals.css}" />
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" />
+        <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css" />
 
 
         <!-- CSS Customization -->
         <link rel="stylesheet" th:href="@{/assets/css/custom.css}" />
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script type="application/javascript" th:src="@{/assets/vendor/web3/web3.js}"></script>
 
         <title>Cindercloud | The Blockchain Platform</title>
         <div layout:fragment="header-content" th:remove="tag"></div>

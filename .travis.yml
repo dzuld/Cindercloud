@@ -19,4 +19,3 @@ after_success:
   - docker push cindercloud/whitehat:"$TRAVIS_BRANCH"
   - docker push cindercloud/ethereum-importer:"$TRAVIS_BRANCH"
   - docker push cindercloud/vechain-importer:"$TRAVIS_BRANCH"
-  - bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)

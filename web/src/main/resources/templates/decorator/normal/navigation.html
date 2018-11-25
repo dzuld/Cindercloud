@@ -141,11 +141,11 @@
                     </div>
 
                     <th:block sec:authorize="isAnonymous()">
-                        <a th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/web3/login'}" style="display: none;" href="#!"
+                        <a th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/arkane/login'}" style="display: none;" href="#!"
                            class="clientSideWeb3Enabled btn btn-md u-btn-skew u-btn-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-rounded-50 g-mr-10 g-mb-15">
                             <span class="u-btn-skew__inner">
                               <i class="fa fa-check-circle g-mr-3"></i>
-                              Web3 enabled
+                              Login
                             </span>
                         </a>
                     </th:block>

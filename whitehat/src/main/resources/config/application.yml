@@ -49,3 +49,8 @@ ribbon:
     name: client
   ConnectTimeout: 100000
   ReadTimeout: 100000
+
+contracts:
+  parity:
+    signature-registry:
+      address: '0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86'

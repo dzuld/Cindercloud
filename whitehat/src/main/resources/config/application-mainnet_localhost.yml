@@ -2,5 +2,5 @@ cloud:
   cinder:
     ethereum:
       endpoint:
-        url: https://fullnode.fundrequest.io
+        url: https://fullnode.arkane.network
         local-url: https://fullnode.fundrequest.io

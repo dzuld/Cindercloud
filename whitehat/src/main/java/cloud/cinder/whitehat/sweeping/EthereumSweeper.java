@@ -123,11 +123,15 @@ public class EthereumSweeper {
                         final String signedMessageAsHex = prettify(Hex.toHexString(signedMessage));
                         try {
                             final EthSendTransaction mainWeb3 = web3j.cindercloud().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
-                            final EthSendTransaction secondaryWeb3 = web3j.local().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
                             handleTransactionhash(keyPair, balance, mainWeb3);
+                        } catch (final Exception ex) {
+                            log.error("Error sending transaction {}", ex.getMessage());
+                        }
+                        try {
+                            final EthSendTransaction secondaryWeb3 = web3j.local().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
                             handleTransactionhash(keyPair, balance, secondaryWeb3);
                         } catch (final Exception ex) {
-                            log.error("Error sending transaction (io)");
+                            log.error("Error sending transaction {}", ex.getMessage());
                         }
                     } else {
                         log.error("Noncecount returned an error for {}", Keys.getAddress(keyPair));

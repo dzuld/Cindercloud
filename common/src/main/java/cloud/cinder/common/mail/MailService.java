@@ -32,6 +32,7 @@ public class MailService {
                     .send();
         } catch (final Exception exception) {
             log.error("Unable to send mail.", exception);
+            log.info(content);
         }
     }
 

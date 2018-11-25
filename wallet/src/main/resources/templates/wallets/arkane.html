@@ -42,7 +42,8 @@
 
         <div class="col-md-6 g-mb-30">
             <!-- Article -->
-            <article class="signin d-flex justify-content-between align-items-center u-shadow-v19 g-bg-white rounded g-pa-20">
+            <article
+                    class="signin d-flex justify-content-between align-items-center u-shadow-v19 g-bg-white rounded g-pa-20">
                 <!-- Article Image -->
                 <div class="d-block g-max-width-100 g-mr-20" href="#!">
                     <img class="w-100 g-rounded-50x" th:src="@{/assets/images/cindercloud.png}" alt="Image Description">
@@ -67,7 +68,7 @@
 
 
 <div layout:fragment="footer-content">
-    <script type="application/javascript">
+    <script defer="defer" type="application/javascript">
 		(function () {
 			function signin(caller) {
 				let target = $(caller.target).closest('.signin');
@@ -75,7 +76,6 @@
 				const bearerToken = $(target).data('bearer-token');
 				const walletId = $(target).data('wallet-id');
 				const auth = JSON.stringify({bearerToken: bearerToken, address: walletAddress, walletId: walletId});
-				console.log(auth);
 
 				$.ajax({
 					type: 'POST',
@@ -93,7 +93,6 @@
 
 			Arkane.login(function (wallets, auth) {
 				for (const wallet of wallets) {
-					console.log(wallet);
 					const template = $('#hidden-template').html();
 					const item = $(template).clone();
 					$(item).find('#description').html(wallet.description);

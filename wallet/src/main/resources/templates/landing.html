@@ -139,19 +139,18 @@
 <div layout:fragment="footer-content">
 
     <!-- JS Implementing Plugins -->
-    <script th:src="@{/assets/vendor/hs-megamenu/src/hs.megamenu.js}"></script>
-    <script th:src="@{/assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js}"></script>
-    <script th:src="@{/assets/vendor/gmaps/gmaps.min.js}"></script>
-    <script th:src="@{/assets/vendor/fancybox/jquery.fancybox.min.js}"></script>
+    <script defer="defer" th:src="@{/assets/vendor/hs-megamenu/src/hs.megamenu.js}"></script>
+    <script defer="defer" th:src="@{/assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js}"></script>
+    <script defer="defer" th:src="@{/assets/vendor/fancybox/jquery.fancybox.min.js}"></script>
 
-    <script th:src="@{/assets/js/hs.core.js}"></script>
-    <script th:src="@{/assets/js/components/hs.header.js}"></script>
-    <script th:src="@{/assets/js/helpers/hs.hamburgers.js}"></script>
-    <script th:src="@{/assets/js/components/hs.tabs.js}"></script>
-    <script th:src="@{/assets/js/components/hs.cubeportfolio.js}"></script>
-    <script th:src="@{/assets/js/components/hs.popup.js}"></script>
-    <script th:src="@{/assets/js/components/hs.go-to.js}"></script>
-    <script>
+    <script defer="defer" th:src="@{/assets/js/hs.core.js}"></script>
+    <script defer="defer" th:src="@{/assets/js/components/hs.header.js}"></script>
+    <script defer="defer" th:src="@{/assets/js/helpers/hs.hamburgers.js}"></script>
+    <script defer="defer" th:src="@{/assets/js/components/hs.tabs.js}"></script>
+    <script defer="defer" th:src="@{/assets/js/components/hs.cubeportfolio.js}"></script>
+    <script defer="defer" th:src="@{/assets/js/components/hs.popup.js}"></script>
+    <script defer="defer" th:src="@{/assets/js/components/hs.go-to.js}"></script>
+    <script defer="defer">
 		$(document).on('ready', function () {
 			// initialization of tabs
 			$.HSCore.components.HSTabs.init('[role="tablist"]');
@@ -174,9 +173,6 @@
 				pageContainer: $('.container'),
 				breakpoint: 991
 			});
-
-			// initialization of cubeportfolio
-			$.HSCore.components.HSCubeportfolio.init('.cbp');
 		});
 
 		$(window).on('resize', function () {

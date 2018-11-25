@@ -23,7 +23,7 @@
 
                     <!-- Logo -->
                     <a th:href="@{/}" class="navbar-brand">
-                        <img id="logo" th:src="@{/assets/images/logo/logo-128x30.png}" alt="Image Description"/>
+                        <img id="logo" th:src="@{/assets/images/logo/logo-128x30.png}" alt="Image Description" />
                     </a>
                     <!-- End Logo -->
 
@@ -33,11 +33,12 @@
                         <ul class="navbar-nav text-uppercase g-pos-rel g-font-weight-600 ml-auto">
                             <li class="hs-has-sub-menu nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                                 data-animation-out="fadeOut">
-                                <a id="nav-link-pages" class="nav-link g-py-7 g-px-0" th:href="@{/vechain}" aria-haspopup="true"
+                                <a id="nav-link-vechain" class="nav-link g-py-7 g-px-0" th:href="@{/vechain}"
+                                   aria-haspopup="true"
                                    aria-expanded="false" aria-controls="nav-submenu-pages">VECHAIN</a>
 
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
-                                    id="nav-submenu-pages" aria-labelledby="nav-link-pages">
+                                    id="nav-submenu-vechain" aria-labelledby="nav-link-vechain">
                                     <!-- Pages - Pricing -->
                                     <li class="dropdown-item">
                                         <a class="nav-link" th:href="@{/vechain/blocks}">Blocks</a>
@@ -51,17 +52,17 @@
                             <!-- Chain -->
                             <li class="hs-has-sub-menu nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                                 data-animation-out="fadeOut">
-                                <a id="nav-link-pages" class="nav-link g-py-7 g-px-0" th:href="@{/ethereum}" aria-haspopup="true"
-                                   aria-expanded="false" aria-controls="nav-submenu-pages">ETHEREUM</a>
+                                <a id="nav-link-ethereum" class="nav-link g-py-7 g-px-0" th:href="@{/ethereum}"
+                                   aria-haspopup="true"
+                                   aria-expanded="false" aria-controls="nav-submenu-ethereum">ETHEREUM</a>
 
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
-                                    id="nav-submenu-pages" aria-labelledby="nav-link-pages">
+                                    id="nav-submenu-ethereum" aria-labelledby="nav-link-ethereum">
                                     <!-- Pages - Pricing -->
                                     <li class="dropdown-item hs-has-sub-menu">
                                         <a class="nav-link" th:href="@{/blocks}">Blocks</a>
                                         <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-minus-2 animated"
-                                            id="nav-submenu--features--sliders"
-                                            aria-labelledby="nav-link--features--sliders" style="display: none;">
+                                            style="display: none;">
                                             <li class="dropdown-item ">
                                                 <a class="nav-link" th:href="@{/blocks}">Normal Blocks</a>
                                             </li>
@@ -83,12 +84,16 @@
                                    aria-expanded="false" aria-controls="nav-submenu-wallets">Wallet</a>
 
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
-                                    id="nav-submenu-wallet" aria-labelledby="nav-link-wallets">
+                                    id="nav-submenu-wallets" aria-labelledby="nav-link-wallets">
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/wallet/create'}">Create Wallet</a>
+                                        <a class="nav-link"
+                                           th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/wallet/create'}">Create
+                                                                                                                                   Wallet</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/wallet'}">Access Wallet</a>
+                                        <a class="nav-link"
+                                           th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/wallet'}">Access
+                                                                                                                            Wallet</a>
                                     </li>
                                 </ul>
 
@@ -98,19 +103,24 @@
                             <!-- Wallet -->
                             <li class="hs-has-sub-menu nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                                 data-animation-out="fadeOut">
-                                <a id="nav-link-wallets" class="nav-link g-py-7 g-px-0" href="#" aria-haspopup="true"
-                                   aria-expanded="false" aria-controls="nav-submenu-wallets">Services</a>
+                                <a id="nav-link-services" class="nav-link g-py-7 g-px-0" href="#" aria-haspopup="true"
+                                   aria-expanded="false" aria-controls="nav-submenu-services">Services</a>
 
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
-                                    id="nav-submenu-wallet" aria-labelledby="nav-link-wallets">
+                                    id="nav-submenu-services" aria-labelledby="nav-link-services">
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services'}">About us</a>
+                                        <a class="nav-link"
+                                           th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services'}">About
+                                                                                                                              us</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services/smart-contract-development-and-security'}">Development</a>
+                                        <a class="nav-link"
+                                           th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services/smart-contract-development-and-security'}">Development</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services/smart-contract-development-and-security'}">Security Review</a>
+                                        <a class="nav-link"
+                                           th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/services/smart-contract-development-and-security'}">Security
+                                                                                                                                                                      Review</a>
                                     </li>
                                 </ul>
 
@@ -121,18 +131,25 @@
                             <li class="hs-has-sub-menu nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                                 data-animation-out="fadeOut">
                                 <a id="nav-link-tools" class="nav-link g-py-7 g-px-0" href="#" aria-haspopup="true"
-                                   aria-expanded="false" aria-controls="nav-submenu-pages">Tools</a>
+                                   aria-expanded="false" aria-controls="nav-submenu-tools">Tools</a>
 
                                 <ul class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-21 g-mt-11--lg--scrolling"
                                     id="nav-submenu-tools" aria-labelledby="nav-link-tools">
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/contract'}">Access Contract</a>
+                                        <a class="nav-link"
+                                           th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/contract'}">Access
+                                                                                                                              Contract</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/tools/converter'}">Ethereum Unit Converter</a>
+                                        <a class="nav-link"
+                                           th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/tools/converter'}">Ethereum
+                                                                                                                                     Unit
+                                                                                                                                     Converter</a>
                                     </li>
                                     <li class="dropdown-item ">
-                                        <a class="nav-link" th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/tools/leaked'}">Leaked Credentials</a>
+                                        <a class="nav-link"
+                                           th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/tools/leaked'}">Leaked
+                                                                                                                                  Credentials</a>
                                     </li>
                                 </ul>
                             </li>
@@ -141,7 +158,8 @@
                     </div>
 
                     <th:block sec:authorize="isAnonymous()">
-                        <a th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/arkane/login'}" style="display: none;" href="#!"
+                        <a th:href="${@environment.getProperty('cloud.cinder.wallet.baseUrl') + '/arkane/login'}"
+                           style="display: none;" href="#!"
                            class="clientSideWeb3Enabled btn btn-md u-btn-skew u-btn-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-rounded-50 g-mr-10 g-mb-15">
                             <span class="u-btn-skew__inner">
                               <i class="fa fa-check-circle g-mr-3"></i>

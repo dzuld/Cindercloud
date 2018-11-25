@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-@ConditionalOnBean(Configuration.class)
 public class MailService {
 
     private Configuration configuration;

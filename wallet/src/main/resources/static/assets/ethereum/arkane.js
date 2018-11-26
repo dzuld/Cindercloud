@@ -6,7 +6,6 @@ const Arkane = (function () {
 
 	$.get('/arkane/login/token', (result) => {
 		if (result) {
-			console.log('we got a result');
 			bearerToken = result.bearerToken;
 			address = result.address;
 			walletId = result.walletId;

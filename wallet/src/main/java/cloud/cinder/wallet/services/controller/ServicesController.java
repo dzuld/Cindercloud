@@ -3,6 +3,7 @@ package cloud.cinder.wallet.services.controller;
 import cloud.cinder.common.mail.MailService;
 import cloud.cinder.wallet.services.controller.dto.RequestDevelopmentCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 public class ServicesController {
 
     @Autowired
+    @Lazy
     private MailService mailService;
 
     @GetMapping
@@ -38,7 +40,7 @@ public class ServicesController {
     }
 
     @PostMapping("/smart-contract-development-and-security")
-    public String doRequestDevelopment(@Valid  @ModelAttribute("requestDevelopmentCommand") final RequestDevelopmentCommand requestDevelopmentCommand,
+    public String doRequestDevelopment(@Valid @ModelAttribute("requestDevelopmentCommand") final RequestDevelopmentCommand requestDevelopmentCommand,
                                        final BindingResult bindingResult,
                                        final ModelMap modelMap,
                                        final RedirectAttributes redirectAttributes) {

@@ -29,4 +29,4 @@ public class LeakedCredentialController {
         modelMap.put("results", leakedCredentialService.check(leakedCredentialsCommand.toCredentials()));
         return "tools/leaked-credentials";
     }
-}p
+}

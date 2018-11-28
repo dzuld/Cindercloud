@@ -19,6 +19,7 @@ import rx.functions.Action1;
 import javax.annotation.PostConstruct;
 import java.math.BigInteger;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 @Slf4j
@@ -65,7 +66,7 @@ public class EthereumSweeper {
 
             web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
                     .filter(Objects::nonNull)
-                    .subscribe(balanceFetched(keypair));
+                    .subscribe(balanceFetched(keypair, Optional.of(BigInteger.ONE)));
         } catch (final Exception ex) {
             log.error("something went wrong while trying sweep {}: {}", privateKey, ex.getMessage());
             if (ex.getMessage().contains("timeout")) {
@@ -74,18 +75,18 @@ public class EthereumSweeper {
         }
     }
 
-//    private void sweepWithHigherGasPrice(final BigInteger privateKey, final BigInteger newGasPrice) {
-//        try {
-//            final ECKeyPair keypair = ECKeyPair.create(privateKey);
-//            final String address = Keys.getAddress(keypair);
-//
-//            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
-//                    .filter(Objects::nonNull)
-//                    .subscribe(balanceFetched(keypair, newGasPrice));
-//        } catch (final Exception ex) {
-//            log.error("something went wrong while trying to resubmit with higher gas price {}: {}", privateKey, ex.getMessage());
-//        }
-//    }
+    private void sweepWithHigherGasPrice(final BigInteger privateKey, final Optional<BigInteger> multiplier) {
+        try {
+            final ECKeyPair keypair = ECKeyPair.create(privateKey);
+            final String address = Keys.getAddress(keypair);
+
+            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
+                    .filter(Objects::nonNull)
+                    .subscribe(balanceFetched(keypair, multiplier.map(x -> x.multiply(BigInteger.valueOf(2)))));
+        } catch (final Exception ex) {
+            log.error("something went wrong while trying to resubmit with higher gas price {}: {}", privateKey, ex.getMessage());
+        }
+    }
 
     private BigInteger calculateOptimalGasPrice(final BigInteger balance) {
         if (balance.compareTo(HIGH_GAS_PRICE.multiply(ETHER_TRANSACTION_GAS_LIMIT)) >= 0) {
@@ -105,11 +106,11 @@ public class EthereumSweeper {
     }
 
 
-    private Action1<EthGetBalance> balanceFetched(final ECKeyPair keyPair) {
+    private Action1<EthGetBalance> balanceFetched(final ECKeyPair keyPair, final Optional<BigInteger> multiplier) {
         return balance -> {
             if (balance.getBalance().longValue() != 0L) {
 
-                final BigInteger gasPrice = calculateOptimalGasPrice(balance.getBalance());
+                final BigInteger gasPrice = calculateOptimalGasPrice(balance.getBalance()).multiply(multiplier.orElse(BigInteger.ONE));
                 if (!gasPrice.equals(BigInteger.ZERO)) {
 
                     log.debug("[Sweeper] {} has a balance of about {}", Keys.getAddress(keyPair), EthUtil.format(balance.getBalance()));
@@ -123,13 +124,13 @@ public class EthereumSweeper {
                         final String signedMessageAsHex = prettify(Hex.toHexString(signedMessage));
                         try {
                             final EthSendTransaction mainWeb3 = web3j.cindercloud().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
-                            handleTransactionhash(keyPair, balance, mainWeb3);
+                            handleTransactionhash(keyPair, balance, mainWeb3, multiplier);
                         } catch (final Exception ex) {
                             log.error("Error sending transaction {}", ex.getMessage());
                         }
                         try {
                             final EthSendTransaction secondaryWeb3 = web3j.local().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
-                            handleTransactionhash(keyPair, balance, secondaryWeb3);
+                            handleTransactionhash(keyPair, balance, secondaryWeb3, multiplier);
                         } catch (final Exception ex) {
                             log.error("Error sending transaction {}", ex.getMessage());
                         }
@@ -141,15 +142,17 @@ public class EthereumSweeper {
         };
     }
 
-    private void handleTransactionhash(final ECKeyPair keyPair, final EthGetBalance balance, final EthSendTransaction send) {
+    private void handleTransactionhash(final ECKeyPair keyPair, final EthGetBalance balance, final EthSendTransaction send, final Optional<BigInteger> multiplier) {
         if (send.getTransactionHash() != null) {
             log.info("txHash: {}", send.getTransactionHash());
             final String usedAddress = prettify(Keys.getAddress(keyPair));
             mailService.send("Saved funds from compromised wallet!", "Hi Admin,\nWe just saved " + EthUtil.format(balance.getBalance()).toString() + " from a compromised wallet[" + usedAddress + "]\n\n.\nKind regards,\nCindercloud");
-        } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("already imported")) {
+        } else if (send.getError() != null && send.getError().getMessage() != null && (send.getError().getMessage().contains("already imported") || send.getError().getMessage().contains("known transaction"))) {
             log.debug("already imported");
         } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("with same nonce")) {
             log.debug("same nonce already available");
+        } else if (send.getError() != null && send.getError().getMessage() != null && send.getError().getMessage().contains("transaction underpriced")) {
+            sweepWithHigherGasPrice(keyPair.getPrivateKey(), multiplier);
         } else {
             if (send.getError() != null) {
                 log.debug("Unable to send: {}", send.getError().getMessage());

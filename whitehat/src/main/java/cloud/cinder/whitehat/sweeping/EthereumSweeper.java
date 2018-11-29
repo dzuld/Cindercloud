@@ -79,7 +79,7 @@ public class EthereumSweeper {
         try {
             final ECKeyPair keypair = ECKeyPair.create(privateKey);
             final String address = Keys.getAddress(keypair);
-
+            log.debug("going to sweep with higher gasPrice: " + multiplier.orElse(BigInteger.ONE).multiply(BigInteger.valueOf(2)));
             web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
                     .filter(Objects::nonNull)
                     .subscribe(balanceFetched(keypair, multiplier.map(x -> x.multiply(BigInteger.valueOf(2)))));

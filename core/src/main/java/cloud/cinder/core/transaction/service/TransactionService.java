@@ -1,17 +1,24 @@
 package cloud.cinder.core.transaction.service;
 
+import cloud.cinder.core.address.service.AddressService;
+import cloud.cinder.core.ethereum.block.methods.MethodSignatureService;
+import cloud.cinder.core.ethereum.block.service.BlockService;
+import cloud.cinder.core.etherscan.dto.EtherscanResponse;
+import cloud.cinder.core.token.service.TokenService;
 import cloud.cinder.core.transaction.repository.TransactionRepository;
 import cloud.cinder.ethereum.address.domain.SpecialAddress;
 import cloud.cinder.ethereum.block.domain.Block;
-import cloud.cinder.core.ethereum.block.methods.MethodSignatureService;
 import cloud.cinder.ethereum.parity.domain.MethodSignature;
 import cloud.cinder.ethereum.transaction.TransactionStatusService;
 import cloud.cinder.ethereum.transaction.domain.Transaction;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
-import cloud.cinder.core.address.service.AddressService;
-import cloud.cinder.core.ethereum.block.service.BlockService;
-import cloud.cinder.core.token.service.TokenService;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,12 +28,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import rx.Observable;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
@@ -46,6 +55,19 @@ public class TransactionService {
     private MethodSignatureService methodSignatureService;
     @Autowired
     private TransactionStatusService transactionStatusService;
+    private OkHttpClient httpClient;
+    private ObjectMapper objectMapper;
+
+    @PostConstruct
+    public void init() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(5, TimeUnit.MINUTES);
+        builder.writeTimeout(5, TimeUnit.MINUTES);
+        builder.readTimeout(5, TimeUnit.MINUTES);
+        httpClient = builder.build();
+        objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+     }
 
     @Transactional
     public Observable<Slice<Transaction>> findByAddress(final String address, final Pageable pageable) {
@@ -171,6 +193,24 @@ public class TransactionService {
         } catch (
                 Exception ex) {
             return Observable.error(ex);
+        }
+    }
+
+    @Transactional
+    public void indexFromEtherscan(final String address) {
+        try {
+            final Call call = httpClient.newCall(new Request.Builder().url(String.format("http://api.etherscan.io/api?module=account&action=txlist&address=%s&startblock=0&endblock=99999999&sort=asc&apikey=HPK1JKX6586DVIIYGGAPRPNAD9I9Z3Q8PS", address)).build());
+            Response execute = call.execute();
+            String string = execute.body().string();
+            EtherscanResponse transactions = objectMapper.readValue(string, EtherscanResponse.class);
+
+            transactions.getResult().stream()
+                    .map(x -> x.getBlockHash())
+                    .forEach(x -> blockService.getBlock(x));
+        } catch (final Exception ex) {
+            log.error(ex.getMessage());
+            ex.printStackTrace();
+            log.error("Unable to import from etherscan");
         }
     }
 

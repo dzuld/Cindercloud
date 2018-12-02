@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.websocket.WebSocketService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +25,12 @@ public class Web3Config {
     @Bean
     @Qualifier("local")
     public Web3j provideInfuraWeb3j(@Qualifier("local") final Web3jService web3jService) {
+        return Web3j.build(web3jService);
+    }
+
+    @Bean
+    @Qualifier("websocket")
+    public Web3j provideWebsocketWeb3j(@Qualifier("websocket") final Web3jService web3jService) {
         return Web3j.build(web3jService);
     }
 
@@ -47,5 +54,12 @@ public class Web3Config {
                 .readTimeout(3, TimeUnit.MINUTES)
                 .build();
         return new HttpService(endpoint, client, false);
+    }
+
+    @Bean
+    @Qualifier("local")
+    public Web3jService provideWebsocketEndpoint(@Value("${cloud.cinder.ethereum.endpoint.websocket-url}") final String endpoint) {
+
+        return new WebSocketService(endpoint, false);
     }
 }

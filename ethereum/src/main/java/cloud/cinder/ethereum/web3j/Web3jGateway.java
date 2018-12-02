@@ -16,6 +16,9 @@ public class Web3jGateway {
     @Autowired
     @Qualifier("local")
     private Web3j localWeb3j;
+    @Autowired
+    @Qualifier("websocket")
+    private Web3j websocketWeb3j;
 
     private Web3j currentProvider;
 
@@ -35,6 +38,10 @@ public class Web3jGateway {
 
     public Web3j local() {
         return localWeb3j;
+    }
+
+    public Web3j websocket() {
+        return websocketWeb3j;
     }
 
     private Web3j updateCurrentProvider() {

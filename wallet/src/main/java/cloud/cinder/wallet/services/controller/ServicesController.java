@@ -23,7 +23,7 @@ public class ServicesController {
     @Lazy
     private MailService mailService;
 
-    @GetMapping
+    @GetMapping({"/", "/thank-you-for-contacting"})
     public String index() {
         return "services/index";
     }
@@ -49,7 +49,7 @@ public class ServicesController {
         } else {
             mailService.send(requestDevelopmentCommand.getName() + " just messaged you on cindercloud", requestDevelopmentCommand.toContent());
             redirectAttributes.addFlashAttribute("success", "Your message has been sent to Cindercloud");
-            return "redirect:/services";
+            return "redirect:/services/thank-you-for-contacting";
         }
     }
 }

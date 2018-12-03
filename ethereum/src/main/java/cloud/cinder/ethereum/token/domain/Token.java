@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tokens")
-public class Token {
+public class Token implements ERC20{
 
     @Id
     @GeneratedValue

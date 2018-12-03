@@ -54,3 +54,6 @@ contracts:
   parity:
     signature-registry:
       address: '0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86'
+  deltabalances:
+      address: '0x40a38911e470fC088bEEb1a9480c2d69C847BCeC'
+

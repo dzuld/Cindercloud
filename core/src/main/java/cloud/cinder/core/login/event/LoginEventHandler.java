@@ -5,6 +5,7 @@ import cloud.cinder.core.login.repository.LoginEventRepository;
 import cloud.cinder.core.transaction.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ public class LoginEventHandler {
 
     @EventListener
     @Transactional
+    @Async
     public void loginOccurred(final LoginEvent loginEvent) {
         try {
             transactionService.indexFromEtherscan(loginEvent.getWallet());

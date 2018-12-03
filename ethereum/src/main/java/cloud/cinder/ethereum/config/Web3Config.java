@@ -1,5 +1,6 @@
 package cloud.cinder.ethereum.config;
 
+import cloud.cinder.ethereum.token.domain.DeltaBalances;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

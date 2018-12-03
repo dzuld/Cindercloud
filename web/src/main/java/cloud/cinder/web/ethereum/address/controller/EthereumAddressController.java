@@ -79,7 +79,7 @@ public class EthereumAddressController {
     @RequestMapping("/{hash}/has-mined-blocks")
     @ResponseBody
     public boolean hasMinedblocks(@PathVariable("hash") String hash) {
-        return blockService.findByMiner(prettifyAddress(hash), new PageRequest(0, 10)).first().toBlocking().first().hasContent();
+        return blockService.findByMiner(prettifyAddress(hash), PageRequest.of(0, 10)).first().toBlocking().first().hasContent();
     }
 
 

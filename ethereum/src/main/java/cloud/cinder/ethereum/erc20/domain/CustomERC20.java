@@ -1,5 +1,6 @@
 package cloud.cinder.ethereum.erc20.domain;
 
+import cloud.cinder.ethereum.token.domain.ERC20;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class CustomERC20 {
+public class CustomERC20 implements ERC20 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

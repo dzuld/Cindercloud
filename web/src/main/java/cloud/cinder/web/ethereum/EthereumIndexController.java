@@ -34,7 +34,7 @@ public class EthereumIndexController {
     public String ethereum(final ModelMap modelMap) {
         modelMap.put("ethPriceUsd", priceService.getPriceAsString(Currency.USD));
         modelMap.put("ethPriceEur", priceService.getPriceAsString(Currency.EUR));
-        modelMap.put("lastBlock", blockService.getLastBlock().toBlocking().first().getBlockNumber().longValue());
+        modelMap.put("lastBlock", blockService.getLastBlock().blockingFirst().getBlockNumber().longValue());
         return "index";
     }
 

@@ -14,6 +14,7 @@ import cloud.cinder.ethereum.transaction.domain.Transaction;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.reactivex.Flowable;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -67,13 +68,13 @@ public class TransactionService {
         httpClient = builder.build();
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-     }
+    }
 
     @Transactional
-    public Observable<Slice<Transaction>> findByAddress(final String address, final Pageable pageable) {
+    public Flowable<Slice<Transaction>> findByAddress(final String address, final Pageable pageable) {
         final Slice<Transaction> result = transactionRepository.findByAddressFromOrTo(address, pageable);
         result.getContent().forEach(this::enrichWithSpecialAddresses);
-        return Observable.just(result);
+        return Flowable.just(result);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -82,16 +83,16 @@ public class TransactionService {
     }
 
     @Transactional(readOnly = true)
-    public Observable<Slice<Transaction>> getTransactionsForBlock(final String blockHash, final Pageable pageable) {
+    public Flowable<Slice<Transaction>> getTransactionsForBlock(final String blockHash, final Pageable pageable) {
         final Slice<Transaction> result = transactionRepository.findAllByBlockHashOrderByBlockHeightDesc(blockHash, pageable);
         result.getContent().forEach(this::enrichWithSpecialAddresses);
-        return Observable.just(result);
+        return Flowable.just(result);
     }
 
     @Transactional
-    public Observable<Transaction> getTransaction(final String transactionHash) {
+    public Flowable<Transaction> getTransaction(final String transactionHash) {
         return transactionRepository.findById(transactionHash)
-                .map(Observable::just)
+                .map(Flowable::just)
                 .orElse(getInternalTransaction(transactionHash)
                         .map(this::enrichWithSpecialAddresses));
     }
@@ -105,7 +106,7 @@ public class TransactionService {
                     } else {
                         return Optional.<MethodSignature>empty();
                     }
-                }).toBlocking().firstOrDefault(Optional.empty());
+                }).blockingFirst(Optional.empty());
     }
 
     public Transaction enrichWithSpecialAddresses(final Transaction tx) {
@@ -155,14 +156,14 @@ public class TransactionService {
         return transactionRepository.findAllOrOrderByBlockTimestampAsList(new PageRequest(0, 10));
     }
 
-    private Observable<Transaction> getInternalTransaction(final String transactionHash) {
+    private Flowable<Transaction> getInternalTransaction(final String transactionHash) {
         try {
             return web3jGateway.web3j().ethGetTransactionByHash(transactionHash)
-                    .observable()
+                    .flowable()
                     .filter(x -> x.getTransaction().isPresent())
                     .map(transaction -> transaction.getTransaction().get())
                     .map(tx -> {
-                        final Block block = blockService.getBlock(tx.getBlockHash()).toBlocking().first();
+                        final Block block = blockService.getBlock(tx.getBlockHash()).blockingFirst();
                         if (block != null) {
                             return Transaction.builder()
                                     .blockHash(tx.getBlockHash())
@@ -192,7 +193,7 @@ public class TransactionService {
                     .map(tx -> transactionRepository.save(tx));
         } catch (
                 Exception ex) {
-            return Observable.error(ex);
+            return Flowable.error(ex);
         }
     }
 
@@ -228,6 +229,6 @@ public class TransactionService {
         log.debug("reindexing " + txId);
         transactionRepository.findById(txId)
                 .ifPresent(x -> transactionRepository.delete(x));
-        return getInternalTransaction(txId).toBlocking().first();
+        return getInternalTransaction(txId).blockingFirst();
     }
 }

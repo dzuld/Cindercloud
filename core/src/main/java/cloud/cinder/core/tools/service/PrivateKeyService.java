@@ -35,8 +35,8 @@ public class PrivateKeyService {
                     try {
                         final ECKeyPair keypair = ECKeyPair.create(Numeric.decodeQuantity(x.trim()));
                         final String address = prettifyAddress(Keys.getAddress(keypair));
-                        final BigInteger balance = web3j.web3j().ethGetBalance(address, DefaultBlockParameterName.LATEST).observable().toBlocking().first().getBalance();
-                        final BigInteger txCount = web3j.web3j().ethGetTransactionCount(address, DefaultBlockParameterName.LATEST).observable().toBlocking().first().getTransactionCount();
+                        final BigInteger balance = web3j.web3j().ethGetBalance(address, DefaultBlockParameterName.LATEST).flowable().blockingFirst().getBalance();
+                        final BigInteger txCount = web3j.web3j().ethGetTransactionCount(address, DefaultBlockParameterName.LATEST).flowable().blockingFirst().getTransactionCount();
                         return PrivateKeyCheckResult.builder()
                                 .address(address)
                                 .balance(EthUtil.format(balance).toString())

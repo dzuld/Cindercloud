@@ -6,15 +6,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.websocket.WebSocketClient;
 import org.web3j.protocol.websocket.WebSocketService;
 
+import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class Web3Config {
+
+    private WebSocketClient webSocketClient;
+
+    @Scheduled(fixedDelay = 5_000)
+    private void init() {
+        if (webSocketClient != null && webSocketClient.isClosed()) {
+            webSocketClient.reconnect();
+        }
+    }
 
     @Bean
     @Primary
@@ -59,7 +71,8 @@ public class Web3Config {
     @Bean
     @Qualifier("websocket")
     public Web3jService provideWebsocketEndpoint(@Value("${cloud.cinder.ethereum.endpoint.websocket-url}") final String endpoint) {
-
-        return new WebSocketService(endpoint, false);
+        this.webSocketClient = new WebSocketClient(URI.create(endpoint));
+        webSocketClient.connect();
+        return new WebSocketService(webSocketClient, true);
     }
 }

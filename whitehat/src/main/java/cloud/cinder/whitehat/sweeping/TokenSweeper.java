@@ -1,10 +1,11 @@
 package cloud.cinder.whitehat.sweeping;
 
-import cloud.cinder.ethereum.erc20.service.ERC20Service;
 import cloud.cinder.common.mail.MailService;
-import cloud.cinder.whitehat.token.service.TokenService;
+import cloud.cinder.ethereum.erc20.service.ERC20Service;
 import cloud.cinder.ethereum.token.domain.Token;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import cloud.cinder.whitehat.token.service.TokenService;
+import io.reactivex.functions.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,6 @@ import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Numeric;
-import rx.functions.Action1;
 
 import javax.annotation.PostConstruct;
 import java.math.BigInteger;
@@ -78,7 +78,7 @@ public class TokenSweeper {
                         .forEach(token -> {
                             final BigInteger tokenBalance = erc20Service.rawBalanceOf(address, token.getAddress());
                             if (!tokenBalance.equals(BigInteger.ZERO)) {
-                                web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
+                                web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
                                         .filter(Objects::nonNull)
                                         .subscribe(onBalanceFetched(keypair, token, tokenBalance));
                             }
@@ -90,7 +90,7 @@ public class TokenSweeper {
     }
 
 
-    private Action1<EthGetBalance> onBalanceFetched(final ECKeyPair keyPair, final Token token, final BigInteger tokenBalance) {
+    private Consumer<EthGetBalance> onBalanceFetched(final ECKeyPair keyPair, final Token token, final BigInteger tokenBalance) {
         return ethBalance -> {
             if (!ethBalance.getBalance().equals(BigInteger.ZERO)) {
                 if (ethBalance.getBalance().compareTo(GAS_COST) >= 0) {
@@ -157,6 +157,6 @@ public class TokenSweeper {
         return web3j.web3j().ethGetTransactionCount(
                 prettify(Keys.getAddress(keyPair)),
                 DefaultBlockParameterName.LATEST
-        ).observable().toBlocking().first();
+        ).flowable().blockingFirst();
     }
 }

@@ -5,7 +5,6 @@ import cloud.cinder.core.cryptocompare.service.TokenPriceService;
 import cloud.cinder.core.erc20.service.CustomERC20Service;
 import cloud.cinder.core.token.service.TokenService;
 import cloud.cinder.core.wallet.service.AuthenticationService;
-import cloud.cinder.core.wallet.service.Web3TransactionService;
 import cloud.cinder.core.wallet.service.command.ConfirmTokenTransactionCommand;
 import cloud.cinder.ethereum.erc20.service.ERC20Service;
 import cloud.cinder.wallet.erc20.controller.dto.AddressTokenDto;
@@ -37,19 +36,16 @@ public class CreateTokenTransactionController {
 
 
     private final AuthenticationService authenticationService;
-    private final Web3TransactionService web3TransactionService;
     private final TokenService tokenService;
     private final ERC20Service erc20Service;
     private TokenPriceService tokenPriceService;
     private final CustomERC20Service customERC20Service;
 
     public CreateTokenTransactionController(final AuthenticationService authenticationService,
-                                            final Web3TransactionService web3TransactionService,
                                             final TokenService tokenService,
                                             final ERC20Service erc20Service,
                                             final TokenPriceService tokenPriceService, final CustomERC20Service customERC20Service) {
         this.authenticationService = authenticationService;
-        this.web3TransactionService = web3TransactionService;
         this.tokenService = tokenService;
         this.erc20Service = erc20Service;
         this.tokenPriceService = tokenPriceService;

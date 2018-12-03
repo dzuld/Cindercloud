@@ -3,6 +3,7 @@ package cloud.cinder.core.address.service;
 import cloud.cinder.core.address.repository.SpecialAddressRepository;
 import cloud.cinder.ethereum.address.domain.SpecialAddress;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import io.reactivex.Flowable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -23,17 +24,17 @@ public class AddressService {
     private SpecialAddressRepository specialAddressRepository;
 
 
-    public Observable<String> getCode(final String hash) {
-        return web3j.web3j().ethGetCode(hash, DefaultBlockParameterName.LATEST).observable().map(EthGetCode::getCode);
+    public Flowable<String> getCode(final String hash) {
+        return web3j.web3j().ethGetCode(hash, DefaultBlockParameterName.LATEST).flowable().map(EthGetCode::getCode);
     }
 
-    public Observable<BigInteger> getBalance(final String address) {
-        return web3j.web3j().ethGetBalance(address, DefaultBlockParameterName.LATEST).observable().map(
+    public Flowable<BigInteger> getBalance(final String address) {
+        return web3j.web3j().ethGetBalance(address, DefaultBlockParameterName.LATEST).flowable().map(
                 EthGetBalance::getBalance);
     }
 
-    public Observable<BigInteger> getTransactionCount(final String address) {
-        return web3j.web3j().ethGetTransactionCount(address, DefaultBlockParameterName.LATEST).observable()
+    public Flowable<BigInteger> getTransactionCount(final String address) {
+        return web3j.web3j().ethGetTransactionCount(address, DefaultBlockParameterName.LATEST).flowable()
                 .map(EthGetTransactionCount::getTransactionCount);
     }
 
@@ -43,8 +44,8 @@ public class AddressService {
 
     public boolean isContract(final String address) {
         try {
-            final String code = web3j.web3j().ethGetCode(address, DefaultBlockParameterName.LATEST).observable().map(EthGetCode::getCode)
-                    .toBlocking().first();
+            final String code = web3j.web3j().ethGetCode(address, DefaultBlockParameterName.LATEST).flowable().map(EthGetCode::getCode)
+                    .blockingFirst();
             return code != null && code.length() > 2;
         } catch (final Exception ex) {
             return false;

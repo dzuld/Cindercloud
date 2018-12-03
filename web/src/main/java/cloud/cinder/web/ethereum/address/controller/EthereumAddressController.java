@@ -10,6 +10,7 @@ import cloud.cinder.core.token.service.TokenService;
 import cloud.cinder.core.transaction.service.TransactionService;
 import cloud.cinder.ethereum.transaction.domain.Transaction;
 import cloud.cinder.ethereum.util.EthUtil;
+import io.reactivex.Flowable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
@@ -57,12 +58,12 @@ public class EthereumAddressController {
         final String address = prettifyAddress(hash);
         final DeferredResult<ModelAndView> result = new DeferredResult<>();
         final ModelAndView modelAndView = new ModelAndView("addresses/address");
-        final Observable<String> code = addressService.getCode(address);
-        final Observable<Slice<Transaction>> transactions = transactionService.findByAddress(address, new PageRequest(0, 10));
-        final Observable<BigInteger> transactionCount = addressService.getTransactionCount(address);
-        final Observable<BigInteger> balance = addressService.getBalance(address);
+        final Flowable<String> code = addressService.getCode(address);
+        final Flowable<Slice<Transaction>> transactions = transactionService.findByAddress(address, PageRequest.of(0, 10));
+        final Flowable<BigInteger> transactionCount = addressService.getTransactionCount(address);
+        final Flowable<BigInteger> balance = addressService.getBalance(address);
         final Optional<SpecialAddress> specialAddress = addressService.findByAddress(address);
-        Observable.zip(code, transactions, transactionCount, balance, (cde, tx, count, bal) -> {
+        Flowable.zip(code, transactions, transactionCount, balance, (cde, tx, count, bal) -> {
             final Slice<Transaction> convertedSlice = tx.map(x -> transactionService.enrichWithSpecialAddresses(x));
             modelAndView.addObject("address", new AddressVO(cde, format(bal), count, convertedSlice));
             modelAndView.addObject("balEUR", priceService.getPrice(Currency.EUR) * EthUtil.asEth(bal));

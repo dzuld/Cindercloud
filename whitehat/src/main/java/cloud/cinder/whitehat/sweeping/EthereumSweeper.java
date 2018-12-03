@@ -3,6 +3,7 @@ package cloud.cinder.whitehat.sweeping;
 import cloud.cinder.common.mail.MailService;
 import cloud.cinder.ethereum.util.EthUtil;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import io.reactivex.functions.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Numeric;
-import rx.functions.Action1;
 
 import javax.annotation.PostConstruct;
 import java.math.BigInteger;
@@ -64,7 +64,7 @@ public class EthereumSweeper {
             final ECKeyPair keypair = ECKeyPair.create(Numeric.decodeQuantity(privateKey.trim()));
             final String address = Keys.getAddress(keypair);
 
-            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
+            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
                     .filter(Objects::nonNull)
                     .subscribe(balanceFetched(keypair, Optional.of(BigInteger.ONE)));
         } catch (final Exception ex) {
@@ -80,7 +80,7 @@ public class EthereumSweeper {
             final ECKeyPair keypair = ECKeyPair.create(privateKey);
             final String address = Keys.getAddress(keypair);
             log.debug("going to sweep with higher gasPrice: " + multiplier.orElse(BigInteger.ONE).multiply(BigInteger.valueOf(2)));
-            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).observable()
+            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
                     .filter(Objects::nonNull)
                     .subscribe(balanceFetched(keypair, multiplier.map(x -> x.multiply(BigInteger.valueOf(2)))));
         } catch (final Exception ex) {
@@ -106,7 +106,7 @@ public class EthereumSweeper {
     }
 
 
-    private Action1<EthGetBalance> balanceFetched(final ECKeyPair keyPair, final Optional<BigInteger> multiplier) {
+    private Consumer<EthGetBalance> balanceFetched(final ECKeyPair keyPair, final Optional<BigInteger> multiplier) {
         return balance -> {
             if (balance.getBalance().longValue() != 0L) {
 
@@ -187,7 +187,7 @@ public class EthereumSweeper {
         return web3j.web3j().ethGetTransactionCount(
                 prettify(Keys.getAddress(keyPair)),
                 DefaultBlockParameterName.LATEST
-        ).observable().toBlocking().first();
+        ).flowable().blockingFirst();
     }
 
     private String prettify(final String address) {

@@ -1,16 +1,16 @@
 package cloud.cinder.web.transaction.continuous;
 
-import cloud.cinder.web.transaction.service.TransactionService;
 import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.ethereum.transaction.TransactionStatusService;
 import cloud.cinder.ethereum.transaction.domain.Transaction;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import cloud.cinder.web.transaction.service.TransactionService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.reactivex.functions.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.web3j.protocol.core.methods.response.EthBlock;
-import rx.functions.Action1;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
@@ -45,7 +45,7 @@ public class TransactionImporter {
     public void importTransactions(final Block convertedBlock) {
         try {
             web3j.web3j().ethGetBlockByHash(convertedBlock.getHash(), true)
-                    .observable()
+                    .flowable()
                     .filter(bk -> bk.getBlock() != null)
                     .flatMapIterable(bk -> bk.getBlock().getTransactions())
                     .filter(tx -> tx.get() != null && tx.get() instanceof EthBlock.TransactionObject && ((EthBlock.TransactionObject) tx.get()).get() != null)
@@ -79,7 +79,7 @@ public class TransactionImporter {
         }
     }
 
-    private Action1<Transaction> save() {
+    private Consumer<Transaction> save() {
         return (e) -> {
             try {
                 transactionService.save(e);

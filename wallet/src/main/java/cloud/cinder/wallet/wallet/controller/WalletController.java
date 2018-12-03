@@ -40,7 +40,7 @@ public class WalletController {
     public String index(final ModelMap modelMap) {
         authenticationService.requireAuthenticated();
         final String address = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final BigInteger balance = addressService.getBalance(address).toBlocking().first();
+        final BigInteger balance = addressService.getBalance(address).blockingFirst();
         modelMap.put("balance", EthUtil.format(balance));
         modelMap.put("balEUR", formatCurrency(priceService.getPrice(Currency.EUR) * EthUtil.asEth(balance)));
         modelMap.put("balUSD", formatCurrency(priceService.getPrice(Currency.USD) * EthUtil.asEth(balance)));
@@ -53,7 +53,7 @@ public class WalletController {
     public String transactions(final ModelMap modelMap) {
         authenticationService.requireAuthenticated();
         final String address = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final Slice<Transaction> transactions = transactionService.findByAddress(address, new PageRequest(0, 10)).toBlocking().first();
+        final Slice<Transaction> transactions = transactionService.findByAddress(address, PageRequest.of(0, 10)).blockingFirst();
         modelMap.put("transactions", transactions);
         modelMap.put("address", address);
         return "wallets/transactions";

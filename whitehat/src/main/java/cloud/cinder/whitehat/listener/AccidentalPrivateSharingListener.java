@@ -1,9 +1,11 @@
 package cloud.cinder.whitehat.listener;
 
 import cloud.cinder.common.credential.domain.LeakedCredential;
+import cloud.cinder.ethereum.web3j.Web3jGateway;
 import cloud.cinder.whitehat.credentials.service.CredentialService;
 import cloud.cinder.whitehat.sweeping.continuous.EthereumSweeperService;
-import cloud.cinder.ethereum.web3j.Web3jGateway;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,8 +13,6 @@ import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Keys;
 import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.utils.Numeric;
-import rx.Subscription;
-import rx.functions.Action1;
 
 import java.util.Date;
 
@@ -34,8 +34,8 @@ public class AccidentalPrivateSharingListener {
         this.ethereumSweeperConfiguration = ethereumSweeperConfiguration;
     }
 
-    private Subscription pendingTransactionsSubscription;
-    private Subscription liveTransactions;
+    private Disposable pendingTransactionsSubscription;
+    private Disposable liveTransactions;
 
     @Scheduled(fixedRate = 60000)
     public void pendingTransactions() {
@@ -43,7 +43,7 @@ public class AccidentalPrivateSharingListener {
             log.trace("[Private Sharing] startup of subscription for accidental private sharing");
             this.pendingTransactionsSubscription = subscribePendingTransactions();
         } else {
-            this.pendingTransactionsSubscription.unsubscribe();
+            this.pendingTransactionsSubscription.dispose();
             log.trace("[Private Sharing] unsubscribed, resubbing to accidental private sharing");
             this.pendingTransactionsSubscription = subscribePendingTransactions();
         }
@@ -55,33 +55,32 @@ public class AccidentalPrivateSharingListener {
             log.trace("[Private Sharing] startup of subscription for accidental private sharing");
             this.liveTransactions = subscribeLiveTransactions();
         } else {
-            this.liveTransactions.unsubscribe();
+            this.liveTransactions.dispose();
             log.trace("[Private Sharing] unsubscribed, resubbing to accidental private sharing");
             this.liveTransactions = subscribeLiveTransactions();
         }
     }
 
-    private Subscription subscribePendingTransactions() {
-        return web3j.web3j().pendingTransactionObservable()
+    private Disposable subscribePendingTransactions() {
+        return web3j.web3j().pendingTransactionFlowable()
                 .subscribe(processTransaction(), error -> {
                     log.trace("[Pending Private Sharing]Problem with pending transactions, resubbing: {}", error.getMessage());
                 });
     }
 
-    private Subscription subscribeLiveTransactions() {
-        return web3j.web3j().transactionObservable()
+    private Disposable subscribeLiveTransactions() {
+        return web3j.web3j().transactionFlowable()
                 .subscribe(processTransaction(), error -> {
                     log.trace("[Live Private Sharing]Problem with live transactions, resubbing: {}", error.getMessage());
                     if (liveTransactions != null) {
-                        liveTransactions.unsubscribe();
+                        liveTransactions.dispose();
                     }
                     this.liveTransactions = subscribeLiveTransactions();
                 });
     }
 
-    private Action1<Transaction> processTransaction() {
+    private Consumer<Transaction> processTransaction() {
         return x -> {
-
             if ((x != null) && (x.getInput() != null) && (x.getInput().length() == 66)) {
                 log.trace("{} might just accidently shared a private", x.getFrom());
                 try {

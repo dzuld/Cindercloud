@@ -49,7 +49,7 @@ public class BlockService {
     private void propagateTransactions(final Block savedBlock) {
         log.trace("Propagating Transactions");
         web3j.web3j().ethGetBlockTransactionCountByHash(savedBlock.getHash())
-                .observable()
+                .flowable()
                 .filter(Objects::nonNull)
                 .map(EthGetBlockTransactionCountByHash::getTransactionCount)
                 .filter(Objects::nonNull)
@@ -65,7 +65,7 @@ public class BlockService {
 
     private void importUncles(final Block block) {
         web3j.web3j().ethGetBlockByHash(block.getHash(), false)
-                .observable()
+                .flowable()
                 .filter(Objects::nonNull)
                 .map(EthBlock::getBlock)
                 .filter(Objects::nonNull)
@@ -81,7 +81,7 @@ public class BlockService {
         }
 
         web3j.web3j().ethGetBlockByHash(hash, false)
-                .observable()
+                .flowable()
                 .map(EthBlock::getBlock)
                 .filter(Objects::nonNull)
                 .map(block -> {

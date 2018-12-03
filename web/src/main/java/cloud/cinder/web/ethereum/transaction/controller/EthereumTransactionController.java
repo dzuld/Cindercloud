@@ -33,7 +33,7 @@ public class EthereumTransactionController {
             if (containsParameter(searchKey) && containsParameter(block)) {
                 modelMap.put("transactions", transactionService.findByBlockAndAddress(block.get(), searchKey.get(), pageable));
             } else if (containsParameter(searchKey)) {
-                modelMap.put("transactions", transactionService.findByAddress(searchKey.get(), pageable).toBlocking().first());
+                modelMap.put("transactions", transactionService.findByAddress(searchKey.get(), pageable).blockingFirst());
             } else {
                 modelMap.put("transactions", transactionService.findByBlock(block.get(), pageable));
             }

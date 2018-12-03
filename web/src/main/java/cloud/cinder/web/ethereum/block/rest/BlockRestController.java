@@ -37,6 +37,6 @@ public class BlockRestController {
 
     @RequestMapping(value = "/last/number")
     public final Long getLastBlock() {
-        return blockService.getLastBlock().toBlocking().first().getBlockNumber().longValue();
+        return blockService.getLastBlock().blockingFirst().getBlockNumber().longValue();
     }
 }

@@ -5,6 +5,7 @@ import cloud.cinder.core.ethereum.block.repository.BlockRepository;
 import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.reactivex.Flowable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +59,7 @@ public class BlockService {
 
     private void propagateTransactions(final Block savedBlock) {
         web3j.web3j().ethGetBlockTransactionCountByHash(savedBlock.getHash())
-                .observable()
+                .flowable()
                 .filter(Objects::nonNull)
                 .map(EthGetBlockTransactionCountByHash::getTransactionCount)
                 .filter(Objects::nonNull)
@@ -75,7 +76,7 @@ public class BlockService {
 
     private void importUncles(final Block block) {
         web3j.web3j().ethGetBlockByHash(block.getHash(), false)
-                .observable()
+                .flowable()
                 .filter(Objects::nonNull)
                 .map(EthBlock::getBlock)
                 .filter(Objects::nonNull)
@@ -91,7 +92,7 @@ public class BlockService {
         }
 
         web3j.web3j().ethGetBlockByHash(hash, false)
-                .observable()
+                .flowable()
                 .map(EthBlock::getBlock)
                 .filter(Objects::nonNull)
                 .map(block -> {
@@ -119,19 +120,16 @@ public class BlockService {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Observable<Block> getBlock(final String hash) {
+    public Flowable<Block> getBlock(final String hash) {
         return blockRepository.findBlock(hash)
-                .map(Observable::just)
+                .map(Flowable::just)
                 .orElseGet(() ->
-                        {
-                            log.trace("Block {} was not found in repository, fetching from web3.", hash);
-                            return web3j.web3j().ethGetBlockByHash(hash, false)
-                                    .observable()
-                                    .map(EthBlock::getBlock)
-                                    .filter(Objects::nonNull)
-                                    .map(Block::asBlock)
-                                    .map(this::save);
-                        }
+                        web3j.web3j().ethGetBlockByHash(hash, false)
+                                .flowable()
+                                .map(EthBlock::getBlock)
+                                .filter(Objects::nonNull)
+                                .map(Block::asBlock)
+                                .map(this::save)
                 );
     }
 
@@ -160,7 +158,7 @@ public class BlockService {
         return blockRepository.searchUncles(searchKey, pageable);
     }
 
-    public Observable<EthBlockNumber> getLastBlock() {
-        return web3j.web3j().ethBlockNumber().observable();
+    public Flowable<EthBlockNumber> getLastBlock() {
+        return web3j.web3j().ethBlockNumber().flowable();
     }
 }

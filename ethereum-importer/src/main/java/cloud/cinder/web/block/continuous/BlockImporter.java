@@ -6,6 +6,7 @@ import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.web.block.repository.BlockRepository;
 import cloud.cinder.web.block.service.BlockService;
 import cloud.cinder.ethereum.web3j.Web3jGateway;
+import io.reactivex.disposables.Disposable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,8 +38,7 @@ public class BlockImporter {
     private boolean autoBlockImport;
 
 
-    private Subscription liveSubscription;
-
+    private Disposable liveSubscription;
 
     @Scheduled(fixedRate = 60000)
     public void listenToBlocks() {
@@ -46,15 +46,15 @@ public class BlockImporter {
             if (this.liveSubscription == null) {
                 this.liveSubscription = subscribe();
             } else {
-                final Subscription newSubscription = subscribe();
-                this.liveSubscription.unsubscribe();
+                final Disposable newSubscription = subscribe();
+                this.liveSubscription.dispose();
                 this.liveSubscription = newSubscription;
             }
         }
     }
 
-    private Subscription subscribe() {
-        return web3j.web3j().blockObservable(false)
+    private Disposable subscribe() {
+        return web3j.web3j().blockFlowable(false)
                 .map(EthBlock::getBlock)
                 .filter(Objects::nonNull)
                 .map(Block::asBlock)
@@ -68,7 +68,7 @@ public class BlockImporter {
                     }
                 }, onError -> {
                     log.debug("Error while looking for new blocks", onError);
-                    this.liveSubscription.unsubscribe();
+                    this.liveSubscription.dispose();
                     this.liveSubscription = subscribe();
                 });
     }
@@ -85,7 +85,7 @@ public class BlockImporter {
             }
             try {
                 final EthBlock ethBlock = web3j.web3j().ethGetBlockByNumber(new DefaultBlockParameterNumber(i), false)
-                        .observable().toBlocking().firstOrDefault(null);
+                        .flowable().blockingFirst(null);
                 if (ethBlock != null && ethBlock.getBlock() != null && !blockRepository.findById(ethBlock.getBlock().getHash()).isPresent()) {
                     try {
                         blockService.save(Block.asBlock(ethBlock.getBlock()));

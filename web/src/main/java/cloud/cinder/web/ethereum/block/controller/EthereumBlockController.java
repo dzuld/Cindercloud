@@ -1,10 +1,10 @@
 package cloud.cinder.web.ethereum.block.controller;
 
-import cloud.cinder.ethereum.address.domain.SpecialAddress;
 import cloud.cinder.core.address.service.AddressService;
-import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.core.ethereum.block.service.BlockService;
 import cloud.cinder.core.transaction.service.TransactionService;
+import cloud.cinder.ethereum.address.domain.SpecialAddress;
+import cloud.cinder.ethereum.block.domain.Block;
 import cloud.cinder.ethereum.transaction.domain.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class EthereumBlockController {
     public String getBlock(@PathVariable("hash") final String hash,
                            final Model model) {
         try {
-            final Block block = blockService.getBlock(hash).single().toBlocking().first();
+            final Block block = blockService.getBlock(hash).blockingFirst();
             model.addAttribute("block", block);
             final Optional<SpecialAddress> specialMinedBy = addressService.findByAddress(block.getMinedBy());
             model.addAttribute("isMinedBySpecialName", specialMinedBy.isPresent());
@@ -69,7 +69,7 @@ public class EthereumBlockController {
     @RequestMapping(value = "/{hash}/transactions")
     public String getTransactionsForUncle(@PathVariable("hash") final String hash,
                                           final Model model) {
-        final Slice<Transaction> transactions = transactionService.getTransactionsForBlock(hash, new PageRequest(0, 20)).toBlocking().first();
+        final Slice<Transaction> transactions = transactionService.getTransactionsForBlock(hash, new PageRequest(0, 20)).blockingFirst();
         model.addAttribute("transactions", transactions);
         model.addAttribute("hash", hash);
         return "blocks/transactions :: blockTransactions";

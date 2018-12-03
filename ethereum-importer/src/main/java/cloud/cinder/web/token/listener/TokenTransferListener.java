@@ -6,6 +6,8 @@ import cloud.cinder.ethereum.web3j.Web3jGateway;
 import cloud.cinder.web.token.listener.model.TokenEvent;
 import cloud.cinder.web.token.service.TokenService;
 import cloud.cinder.web.token.service.TokenTransferService;
+import io.reactivex.Flowable;
+import io.reactivex.disposables.Disposable;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -21,8 +23,6 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.Log;
-import rx.Observable;
-import rx.Subscription;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -55,7 +55,7 @@ public class TokenTransferListener {
     private final TokenTransferService tokenTransferService;
     private final TokenService tokenService;
 
-    private Subscription historicSubscription;
+    private Disposable historicSubscription;
 
     public TokenTransferListener(final Web3jGateway web3jGateway, final TokenTransferService tokenTransferService, final TokenService tokenService) {
         this.web3jGateway = web3jGateway;
@@ -69,12 +69,12 @@ public class TokenTransferListener {
         if (this.historicSubscription == null) {
             this.historicSubscription = doLiveSubscription(tokenService.findAll());
         } else {
-            this.historicSubscription.unsubscribe();
+            this.historicSubscription.dispose();
             this.historicSubscription = doLiveSubscription(tokenService.findAll());
         }
     }
 
-    private Subscription doLiveSubscription(final List<Token> tokens) {
+    private Disposable doLiveSubscription(final List<Token> tokens) {
         return live(tokens).subscribe((log) -> {
             try {
                 tokenTransferService.getEventParameters(TRANSFER_EVENT, log)
@@ -82,9 +82,7 @@ public class TokenTransferListener {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
-        }, (err) -> {
-            LOG.error("something went wrong while trying to listen to live token events", err);
-        });
+        }, (err) -> LOG.error("something went wrong while trying to listen to live token events", err));
     }
 
     Consumer<TokenEvent> submitTokenTransfer(final Log log) {
@@ -134,7 +132,7 @@ public class TokenTransferListener {
         return ethFilter;
     }
 
-    private Observable<Log> live(final List<Token> tokens) {
-        return web3jGateway.web3j().ethLogObservable(contractEventsFilter(tokens));
+    private Flowable<Log> live(final List<Token> tokens) {
+        return web3jGateway.web3j().ethLogFlowable(contractEventsFilter(tokens));
     }
 }

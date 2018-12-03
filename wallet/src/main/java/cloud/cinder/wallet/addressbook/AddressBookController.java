@@ -57,7 +57,7 @@ public class AddressBookController {
         modelMap.put("contacts", addressBookService.getContacts(authenticationService.getAddress())
                 .stream()
                 .map(x -> {
-                    final BigInteger bal = addressService.getBalance(x.getAddress()).toBlocking().first();
+                    final BigInteger bal = addressService.getBalance(x.getAddress()).blockingFirst();
                     return ContactVO.builder()
                             .address(x.getAddress())
                             .nickname(x.getNickname())

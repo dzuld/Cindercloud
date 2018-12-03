@@ -57,7 +57,7 @@ public class Web3Config {
     }
 
     @Bean
-    @Qualifier("local")
+    @Qualifier("websocket")
     public Web3jService provideWebsocketEndpoint(@Value("${cloud.cinder.ethereum.endpoint.websocket-url}") final String endpoint) {
 
         return new WebSocketService(endpoint, false);

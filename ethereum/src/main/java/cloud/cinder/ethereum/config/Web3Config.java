@@ -73,6 +73,6 @@ public class Web3Config {
         WebSocketClient webSocketClient = new WebSocketClient(URI.create(endpoint));
         WebSocketService webSocketService = new WebSocketService(webSocketClient, false);
         webSocketService.connect();
-        return new WebSocketService(webSocketClient, false);
+        return webSocketService;
     }
 }

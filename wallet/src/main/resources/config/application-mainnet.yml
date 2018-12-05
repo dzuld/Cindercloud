@@ -4,7 +4,7 @@ cloud:
       endpoint:
         url: https://fullnode.fundrequest.io
         local-url: https://mainnet.infura.io
-        websocket-url: ws://localhost:8546
+        websocket-url: wss://ws.cinder.cloud
     queue:
       block-added: cindercloud_mainnet
       user-token-import: mainnet_user_token_import

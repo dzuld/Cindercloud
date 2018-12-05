@@ -1,19 +1,18 @@
 package cloud.cinder.ethereum.config;
 
-import cloud.cinder.ethereum.token.domain.DeltaBalances;
 import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.websocket.WebSocketClient;
 import org.web3j.protocol.websocket.WebSocketService;
 
+import java.net.ConnectException;
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +21,6 @@ public class Web3Config {
 
     private WebSocketClient webSocketClient;
 
-    @Scheduled(fixedDelay = 5_000)
     private void init() {
         if (webSocketClient != null && webSocketClient.isClosed()) {
             webSocketClient.reconnect();
@@ -71,9 +69,10 @@ public class Web3Config {
 
     @Bean
     @Qualifier("websocket")
-    public Web3jService provideWebsocketEndpoint(@Value("${cloud.cinder.ethereum.endpoint.websocket-url}") final String endpoint) {
-        this.webSocketClient = new WebSocketClient(URI.create(endpoint));
-        webSocketClient.connect();
-        return new WebSocketService(webSocketClient, true);
+    public Web3jService provideWebsocketEndpoint(@Value("${cloud.cinder.ethereum.endpoint.websocket-url}") final String endpoint) throws ConnectException {
+        WebSocketClient webSocketClient = new WebSocketClient(URI.create(endpoint));
+        WebSocketService webSocketService = new WebSocketService(webSocketClient, false);
+        webSocketService.connect();
+        return new WebSocketService(webSocketClient, false);
     }
 }

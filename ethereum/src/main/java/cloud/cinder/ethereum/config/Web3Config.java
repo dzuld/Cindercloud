@@ -19,14 +19,6 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class Web3Config {
 
-    private WebSocketClient webSocketClient;
-
-    private void init() {
-        if (webSocketClient != null && webSocketClient.isClosed()) {
-            webSocketClient.reconnect();
-        }
-    }
-
     @Bean
     @Primary
     public Web3j provideWeb3J(final Web3jService web3jService) {

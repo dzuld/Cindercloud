@@ -74,6 +74,19 @@ public class TokenSweeper {
                 final ECKeyPair keypair = ECKeyPair.create(Numeric.decodeQuantity(privateKey.trim()));
                 final String address = Keys.getAddress(keypair);
 
+
+                erc20Service.balanceOf(address, tokenService.findAll())
+                        .stream()
+                        .filter(x -> x.getRawBalance() != 0)
+                        .forEach(token -> {
+                            final BigInteger tokenBalance = erc20Service.rawBalanceOf(address, token.getToken().getAddress());
+                            if (!tokenBalance.equals(BigInteger.ZERO)) {
+                                web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
+                                        .filter(Objects::nonNull)
+                                        .subscribe(onBalanceFetched(keypair, (Token) token.getToken(), tokenBalance));
+                            }
+                        });
+
                 tokenService.findAll()
                         .forEach(token -> {
                             final BigInteger tokenBalance = erc20Service.rawBalanceOf(address, token.getAddress());

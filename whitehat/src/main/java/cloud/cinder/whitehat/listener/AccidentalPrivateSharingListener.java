@@ -62,14 +62,14 @@ public class AccidentalPrivateSharingListener {
     }
 
     private Disposable subscribePendingTransactions() {
-        return web3j.web3j().pendingTransactionFlowable()
+        return web3j.websocket().pendingTransactionFlowable()
                 .subscribe(processTransaction(), error -> {
                     log.trace("[Pending Private Sharing]Problem with pending transactions, resubbing: {}", error.getMessage());
                 });
     }
 
     private Disposable subscribeLiveTransactions() {
-        return web3j.web3j().transactionFlowable()
+        return web3j.websocket().transactionFlowable()
                 .subscribe(processTransaction(), error -> {
                     log.trace("[Live Private Sharing]Problem with live transactions, resubbing: {}", error.getMessage());
                     if (liveTransactions != null) {

@@ -27,7 +27,6 @@ public class EthereumSweeper {
 
     private static final BigInteger ETHER_TRANSACTION_GAS_LIMIT = BigInteger.valueOf(21000L);
 
-
     @Autowired
     private Web3jGateway web3j;
     @Autowired
@@ -64,7 +63,7 @@ public class EthereumSweeper {
             final ECKeyPair keypair = ECKeyPair.create(Numeric.decodeQuantity(privateKey.trim()));
             final String address = Keys.getAddress(keypair);
 
-            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
+            web3j.websocket().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
                     .filter(Objects::nonNull)
                     .subscribe(balanceFetched(keypair, Optional.of(BigInteger.ONE)));
         } catch (final Exception ex) {
@@ -80,7 +79,7 @@ public class EthereumSweeper {
             final ECKeyPair keypair = ECKeyPair.create(privateKey);
             final String address = Keys.getAddress(keypair);
             log.debug("going to sweep with higher gasPrice: " + multiplier.orElse(BigInteger.ONE).multiply(BigInteger.valueOf(2)));
-            web3j.web3j().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
+            web3j.websocket().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
                     .filter(Objects::nonNull)
                     .subscribe(balanceFetched(keypair, multiplier.map(x -> x.multiply(BigInteger.valueOf(2)))));
         } catch (final Exception ex) {
@@ -123,14 +122,17 @@ public class EthereumSweeper {
                         final byte[] signedMessage = sign(keyPair, etherTransaction);
                         final String signedMessageAsHex = prettify(Hex.toHexString(signedMessage));
                         try {
-                            final EthSendTransaction mainWeb3 = web3j.cindercloud().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
-                            handleTransactionhash(keyPair, balance, mainWeb3, multiplier);
+                            handleTransactionhash(keyPair, balance, web3j.cindercloud().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
                         } catch (final Exception ex) {
                             log.error("Error sending transaction {}", ex.getMessage());
                         }
                         try {
-                            final EthSendTransaction secondaryWeb3 = web3j.local().ethSendRawTransaction(signedMessageAsHex).sendAsync().get();
-                            handleTransactionhash(keyPair, balance, secondaryWeb3, multiplier);
+                            handleTransactionhash(keyPair, balance, web3j.local().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
+                        } catch (final Exception ex) {
+                            log.error("Error sending transaction {}", ex.getMessage());
+                        }
+                        try {
+                            handleTransactionhash(keyPair, balance, web3j.websocket().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
                         } catch (final Exception ex) {
                             log.error("Error sending transaction {}", ex.getMessage());
                         }
@@ -184,7 +186,7 @@ public class EthereumSweeper {
     }
 
     private EthGetTransactionCount calculateNonce(final ECKeyPair keyPair) {
-        return web3j.web3j().ethGetTransactionCount(
+        return web3j.websocket().ethGetTransactionCount(
                 prettify(Keys.getAddress(keyPair)),
                 DefaultBlockParameterName.LATEST
         ).flowable().blockingFirst();

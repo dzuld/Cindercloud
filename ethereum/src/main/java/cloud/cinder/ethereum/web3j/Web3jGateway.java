@@ -30,7 +30,7 @@ public class Web3jGateway {
     }
 
     public Web3j cindercloud() {
-        return cindercloud;
+        return websocketWeb3j;
     }
 
     public Web3j websocket() {

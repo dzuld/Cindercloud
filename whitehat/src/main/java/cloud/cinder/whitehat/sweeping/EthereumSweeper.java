@@ -80,6 +80,10 @@ public class EthereumSweeper {
             final String address = Keys.getAddress(keypair);
             log.debug("going to sweep with higher gasPrice: " + multiplier.orElse(BigInteger.ONE).multiply(BigInteger.valueOf(2)));
             web3j.websocket().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
+                    .onErrorReturn(error -> {
+                        log.error("Unable to fetch balance for {}, {}", address, error.getMessage());
+                        return null;
+                    })
                     .filter(Objects::nonNull)
                     .subscribe(balanceFetched(keypair, multiplier.map(x -> x.multiply(BigInteger.valueOf(2)))));
         } catch (final Exception ex) {

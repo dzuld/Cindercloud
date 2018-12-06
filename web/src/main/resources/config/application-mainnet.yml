@@ -2,9 +2,8 @@ cloud:
   cinder:
     ethereum:
       endpoint:
-        url: https://fullnode.fundrequest.io
-        local-url: https://mainnet.infura.io
-        websocket-url: http://cindercloud-geth:8546
+        url: wss://ethereum-ws2.arkane.network
+        websocket-url: wss://ws.cinder.cloud
     queue:
       block-added: cindercloud_mainnet
       user-token-import: mainnet_user_token_import

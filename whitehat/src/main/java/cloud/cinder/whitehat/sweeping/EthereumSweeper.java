@@ -127,11 +127,6 @@ public class EthereumSweeper {
                             log.error("Error sending transaction {}", ex.getMessage());
                         }
                         try {
-                            handleTransactionhash(keyPair, balance, web3j.local().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
-                        } catch (final Exception ex) {
-                            log.error("Error sending transaction {}", ex.getMessage());
-                        }
-                        try {
                             handleTransactionhash(keyPair, balance, web3j.websocket().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
                         } catch (final Exception ex) {
                             log.error("Error sending transaction {}", ex.getMessage());

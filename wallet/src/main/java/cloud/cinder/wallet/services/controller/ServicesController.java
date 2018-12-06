@@ -23,14 +23,14 @@ public class ServicesController {
     @Lazy
     private MailService mailService;
 
-    @GetMapping({"/", "/thank-you-for-contacting"})
+    @GetMapping
     public String index() {
         return "services/index";
     }
 
-    @GetMapping("/looking-for-advice")
-    public String requestAdvice(final ModelMap modelMap) {
-        return "services/advisor";
+    @GetMapping(value = {"/thank-you-for-contacting"})
+    public String thx() {
+        return "services/index";
     }
 
     @GetMapping("/smart-contract-development-and-security")

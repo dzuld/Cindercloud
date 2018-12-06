@@ -14,9 +14,6 @@ public class Web3jGateway {
     @Autowired
     private Web3j cindercloud;
     @Autowired
-    @Qualifier("local")
-    private Web3j localWeb3j;
-    @Autowired
     @Qualifier("websocket")
     private Web3j websocketWeb3j;
 
@@ -36,20 +33,16 @@ public class Web3jGateway {
         return cindercloud;
     }
 
-    public Web3j local() {
-        return localWeb3j;
-    }
-
     public Web3j websocket() {
         return websocketWeb3j;
     }
 
     private Web3j updateCurrentProvider() {
         try {
-            cindercloud.ethBlockNumber().send();
-            return cindercloud;
+            websocketWeb3j.ethBlockNumber().send();
+            return websocketWeb3j;
         } catch (final Exception ex) {
-            return localWeb3j;
+            return cindercloud;
         }
     }
 }

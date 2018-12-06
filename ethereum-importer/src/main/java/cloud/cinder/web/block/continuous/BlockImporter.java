@@ -37,7 +37,6 @@ public class BlockImporter {
     @Value("${cloud.cinder.ethereum.live-block-import:false}")
     private boolean autoBlockImport;
 
-
     private Disposable liveSubscription;
 
     @Scheduled(fixedRate = 60000)

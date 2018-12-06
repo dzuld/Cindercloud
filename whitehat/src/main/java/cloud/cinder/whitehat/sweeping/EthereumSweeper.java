@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.web3j.crypto.*;
+import org.web3j.exceptions.MessageDecodingException;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
@@ -111,34 +112,39 @@ public class EthereumSweeper {
 
     private Consumer<EthGetBalance> balanceFetched(final ECKeyPair keyPair, final Optional<BigInteger> multiplier) {
         return balance -> {
-            if (balance.getBalance().longValue() != 0L) {
+            try {
 
-                final BigInteger gasPrice = calculateOptimalGasPrice(balance.getBalance()).multiply(multiplier.orElse(BigInteger.ONE));
-                if (!gasPrice.equals(BigInteger.ZERO)) {
+                if (balance.getBalance().longValue() != 0L) {
 
-                    log.debug("[Sweeper] {} has a balance of about {}", Keys.getAddress(keyPair), EthUtil.format(balance.getBalance()));
+                    final BigInteger gasPrice = calculateOptimalGasPrice(balance.getBalance()).multiply(multiplier.orElse(BigInteger.ONE));
+                    if (!gasPrice.equals(BigInteger.ZERO)) {
 
-                    final EthGetTransactionCount transactionCount = calculateNonce(keyPair);
+                        log.debug("[Sweeper] {} has a balance of about {}", Keys.getAddress(keyPair), EthUtil.format(balance.getBalance()));
 
-                    if (transactionCount != null) {
-                        final RawTransaction etherTransaction = generateTransaction(balance, transactionCount, gasPrice);
+                        final EthGetTransactionCount transactionCount = calculateNonce(keyPair);
 
-                        final byte[] signedMessage = sign(keyPair, etherTransaction);
-                        final String signedMessageAsHex = prettify(Hex.toHexString(signedMessage));
-                        try {
-                            handleTransactionhash(keyPair, balance, web3j.cindercloud().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
-                        } catch (final Exception ex) {
-                            log.error("Error sending transaction {}", ex.getMessage());
+                        if (transactionCount != null) {
+                            final RawTransaction etherTransaction = generateTransaction(balance, transactionCount, gasPrice);
+
+                            final byte[] signedMessage = sign(keyPair, etherTransaction);
+                            final String signedMessageAsHex = prettify(Hex.toHexString(signedMessage));
+                            try {
+                                handleTransactionhash(keyPair, balance, web3j.cindercloud().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
+                            } catch (final Exception ex) {
+                                log.error("Error sending transaction {}", ex.getMessage());
+                            }
+                            try {
+                                handleTransactionhash(keyPair, balance, web3j.websocket().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
+                            } catch (final Exception ex) {
+                                log.error("Error sending transaction {}", ex.getMessage());
+                            }
+                        } else {
+                            log.error("Noncecount returned an error for {}", Keys.getAddress(keyPair));
                         }
-                        try {
-                            handleTransactionhash(keyPair, balance, web3j.websocket().ethSendRawTransaction(signedMessageAsHex).sendAsync().get(), multiplier);
-                        } catch (final Exception ex) {
-                            log.error("Error sending transaction {}", ex.getMessage());
-                        }
-                    } else {
-                        log.error("Noncecount returned an error for {}", Keys.getAddress(keyPair));
                     }
                 }
+            } catch (final MessageDecodingException ex) {
+                log.error("Unable to decode {}", balance.getResult());
             }
         };
     }

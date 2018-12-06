@@ -26,7 +26,7 @@ public class Web3Config {
     private void reconnect() {
         if (arkaneClient != null && !arkaneClient.isOpen()) {
             try {
-                arkaneClient.connect();
+                arkaneClient.reconnect();
             } catch (final Exception ex) {
                 log.error("Unable to reconnect to arkane ws {}", ex.getMessage());
             }
@@ -34,7 +34,7 @@ public class Web3Config {
 
         if (cinderClient != null && !cinderClient.isOpen()) {
             try {
-                cinderClient.connect();
+                cinderClient.reconnect();
             } catch (final Exception ex) {
                 log.error("Unable to reconnect to arkane ws {}", ex.getMessage());
             }

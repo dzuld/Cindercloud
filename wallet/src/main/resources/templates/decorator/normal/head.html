@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
 <body>
 <div>
     <head th:fragment="headTag">
@@ -39,7 +41,7 @@
         <meta name="_walletBaseUrl" th:content="${@environment.getProperty('cloud.cinder.wallet.baseUrl')}"/>
         <meta name="_explorerBaseUrl" th:content="${@environment.getProperty('cloud.cinder.explorer.baseUrl')}"/>
 
-        <meta name="description" content="Cindercloud is an open source blockchain explorer, Ethereum and ERC20 wallet and provides various services for interacting with the blockchain." />
+        <meta name="description" content="Cindercloud is a an ethereum and vechain explorer, Arkane Network gateway and provides smart contract security audits." />
 
         <!-- Favicon -->
         <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon-32x32.png}" />
@@ -74,9 +76,8 @@
 
         <link rel="stylesheet" media="screen" th:href="@{/assets/css/noty.min.css}" />
 
-        <title>Cindercloud | Ethereum and Vechain Smart Contract Services</title>
+        <title>Cindercloud | Ethereum and Vechain Services</title>
         <div layout:fragment="header-content" th:remove="tag"></div>
-
 
     </head>
 </div>

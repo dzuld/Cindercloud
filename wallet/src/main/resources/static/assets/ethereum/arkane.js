@@ -1,6 +1,6 @@
 const Arkane = (function () {
-	const arkaneConnect = new ArkaneConnect('Cindercloud', {chains: ['Ethereum']});
 	let bearerToken;
+	const arkaneConnect = new ArkaneConnect('Cindercloud');
 	let address;
 	let walletId;
 
@@ -9,23 +9,22 @@ const Arkane = (function () {
 			bearerToken = result.bearerToken;
 			address = result.address;
 			walletId = result.walletId;
-			arkaneConnect.init(() => bearerToken);
 		}
 	}).fail((fail) => {
 		console.log('not logged in with arkane');
 	});
 
 	const login = function (_onWallet) {
-		arkaneConnect.checkAuthenticated().then((result) => {
+		arkaneConnect.authenticate().then((result) => {
 			result.authenticated((auth) => {
-				arkaneConnect.getWallets().then((wallets) => {
-					_onWallet(wallets, auth.token);
+				arkaneConnect.api.getWallets().then((wallets) => {
+					if (wallets.length === 0) {
+						arkaneConnect.manageWallets('ETHEREUM');
+					} else {
+						_onWallet(wallets, auth.token);
+					}
 				});
-			}).notAuthenticated((auth) => {
-				arkaneConnect.authenticate();
 			});
-		}).catch((error) => {
-			console.log(error);
 		});
 	};
 

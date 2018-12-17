@@ -3,7 +3,7 @@ cloud:
     ethereum:
       endpoint:
         url: wss://ethereum-ws2.arkane.network
-        websocket-url: wss://ws.cinder.cloud
+        websocket-url: wss://ethereum-ws.arkane.network
     queue:
       block-added: cindercloud_mainnet
       user-token-import: mainnet_user_token_import

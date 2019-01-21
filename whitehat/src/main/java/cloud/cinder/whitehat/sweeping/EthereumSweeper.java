@@ -66,7 +66,7 @@ public class EthereumSweeper {
 
             web3j.websocket().ethGetBalance(prettify(address), DefaultBlockParameterName.LATEST).flowable()
                     .filter(Objects::nonNull)
-                    .subscribe(balanceFetched(keypair, Optional.of(BigInteger.ONE)));
+                    .subscribe(balanceFetched(keypair, Optional.of(BigInteger.ONE)), error -> log.error("Error occurred: {}", error.getMessage()));
         } catch (final Exception ex) {
             log.error("something went wrong while trying sweep {}: {}", privateKey, ex.getMessage());
             if (ex.getMessage().contains("timeout")) {
@@ -86,7 +86,9 @@ public class EthereumSweeper {
                         return null;
                     })
                     .filter(Objects::nonNull)
-                    .subscribe(balanceFetched(keypair, multiplier.map(x -> x.multiply(BigInteger.valueOf(2)))));
+                    .subscribe(balanceFetched(keypair, multiplier.map(x -> x.multiply(BigInteger.valueOf(2)))), error -> {
+                        log.error("Error occurred while fetching balance: {}", error.getMessage());
+                    });
         } catch (final Exception ex) {
             log.error("something went wrong while trying to resubmit with higher gas price {}: {}", privateKey, ex.getMessage());
         }

@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-oraclejdk8:slim
+FROM anapsix/alpine-java:latest
 
 VOLUME /tmp
 ADD target/ethereum-importer-0.0.1-SNAPSHOT.jar importer.jar
